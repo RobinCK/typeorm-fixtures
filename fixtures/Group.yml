@@ -1,0 +1,7 @@
+Group:
+  group1:
+    name: Admins
+    owner: '@user1'
+    members:
+      - '@user2'
+      - '@user3'

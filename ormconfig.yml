@@ -1,0 +1,18 @@
+- name: default
+  type: postgres
+  host: localhost
+  database: test
+  username: root
+  password: root
+  synchronize: false
+  logging: false
+  entities:
+  - dist/entity/**/*.js
+  subscribers:
+  - dist/subscriber/**/*.js
+  migrations:
+  - dist/migration/**/*.js
+  cli:
+    entitiesDir: src/entity
+    migrationsDir: src/migration
+    subscribersDir: src/subscriber

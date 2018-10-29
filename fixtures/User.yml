@@ -1,0 +1,21 @@
+User:
+  user1:
+    firstName: foo1
+    lastName: boo1
+    email: foo1@boo1.com
+    profile: '@profile1'
+  user2:
+    firstName: foo2
+    lastName: boo2
+    email: foo2@boo2.com
+    profile: '@profile2'
+  user3:
+    firstName: foo2
+    lastName: boo2
+    email: foo2@boo2.com
+    profile: '@profile3'
+  user4:
+    firstName: foo2
+    lastName: boo2
+    email: foo2@boo2.com
+    profile: '@profile4'

@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "declaration": true,
+    "strict": true,
+    "lib": ["es2017"],
+    "types": ["node"],
+    "pretty": true,
+    "typeRoots": ["node_modules/@types", "src/types"]
+  },
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
+}

@@ -1,0 +1,6 @@
+Comment:
+  comment{1..10}:
+    fullName: '<name.firstName> <name.lastName>'
+    email: '<internet.email>'
+    text: '<lorem.paragraphs>'
+    post: '@post*'

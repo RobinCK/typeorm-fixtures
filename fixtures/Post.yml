@@ -1,0 +1,17 @@
+Post:
+  post1:
+    title: title1
+    description: description1
+    user: '@user1'
+  post2:
+    title: title2
+    description: description2
+    user: '@user2'
+  post3:
+    title: title3
+    description: description3
+    user: '@user3'
+  post4:
+    title: title4
+    description: description4
+    user: '@user4'

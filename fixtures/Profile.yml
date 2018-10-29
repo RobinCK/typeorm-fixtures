@@ -1,0 +1,17 @@
+Profile:
+  profile1:
+    aboutMe: aboutMe1
+    skype: skype-account1
+    language: english1
+  profile2:
+    aboutMe: aboutMe2
+    skype: skype-account2
+    language: english2
+  profile3:
+    aboutMe: aboutMe2
+    skype: skype-account2
+    language: english2
+  profile4:
+    aboutMe: aboutMe2
+    skype: skype-account2
+    language: english2
