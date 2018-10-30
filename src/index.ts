@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import * as path from 'path';
-import {range, sum} from 'lodash';
+import {range, sum, random} from 'lodash';
 import * as fs from 'fs';
 import * as glob from 'glob';
 import * as yaml from 'js-yaml';
@@ -53,7 +53,7 @@ function deepDependenciesResolver(item: any) {
 
     return dependencies
         .filter((value: any, index: number, self: any[]) => self.indexOf(value) === index)
-        ;
+    ;
 }
 
 const stack: any[] = [];
@@ -68,8 +68,8 @@ for (const [entityName, objects] of Object.entries(fixtures)) {
                     stack.push({
                         entity: entityName,
                         name: `${result[1]}${rangeNumber}`,
-                        dependencies: findDependencies(propertyList),
-                        data: propertyList,
+                        dependencies: findDependencies({...propertyList}),
+                        data: {...propertyList},
                     });
                 }
             }
@@ -77,8 +77,8 @@ for (const [entityName, objects] of Object.entries(fixtures)) {
             stack.push({
                 entity: entityName,
                 name: referenceName,
-                dependencies: findDependencies(propertyList),
-                data: propertyList,
+                dependencies: findDependencies({...propertyList}),
+                data: {...propertyList},
             });
         }
     }
@@ -93,8 +93,6 @@ const sorted = stack
     .sort((a: any, b: any) => a.dependencies.length - b.dependencies.length)
 ;
 
-// todo: need resolve mask reference
-
 const addedList: any = {};
 
 let f = sorted.find((l) =>
@@ -103,23 +101,33 @@ let f = sorted.find((l) =>
         !addedList[l.name]
 );
 
-function replaceReference(data: any) {
+function buildEntity(data: any) {
     for (const [key, value] of Object.entries(data)) {
         if ( typeof value === 'string' &&  value.indexOf('@') === 0) {
-            data[key] = addedList[value.substr(1)];
+            if (value.substr(value.length - 1) === '*') {
+                const prefix = value.substr(1, value.length - 1);
+                const regex = new RegExp(`^${prefix}([0-9]+)$`);
+
+                const maskEntities = Object.keys(addedList).filter((s: string) => regex.test(s));
+                data[key] = addedList[maskEntities[random(maskEntities.length - 1)]];
+            } else {
+                data[key] = addedList[value.substr(1)];
+            }
         } else if (typeof value === 'object') {
-            data[key] = findDependencies(value);
+            data[key] = buildEntity(value);
+        } else if (typeof value === 'string') {
+            // TODO: Check faker function and replace value
         }
     }
 
     return data;
 }
 
-createConnection().then(() => {
+createConnection().then(async (connection) => {
     while (!!f) {
         const repository = getConnection().getRepository(f.entity);
         const entity = repository.create();
-        Object.assign(entity, replaceReference(f.data));
+        Object.assign(entity, buildEntity(f.data));
 
         addedList[f.name] = entity;
         console.log(entity);
@@ -130,5 +138,7 @@ createConnection().then(() => {
             !addedList[l.name]
         );
     }
+
+    await connection.close();
 });
 
