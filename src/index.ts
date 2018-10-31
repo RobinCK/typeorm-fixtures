@@ -60,8 +60,10 @@ const stack: any[] = [];
 
 for (const [entityName, objects] of Object.entries(fixtures)) {
     for (const [referenceName, propertyList] of Object.entries(objects)) {
-        if (/^([\w-_]+)\{(\d+)\.\.(\d+)\}$/g.test(referenceName)) {
-            const result = /^([\w-_]+)\{(\d+)\.\.(\d+)\}$/g.exec(referenceName);
+        const ff = /^([\w-_]+)\{(\d+)\.\.(\d+)\}$/g;
+
+        if (ff.test(referenceName)) {
+            const result = ff.exec(referenceName);
 
             if (result) {
                 for (const rangeNumber of range(+result[2], + result[3])) {
@@ -130,7 +132,6 @@ createConnection().then(async (connection) => {
         Object.assign(entity, buildEntity(f.data));
 
         addedList[f.name] = entity;
-        console.log(entity);
 
         f = sorted.find((l) =>
             sum(l.dependencies.map((d: string) => addedList[d] !== undefined ? 1 : 0)) === l.dependencies.length
