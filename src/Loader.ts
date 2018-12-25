@@ -2,8 +2,8 @@ import * as path from 'path';
 import * as glob from 'glob';
 import * as yaml from 'js-yaml';
 import * as fs from 'fs';
-import * as deepmerge from 'deepmerge';
 import {range} from 'lodash';
+import {IFixtureConfig} from './interface';
 
 export class Loader {
     public files: string[] = [];
@@ -17,12 +17,19 @@ export class Loader {
 
     private loadFixtures(fixturesPath: string) {
         this.files = glob.sync(path.resolve(path.join(fixturesPath, '*.{yml,yaml}')));
-        const fixtures: any = {};
+        const fixtures: any[] = [];
 
         for (const file of this.files) {
-            const fixture = yaml.safeLoad(fs.readFileSync(file).toString());
+            const fixtureConfig: IFixtureConfig = yaml.safeLoad(fs.readFileSync(file).toString());
 
-            deepmerge(fixtures, fixture);
+            // TODO: validate config
+
+            const {items, parameters, entity, transformer} = fixtureConfig;
+
+            for (const [referenceName, propertyList] of Object.entries(items)) {
+
+            }
+
         }
 
         if (fixtures.parameters) {
