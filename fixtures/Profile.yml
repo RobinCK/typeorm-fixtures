@@ -1,4 +1,7 @@
-Profile:
+entity: Profile
+parameters: {}
+transformer: path to loader
+items:
   profile1:
     aboutMe: aboutMe1
     skype: skype-account1

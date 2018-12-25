@@ -1,4 +1,7 @@
-Group:
+entity: Group
+parameters: {}
+transformer: path to loader
+items:
   group1:
     name: Admins
     owner: '@user1'

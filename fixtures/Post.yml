@@ -1,4 +1,7 @@
-Post:
+entity: Post
+parameters: {}
+transformer: path to loader
+items:
   post1:
     title: title1
     description: description1
