@@ -1,49 +1,44 @@
 import * as path from 'path';
 import * as glob from 'glob';
 import * as yaml from 'js-yaml';
+import * as Joi from 'joi';
 import * as fs from 'fs';
 import {range} from 'lodash';
-import {IFixtureConfig} from './interface';
+import {IFixture, IFixturesConfig} from './interface';
+import {jFixturesSchema} from './schema';
 
 export class Loader {
-    public files: string[] = [];
-    public fixtures: any[] = [];
-    public parameters: {[key: string]: any} = {};
-    private stack: any[] = [];
+    public fixtures: IFixture[] = [];
+    private stack: IFixture[] = [];
 
     constructor(fixturesPath: string) {
         this.loadFixtures(fixturesPath);
     }
 
+    /**
+     * @param {string} fixturesPath
+     */
     private loadFixtures(fixturesPath: string) {
-        this.files = glob.sync(path.resolve(path.join(fixturesPath, '*.{yml,yaml}')));
-        const fixtures: any[] = [];
+        const files = glob.sync(path.resolve(path.join(fixturesPath, '*.{yml,yaml}')));
+        const fixtures: IFixturesConfig[] = [];
 
-        for (const file of this.files) {
-            const fixtureConfig: IFixtureConfig = yaml.safeLoad(fs.readFileSync(file).toString());
+        for (const file of files) {
+            const fixtureConfig: IFixturesConfig = yaml.safeLoad(fs.readFileSync(file).toString());
+            const {error} = Joi.validate(fixtureConfig, jFixturesSchema);
 
-            // TODO: validate config
-
-            const {items, parameters, entity, transformer} = fixtureConfig;
-
-            for (const [referenceName, propertyList] of Object.entries(items)) {
-
+            if (error) {
+                throw new Error(`Invalid fixtures config. File "${file}"`);
             }
 
-        }
-
-        if (fixtures.parameters) {
-            this.parameters = fixtures;
-
-            delete fixtures.parameters;
+            fixtures.push(fixtureConfig);
         }
 
         this.fixtures = this.normalize(fixtures);
     }
 
-    private normalize(fixtures: {[kay: string]: any}) {
-        for (const [entityName, objects] of Object.entries(fixtures)) {
-            for (const [referenceName, propertyList] of Object.entries(objects)) {
+    private normalize(fixtures: {[kay: string]: any}[]) {
+        for (const {entity, items, parameters, transformer } of fixtures) {
+            for (const [referenceName, propertyList] of Object.entries(items)) {
                 const ff = /^([\w-_]+)\{(\d+)\.\.(\d+)\}$/g;
 
                 if (ff.test(referenceName)) {
@@ -52,7 +47,9 @@ export class Loader {
                     if (result) {
                         for (const rangeNumber of range(+result[2], + result[3])) {
                             this.stack.push({
-                                entity: entityName,
+                                parameters: parameters || {},
+                                transformer,
+                                entity: entity,
                                 name: `${result[1]}${rangeNumber}`,
                                 dependencies: this.findDependencies({...propertyList}),
                                 data: {...propertyList},
@@ -61,7 +58,9 @@ export class Loader {
                     }
                 } else {
                     this.stack.push({
-                        entity: entityName,
+                        parameters: parameters || {},
+                        transformer,
+                        entity: entity,
                         name: referenceName,
                         dependencies: this.findDependencies({...propertyList}),
                         data: {...propertyList},

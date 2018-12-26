@@ -1,4 +1,4 @@
-export interface IFixtureConfig {
+export interface IFixturesConfig {
     entity: string;
     parameters?: { [key: string]: any };
     transformer?: string;

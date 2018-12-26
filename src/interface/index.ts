@@ -1,1 +1,2 @@
-export * from './IFixtureConfig';
+export * from './IFixture';
+export * from './IFixturesConfig';
