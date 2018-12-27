@@ -14,6 +14,12 @@ export class User {
     lastName!: string;
 
     @Column()
+    name?: string;
+
+    @Column()
+    password!: string;
+
+    @Column()
     email!: string;
 
     @OneToOne(type => Profile)
@@ -21,4 +27,8 @@ export class User {
 
     @ManyToMany(type => Group, group => group.members)
     groups!: Group[];
+
+    setPassword(value: string) {
+        this.password = value + 'md5';
+    }
 }

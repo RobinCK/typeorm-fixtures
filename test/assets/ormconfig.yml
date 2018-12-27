@@ -7,12 +7,6 @@
   synchronize: false
   logging: false
   entities:
-  - dist/entity/**/*.js
-  subscribers:
-  - dist/subscriber/**/*.js
-  migrations:
-  - dist/migration/**/*.js
+  - test/assets/entity/**/*.ts
   cli:
-    entitiesDir: src/entity
-    migrationsDir: src/migration
-    subscribersDir: src/subscriber
+    entitiesDir: test/assets/entity

@@ -1,24 +1,36 @@
 entity: User
 parameters: {}
-processor: path to loader
+processor: test/assets/processor/UserProcessor
 items:
   user1:
-    firstName: foo1
-    lastName: boo1
-    email: foo1@boo1.com
+    firstName: '{{name.firstName}}'
+    lastName: '{{name.lastName}}'
+    email: '{{internet.email}}'
     profile: '@profile1'
+    __call:
+      setPassword:
+        - foo
   user2:
-    firstName: foo2
-    lastName: boo2
-    email: foo2@boo2.com
+    firstName: '{{name.firstName}}'
+    lastName: '{{name.lastName}}'
+    email: '{{internet.email}}'
     profile: '@profile2'
+    __call:
+      setPassword:
+        - foo
   user3:
-    firstName: foo2
-    lastName: boo2
-    email: foo2@boo2.com
+    firstName: '{{name.firstName}}'
+    lastName: '{{name.lastName}}'
+    email: '{{internet.email}}'
     profile: '@profile3'
+    __call:
+      setPassword:
+        - foo
   user4:
-    firstName: foo2
-    lastName: boo2
-    email: foo2@boo2.com
+    firstName: '{{name.firstName}}'
+    lastName: '{{name.lastName}}'
+    email: '{{internet.email}}'
     profile: '@profile4'
+    __call:
+      setPassword:
+        - foo

@@ -1,10 +1,9 @@
 entity: Comment
 parameters: {}
-processor: path to loader
 items:
   comment{1..10}:
-    fullName: '<name.firstName> <name.lastName>'
-    email: '<internet.email>'
-    text: '<lorem.paragraphs>'
+    fullName: '{{name.firstName}} {{name.lastName}}'
+    email: '{{internet.email}}'
+    text: '{{lorem.paragraphs}}'
     post: '@post*'
 

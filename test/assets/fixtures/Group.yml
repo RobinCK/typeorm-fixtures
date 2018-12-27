@@ -1,9 +1,10 @@
 entity: Group
-parameters: {}
-processor: path to loader
+parameters:
+  names:
+    admin: Admin
 items:
   group1:
-    name: Admins
+    name: '<{names.admin}>'
     owner: '@user1'
     members:
       - '@user2'

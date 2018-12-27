@@ -1,20 +1,19 @@
 entity: Profile
 parameters: {}
-processor: path to loader
 items:
   profile1:
-    aboutMe: aboutMe1
-    skype: skype-account1
-    language: english1
+    aboutMe: <%= ['about string <($current)>', 'about string 2', 'about string 3'].join(", ") %>
+    skype: skype-account<($current)>
+    language: english<($current)>
   profile2:
-    aboutMe: aboutMe2
-    skype: skype-account2
-    language: english2
+    aboutMe: <%= ['about string <($current)>', 'about string 2', 'about string 3'].join(", ") %>
+    skype: skype-account<($current)>
+    language: english<($current)>
   profile3:
-    aboutMe: aboutMe2
-    skype: skype-account2
-    language: english2
+    aboutMe: <%= ['about string <($current)>', 'about string 2', 'about string 3'].join(", ") %>
+    skype: skype-account<($current)>
+    language: english<($current)>
   profile4:
-    aboutMe: aboutMe2
-    skype: skype-account2
-    language: english2
+    aboutMe: <%= ['about string <($current)>', 'about string 2', 'about string 3'].join(", ") %>
+    skype: skype-account<($current)>
+    language: english<($current)>

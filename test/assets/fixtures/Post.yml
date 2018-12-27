@@ -1,20 +1,19 @@
 entity: Post
 parameters: {}
-processor: path to loader
 items:
   post1:
-    title: title1
-    description: description1
-    user: '@user1'
+    title: '{{name.title}}'
+    description: '{{lorem.paragraphs}}'
+    user: '@user<($current)>'
   post2:
-    title: title2
-    description: description2
-    user: '@user2'
+    title: '{{name.title}}'
+    description: '{{lorem.paragraphs}}'
+    user: '@user<($current)>'
   post3:
-    title: title3
-    description: description3
-    user: '@user3'
+    title: '{{name.title}}'
+    description: '{{lorem.paragraphs}}'
+    user: '@user<($current)>'
   post4:
-    title: title4
-    description: description4
-    user: '@user4'
+    title: '{{name.title}}'
+    description: '{{lorem.paragraphs}}'
+    user: '@user<($current)>'
