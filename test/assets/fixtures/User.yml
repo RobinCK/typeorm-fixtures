@@ -1,6 +1,6 @@
 entity: User
 parameters: {}
-transformer: path to loader
+processor: path to loader
 items:
   user1:
     firstName: foo1

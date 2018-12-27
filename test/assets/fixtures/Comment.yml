@@ -1,6 +1,6 @@
 entity: Comment
 parameters: {}
-transformer: path to loader
+processor: path to loader
 items:
   comment{1..10}:
     fullName: '<name.firstName> <name.lastName>'

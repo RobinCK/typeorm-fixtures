@@ -1,6 +1,6 @@
 entity: Profile
 parameters: {}
-transformer: path to loader
+processor: path to loader
 items:
   profile1:
     aboutMe: aboutMe1
