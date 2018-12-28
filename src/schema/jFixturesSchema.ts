@@ -5,7 +5,7 @@ export const jFixturesSchema = Joi
     .keys({
         entity: Joi.string().alphanum().min(1).required(),
         parameters: Joi.object(),
-        transformer: Joi.string(),
+        processor: Joi.string(),
         items: Joi.object().required(),
     })
 ;
