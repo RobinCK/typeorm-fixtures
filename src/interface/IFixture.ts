@@ -1,6 +1,6 @@
 export interface IFixture {
     parameters: {[key: string]: any};
-    transformer: string;
+    processor: string;
     entity: string;
     name: string;
     dependencies: string[];

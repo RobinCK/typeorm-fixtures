@@ -1,6 +1,6 @@
 export interface IFixturesConfig {
     entity: string;
     parameters?: { [key: string]: any };
-    transformer?: string;
+    processor?: string;
     items: { [key: string]: any };
 }
