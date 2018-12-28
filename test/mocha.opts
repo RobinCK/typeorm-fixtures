@@ -1,0 +1,4 @@
+--require ts-node/register
+--reporter mochawesome
+--reporter-options output=coverage/report.html
+test/**/*.ts
