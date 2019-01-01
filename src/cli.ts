@@ -1,66 +1,59 @@
+#!/usr/bin/env node
+
 import 'reflect-metadata';
 import * as path from 'path';
-import {random} from 'lodash';
-import {createConnection, getConnection} from 'typeorm';
+import * as fs from 'fs';
+import * as commander from 'commander';
 
 import {Loader} from './Loader';
-import {fixturesIterator} from './util';
+import {createConnection, fixturesIterator} from './util';
+import {Resolver} from './Resolver';
 
-const addedList: any = {};
+commander
+    .version(require('../package.json').version, '-v, --version')
+    .usage('[options] <path> Fixtures folder path')
+    .arguments('<path>')
+    .action((fixturesPath: string, options) => {
+        options.path = fixturesPath;
+    })
+    .option('-c, --config <path>', 'TypeORM config path', 'ormconfig.yml')
+    .option('-cn, --connection [value]', 'TypeORM connection name', 'default')
+    .option('--no-color', 'Disable color')
+;
 
-function buildEntity(data: any) {
-    for (const [key, value] of Object.entries(data)) {
-        if ( typeof value === 'string' &&  value.indexOf('@') === 0) {
-            if (value.substr(value.length - 1) === '*') {
-                const prefix = value.substr(1, value.length - 1);
-                const regex = new RegExp(`^${prefix}([0-9]+)$`);
+commander.parse(process.argv);
 
-                const maskEntities = Object.keys(addedList).filter((s: string) => regex.test(s));
-                data[key] = addedList[maskEntities[random(maskEntities.length - 1)]];
-            } else {
-                data[key] = addedList[value.substr(1)];
-            }
-        } else if (typeof value === 'object') {
-            data[key] = buildEntity(value);
-        } else if (typeof value === 'string') {
-            // TODO: Check faker function and replace value
-        }
-    }
-
-    return data;
+if (!commander.path) {
+    console.error('Path to fixtures folder is not passed.\n');
+    commander.outputHelp();
+    process.exit(1);
 }
 
-createConnection().then(async (connection) => {
-    const loader = new Loader(path.resolve('fixtures'));
+const typeOrmConfigPath = path.resolve(commander.config);
 
-    for (const value of fixturesIterator(loader.fixtures)) {
-        console.log(value);
-    }
+if (!fs.existsSync(typeOrmConfigPath)) {
+    throw new Error(`TypeOrm config ${typeOrmConfigPath} not found`);
+}
 
-    // console.log(makeFixture().next().value);
-    // console.log(makeFixture().next().value);
-    // console.log(makeFixture().next().value);
+createConnection(
+    {
+        root: path.dirname(typeOrmConfigPath),
+        configName: path.basename(typeOrmConfigPath, path.extname(typeOrmConfigPath)),
+    },
+    commander.connection
+)
+    .then(async (connection) => {
+        const loader = new Loader(path.resolve(commander.path));
+        const resolver = new Resolver(connection);
 
-    // let obj = loader.fixtures.find((l) =>
-    //     sum(l.dependencies.map((d: string) => addedList[d] !== undefined ? 1 : 0)) === l.dependencies.length
-    //     &&
-    //     !addedList[l.name]
-    // );
-    //
-    // while (!!obj) {
-    //     const repository = getConnection().getRepository(obj.entity);
-    //     const entity = repository.create();
-    //     Object.assign(entity, buildEntity(obj.data));
-    //
-    //     addedList[obj.name] = entity;
-    //
-    //     obj = loader.fixtures.find((l) =>
-    //         sum(l.dependencies.map((d: string) => addedList[d] !== undefined ? 1 : 0)) === l.dependencies.length
-    //         &&
-    //         !addedList[l.name]
-    //     );
-    // }
+        for (const fixture of fixturesIterator(loader.fixtures)) {
+            const entity = resolver.resolve(fixture);
+            console.log('------------------------------------------------------------------------------');
+            console.log(entity);
+            console.log('------------------------------------------------------------------------------');
+        }
 
-    await connection.close();
-});
+        await connection.close();
+    })
+;
 

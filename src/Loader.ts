@@ -6,6 +6,7 @@ import * as fs from 'fs';
 import {range} from 'lodash';
 import {IFixture, IFixturesConfig} from './interface';
 import {jFixturesSchema} from './schema';
+import {CurrentParser} from './parser/CurrentParser';
 
 export class Loader {
     public fixtures: IFixture[] = [];
@@ -37,18 +38,18 @@ export class Loader {
     }
 
     private normalize(fixtures: {[kay: string]: any}[]) {
-        for (const {entity, items, parameters, transformer } of fixtures) {
+        for (const {entity, items, parameters, processor } of fixtures) {
             for (const [referenceName, propertyList] of Object.entries(items)) {
-                const ff = /^([\w-_]+)\{(\d+)\.\.(\d+)\}$/g;
+                const rangeRegExp = /^([\w-_]+)\{(\d+)\.\.(\d+)\}$/mg;
 
-                if (ff.test(referenceName)) {
-                    const result = ff.exec(referenceName);
+                if (rangeRegExp.test(referenceName)) {
+                    const result = referenceName.split(rangeRegExp);
 
                     if (result) {
-                        for (const rangeNumber of range(+result[2], + result[3])) {
+                        for (const rangeNumber of range(+result[2], + +result[3] + 1)) {
                             this.stack.push({
                                 parameters: parameters || {},
-                                transformer,
+                                processor,
                                 entity: entity,
                                 name: `${result[1]}${rangeNumber}`,
                                 dependencies: this.findDependencies({...propertyList}),
@@ -59,7 +60,7 @@ export class Loader {
                 } else {
                     this.stack.push({
                         parameters: parameters || {},
-                        transformer,
+                        processor,
                         entity: entity,
                         name: referenceName,
                         dependencies: this.findDependencies({...propertyList}),
@@ -96,15 +97,32 @@ export class Loader {
             const dependencyElement = this.stack.find(s => s.name === dependencyName);
 
             if (!dependencyElement) {
-                if (dependencyName.substr(dependencyName.length - 1) !== '*') {
+                if (
+                    dependencyName.substr(dependencyName.length - 1) !== '*' &&
+                    dependencyName.indexOf('<($current)>') === -1
+                ) {
                     throw new Error(`Reference "${dependencyName}" not found`);
                 }
 
-                const prefix = dependencyName.substr(0, dependencyName.length - 1);
-                const regex = new RegExp(`^${prefix}([0-9]+)$`);
+                if (dependencyName.indexOf('<($current)>') === -1) {
+                    const prefix = dependencyName.substr(0, dependencyName.length - 1);
+                    const regex = new RegExp(`^${prefix}([0-9]+)$`);
 
-                for (const dependencyMaskElement of this.stack.filter(s => regex.test(s.name))) {
-                    dependencies.push(dependencyMaskElement.name, ...this.deepDependenciesResolver(dependencyMaskElement));
+                    for (const dependencyMaskElement of this.stack.filter(s => regex.test(s.name))) {
+                        dependencies.push(dependencyMaskElement.name, ...this.deepDependenciesResolver(dependencyMaskElement));
+                    }
+                } else {
+                    const splitting = item.name.split(CurrentParser.currentIndexRegExp);
+                    const resolvedDependencyName = dependencyName.replace(/<\(\$current\)>/g, splitting[1] || 1);
+                    const dependency = this.stack
+                        .find(s => s.name === resolvedDependencyName)
+                    ;
+
+                    if (!dependency) {
+                        throw new Error(`Dependency ${resolvedDependencyName} not found`);
+                    }
+
+                    dependencies.push(resolvedDependencyName, ...this.deepDependenciesResolver(dependency));
                 }
             } else {
                 dependencies.push(dependencyName, ...this.deepDependenciesResolver(dependencyElement));
