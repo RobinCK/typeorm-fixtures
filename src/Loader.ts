@@ -45,32 +45,30 @@ export class Loader {
      */
     private normalize(fixtures: { [kay: string]: any }[]): IFixture[] {
         for (const { entity, items, parameters, processor } of fixtures) {
-            for (const [referenceName, propertyList] of Object.entries(items)) {
+            for (const [mainReferenceName, propertyList] of Object.entries(items)) {
                 const rangeRegExp = /^([\w-_]+)\{(\d+)\.\.(\d+)\}$/gm;
+                let referenceNames: string[] = [];
 
-                if (rangeRegExp.test(referenceName)) {
-                    const result = referenceName.split(rangeRegExp);
+                if (rangeRegExp.test(mainReferenceName)) {
+                    const result = mainReferenceName.split(rangeRegExp);
 
                     if (result) {
-                        for (const rangeNumber of range(+result[2], +(+result[3]) + 1)) {
-                            this.stack.push({
-                                parameters: parameters || {},
-                                processor,
-                                entity: entity,
-                                name: `${result[1]}${rangeNumber}`,
-                                dependencies: this.findDependencies(referenceName, propertyList),
-                                data: propertyList,
-                            });
-                        }
+                        referenceNames = range(+result[2], +(+result[3]) + 1)
+                            .map(rangeNumber => `${result[1]}${rangeNumber}`)
+                        ;
                     }
                 } else {
+                    referenceNames = [mainReferenceName];
+                }
+
+                for (const name of referenceNames) {
                     this.stack.push({
                         parameters: parameters || {},
                         processor,
                         entity: entity,
-                        name: referenceName,
-                        dependencies: this.findDependencies(referenceName, propertyList),
-                        data: propertyList
+                        name: name,
+                        dependencies: this.findDependencies(mainReferenceName, propertyList),
+                        data: propertyList,
                     });
                 }
             }
