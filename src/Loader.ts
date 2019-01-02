@@ -101,6 +101,11 @@ export class Loader {
         return dependencies;
     }
 
+    /**
+     * @param {string} parentReferenceName
+     * @param {string} reference
+     * @return {any}
+     */
     private parseReference(parentReferenceName: string, reference: string) {
         const currentRegExp = /^([\w-_]+)\(\$current\)$/gm;
         const rangeRegExp = /^([\w-_]+)\{(\d+)\.\.(\d+)\}$/gm;
