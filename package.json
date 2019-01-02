@@ -1,8 +1,11 @@
 {
   "name": "typeorm-fixtures-cli",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "bin": {
+    "fixtures": "dist/cli.js"
+  },
   "scripts": {
     "build": "npm run clean && tsc -p tsconfig.json",
     "clean": "trash dist",
