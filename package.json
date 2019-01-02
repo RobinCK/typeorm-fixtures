@@ -8,7 +8,15 @@
     "clean": "trash dist",
     "test": "nyc --reporter=html --reporter=text mocha"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RobinCK/typeorm-fixtures.git"
+  },
+  "author": "Igor Ognichenko <ognichenko.igor@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/RobinCK/typeorm-fixtures/issues"
+  },
+  "homepage": "https://github.com/RobinCK/typeorm-fixtures#readme",
   "license": "MIT",
   "devDependencies": {
     "@types/chalk": "^2.2.0",
