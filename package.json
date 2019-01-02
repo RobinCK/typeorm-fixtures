@@ -11,7 +11,8 @@
     "clean": "trash dist",
     "lint:fix": "prettier src/**/*.ts --write && tslint --fix --project .",
     "lint": "tslint --project . && prettier src/**/*.ts --list-different",
-    "test": "nyc --reporter=html --reporter=text mocha"
+    "test": "nyc --reporter=html --reporter=text mocha",
+    "commit": "npx git-cz"
   },
   "repository": {
     "type": "git",
