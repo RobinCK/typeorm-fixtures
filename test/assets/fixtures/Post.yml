@@ -12,7 +12,7 @@ items:
   post3:
     title: '{{name.title}}'
     description: '{{lorem.paragraphs}}'
-    user: '@user($current)'
+    user: '@user{3..4}'
   post4:
     title: '{{name.title}}'
     description: '{{lorem.paragraphs}}'

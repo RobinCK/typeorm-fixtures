@@ -3,7 +3,7 @@ import * as glob from 'glob';
 import * as yaml from 'js-yaml';
 import * as Joi from 'joi';
 import * as fs from 'fs';
-import { range } from 'lodash';
+import { range, sample } from 'lodash';
 import { IFixture, IFixturesConfig } from './interface';
 import { jFixturesSchema } from './schema';
 
@@ -117,8 +117,10 @@ export class Loader {
 
             return reference.replace('($current)', index);
         } else if (rangeRegExp.test(reference)) {
-            // TODO: implement
-            return '';
+            const splitting = reference.split(rangeRegExp);
+            sample(range(+splitting[2], +(+splitting[3]) + 1));
+
+            return `${splitting[1]}${sample(range(+splitting[2], +(+splitting[3]) + 1))}`;
         }
 
         return reference;
