@@ -58,16 +58,17 @@ export class Resolver {
                 throw new Error(`Processor "${processorPath}" not found`);
             }
 
-            const processor: IProcessor<any> = require(processorPath);
+            const processor = require(processorPath).default;
+            const processorInstance = new processor();
 
-            if (typeof processor.preProcess === 'function') {
-                data = processor.preProcess(fixture.name, data);
+            if (typeof processorInstance.preProcess === 'function') {
+                data = processorInstance.preProcess(fixture.name, data);
             }
 
             Object.assign(entity, data);
 
-            if (typeof processor.postProcess === 'function') {
-                processor.postProcess(fixture.name, entity);
+            if (typeof processorInstance.postProcess === 'function') {
+                processorInstance.postProcess(fixture.name, entity);
             }
         } else {
             Object.assign(entity, data);
