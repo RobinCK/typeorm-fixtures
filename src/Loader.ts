@@ -12,6 +12,9 @@ export class Loader {
     public fixtures: IFixture[] = [];
     private stack: IFixture[] = [];
 
+    /**
+     * @param {string} fixturesPath
+     */
     constructor(fixturesPath: string) {
         this.loadFixtures(fixturesPath);
     }
@@ -37,7 +40,11 @@ export class Loader {
         this.fixtures = this.normalize(fixtures);
     }
 
-    private normalize(fixtures: { [kay: string]: any }[]) {
+    /**
+     * @param {{[p: string]: any}[]} fixtures
+     * @return {IFixture[]}
+     */
+    private normalize(fixtures: { [kay: string]: any }[]): IFixture[] {
         for (const { entity, items, parameters, processor } of fixtures) {
             for (const [referenceName, propertyList] of Object.entries(items)) {
                 const rangeRegExp = /^([\w-_]+)\{(\d+)\.\.(\d+)\}$/gm;
@@ -75,6 +82,10 @@ export class Loader {
             .sort((a: any, b: any) => a.dependencies.length - b.dependencies.length);
     }
 
+    /**
+     * @param {any[] | object} propertyList
+     * @return {any[]}
+     */
     findDependencies(propertyList: any[] | object): any[] {
         const dependencies = [];
 
@@ -89,6 +100,10 @@ export class Loader {
         return dependencies;
     }
 
+    /**
+     * @param item
+     * @return {any[]}
+     */
     deepDependenciesResolver(item: any) {
         const dependencies: any[] = [];
 

@@ -8,12 +8,19 @@ export class Resolver {
     private parsers: IParser[] = [];
     public entities: any = {};
 
+    /**
+     * @param {Connection} connection
+     */
     constructor(private readonly connection: Connection) {
         for (const parser of Object.values(parsers)) {
             this.parsers.push(new (parser as any)());
         }
     }
 
+    /**
+     * @param {IFixture} fixture
+     * @return {any}
+     */
     resolve(fixture: IFixture) {
         const repository = this.connection.getRepository(fixture.entity);
         const entity = repository.create();
@@ -71,6 +78,11 @@ export class Resolver {
         return entity;
     }
 
+    /**
+     * @param {object | any} data
+     * @param {IFixture} fixture
+     * @return {any}
+     */
     private parse(data: object | any, fixture: IFixture): any {
         const entityRawData = data instanceof Array ? [...data] : { ...data };
 
