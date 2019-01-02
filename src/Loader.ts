@@ -6,7 +6,6 @@ import * as fs from 'fs';
 import { range } from 'lodash';
 import { IFixture, IFixturesConfig } from './interface';
 import { jFixturesSchema } from './schema';
-import { CurrentParser } from './parser';
 
 export class Loader {
     public fixtures: IFixture[] = [];
@@ -41,7 +40,7 @@ export class Loader {
     }
 
     /**
-     * @param {{[p: string]: any}[]} fixtures
+     * @param fixtures
      * @return {IFixture[]}
      */
     private normalize(fixtures: { [kay: string]: any }[]): IFixture[] {
@@ -59,8 +58,8 @@ export class Loader {
                                 processor,
                                 entity: entity,
                                 name: `${result[1]}${rangeNumber}`,
-                                dependencies: this.findDependencies({ ...propertyList }),
-                                data: { ...propertyList },
+                                dependencies: this.findDependencies(referenceName, propertyList),
+                                data: propertyList,
                             });
                         }
                     }
@@ -70,8 +69,8 @@ export class Loader {
                         processor,
                         entity: entity,
                         name: referenceName,
-                        dependencies: this.findDependencies({ ...propertyList }),
-                        data: { ...propertyList },
+                        dependencies: this.findDependencies(referenceName, propertyList),
+                        data: propertyList
                     });
                 }
             }
@@ -83,21 +82,43 @@ export class Loader {
     }
 
     /**
+     * @param {string} parentReferenceName
      * @param {any[] | object} propertyList
      * @return {any[]}
      */
-    findDependencies(propertyList: any[] | object): any[] {
+    findDependencies(parentReferenceName: string, propertyList: any): any[] {
         const dependencies = [];
 
-        for (const value of Object.values(propertyList)) {
+        for (const [key, value] of Object.entries(propertyList)) {
             if (typeof value === 'string' && value.indexOf('@') === 0) {
-                dependencies.push(value.substr(1));
+                const reference = this.parseReference(parentReferenceName, value.substr(1));
+
+                propertyList[key] = `@${reference}`;
+                dependencies.push(reference);
             } else if (typeof value === 'object') {
-                dependencies.push(...this.findDependencies(value));
+                dependencies.push(...this.findDependencies(parentReferenceName, value));
             }
         }
 
         return dependencies;
+    }
+
+    private parseReference(parentReferenceName: string, reference: string) {
+        const currentRegExp = /^([\w-_]+)\(\$current\)$/gm;
+        const rangeRegExp = /^([\w-_]+)\{(\d+)\.\.(\d+)\}$/gm;
+
+        if (currentRegExp.test(reference)) {
+            const currentIndexRegExp = /^[a-z\_\-]+(\d+)$/gi;
+            const splitting = parentReferenceName.split(currentIndexRegExp);
+            const index = splitting[1] || '';
+
+            return reference.replace('($current)', index);
+        } else if (rangeRegExp.test(reference)) {
+            // TODO: implement
+            return '';
+        }
+
+        return reference;
     }
 
     /**
@@ -111,33 +132,18 @@ export class Loader {
             const dependencyElement = this.stack.find(s => s.name === dependencyName);
 
             if (!dependencyElement) {
-                if (
-                    dependencyName.substr(dependencyName.length - 1) !== '*' &&
-                    dependencyName.indexOf('<($current)>') === -1
-                ) {
+                if (dependencyName.substr(dependencyName.length - 1) !== '*') {
                     throw new Error(`Reference "${dependencyName}" not found`);
                 }
 
-                if (dependencyName.indexOf('<($current)>') === -1) {
-                    const prefix = dependencyName.substr(0, dependencyName.length - 1);
-                    const regex = new RegExp(`^${prefix}([0-9]+)$`);
+                const prefix = dependencyName.substr(0, dependencyName.length - 1);
+                const regex = new RegExp(`^${prefix}([0-9]+)$`);
 
-                    for (const dependencyMaskElement of this.stack.filter(s => regex.test(s.name))) {
-                        dependencies.push(
-                            dependencyMaskElement.name,
-                            ...this.deepDependenciesResolver(dependencyMaskElement),
-                        );
-                    }
-                } else {
-                    const splitting = item.name.split(CurrentParser.currentIndexRegExp);
-                    const resolvedDependencyName = dependencyName.replace(/<\(\$current\)>/g, splitting[1] || 1);
-                    const dependency = this.stack.find(s => s.name === resolvedDependencyName);
-
-                    if (!dependency) {
-                        throw new Error(`Dependency ${resolvedDependencyName} not found`);
-                    }
-
-                    dependencies.push(resolvedDependencyName, ...this.deepDependenciesResolver(dependency));
+                for (const dependencyMaskElement of this.stack.filter(s => regex.test(s.name))) {
+                    dependencies.push(
+                        dependencyMaskElement.name,
+                        ...this.deepDependenciesResolver(dependencyMaskElement),
+                    );
                 }
             } else {
                 dependencies.push(dependencyName, ...this.deepDependenciesResolver(dependencyElement));
