@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import {Connection} from 'typeorm';
+import { Connection } from 'typeorm';
 import * as parsers from './parser';
-import {IFixture, IParser, IProcessor} from './interface';
+import { IFixture, IParser, IProcessor } from './interface';
 
 export class Resolver {
     private parsers: IParser[] = [];
@@ -26,12 +26,10 @@ export class Resolver {
 
             for (const [method, values] of Object.entries(data.__call)) {
                 if ((entity as any)[method]) {
-                    ((entity as any)[method])
-                        .call(
-                            entity,
-                            this.parse(values instanceof Array ? values : [values], fixture)
-                        )
-                    ;
+                    (entity as any)[method].call(
+                        entity,
+                        this.parse(values instanceof Array ? values : [values], fixture),
+                    );
                 }
             }
 
@@ -42,10 +40,7 @@ export class Resolver {
             const processorPath = path.resolve(fixture.processor);
             const processorPathWithoutExtension = path.join(
                 path.dirname(processorPath),
-                path.basename(
-                    processorPath,
-                    path.extname(processorPath)
-                )
+                path.basename(processorPath, path.extname(processorPath)),
             );
 
             if (
@@ -58,16 +53,15 @@ export class Resolver {
 
             const processor: IProcessor<any> = require(processorPath);
 
-            if (typeof  processor.preProcess === 'function') {
+            if (typeof processor.preProcess === 'function') {
                 data = processor.preProcess(fixture.name, data);
             }
 
             Object.assign(entity, data);
 
-            if (typeof  processor.postProcess === 'function') {
+            if (typeof processor.postProcess === 'function') {
                 processor.postProcess(fixture.name, entity);
             }
-
         } else {
             Object.assign(entity, data);
         }
@@ -78,7 +72,7 @@ export class Resolver {
     }
 
     private parse(data: object | any, fixture: IFixture): any {
-        const entityRawData = data instanceof Array ? [...data] : {...data};
+        const entityRawData = data instanceof Array ? [...data] : { ...data };
 
         for (const [key, value] of Object.entries(entityRawData)) {
             if (typeof value === 'string') {

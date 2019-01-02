@@ -1,5 +1,5 @@
-import {chunk, get} from 'lodash';
-import {IFixture, IParser} from '../interface';
+import { chunk, get } from 'lodash';
+import { IFixture, IParser } from '../interface';
 
 export class ParameterParser implements IParser {
     public priority = 60;

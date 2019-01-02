@@ -1,5 +1,5 @@
 import * as faker from 'faker';
-import {IParser} from '../interface';
+import { IParser } from '../interface';
 
 export class FakerParser implements IParser {
     public priority = 70;

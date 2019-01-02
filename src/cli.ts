@@ -5,9 +5,9 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as commander from 'commander';
 
-import {Loader} from './Loader';
-import {createConnection, fixturesIterator} from './util';
-import {Resolver} from './Resolver';
+import { Loader } from './Loader';
+import { createConnection, fixturesIterator } from './util';
+import { Resolver } from './Resolver';
 
 commander
     .version(require('../package.json').version, '-v, --version')
@@ -18,8 +18,7 @@ commander
     })
     .option('-c, --config <path>', 'TypeORM config path', 'ormconfig.yml')
     .option('-cn, --connection [value]', 'TypeORM connection name', 'default')
-    .option('--no-color', 'Disable color')
-;
+    .option('--no-color', 'Disable color');
 
 commander.parse(process.argv);
 
@@ -40,20 +39,14 @@ createConnection(
         root: path.dirname(typeOrmConfigPath),
         configName: path.basename(typeOrmConfigPath, path.extname(typeOrmConfigPath)),
     },
-    commander.connection
-)
-    .then(async (connection) => {
-        const loader = new Loader(path.resolve(commander.path));
-        const resolver = new Resolver(connection);
+    commander.connection,
+).then(async connection => {
+    const loader = new Loader(path.resolve(commander.path));
+    const resolver = new Resolver(connection);
 
-        for (const fixture of fixturesIterator(loader.fixtures)) {
-            const entity = resolver.resolve(fixture);
-            console.log('------------------------------------------------------------------------------');
-            console.log(entity);
-            console.log('------------------------------------------------------------------------------');
-        }
+    for (const fixture of fixturesIterator(loader.fixtures)) {
+        const entity = resolver.resolve(fixture);
+    }
 
-        await connection.close();
-    })
-;
-
+    await connection.close();
+});

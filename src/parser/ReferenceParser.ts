@@ -1,5 +1,5 @@
-import {random} from 'lodash';
-import {IParser, IFixture} from '../interface';
+import { random } from 'lodash';
+import { IParser, IFixture } from '../interface';
 
 export class ReferenceParser implements IParser {
     public priority = 50;

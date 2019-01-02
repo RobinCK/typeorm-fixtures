@@ -1,4 +1,4 @@
-import {IFixture} from './IFixture';
+import { IFixture } from './IFixture';
 
 export interface IParser {
     priority: number;

@@ -1,4 +1,4 @@
-import {IFixture, IParser} from '../interface';
+import { IFixture, IParser } from '../interface';
 
 export class CurrentParser implements IParser {
     public priority = 90;
