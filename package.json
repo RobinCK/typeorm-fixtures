@@ -1,6 +1,6 @@
 {
   "name": "typeorm-fixtures-cli",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "main": "dist/index.js",
   "bin": {
@@ -28,6 +28,7 @@
     "@commitlint/cli": "^7.2.1",
     "@commitlint/config-conventional": "^7.1.2",
     "@types/chalk": "^2.2.0",
+    "@types/cli-progress": "^1.8.0",
     "@types/commander": "^2.12.2",
     "@types/ejs": "^2.6.1",
     "@types/faker": "^4.1.4",
@@ -56,6 +57,7 @@
   },
   "dependencies": {
     "chalk": "^2.4.1",
+    "cli-progress": "^2.1.1",
     "commander": "^2.19.0",
     "ejs": "^2.6.1",
     "faker": "^4.1.0",
