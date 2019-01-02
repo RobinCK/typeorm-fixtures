@@ -29,7 +29,7 @@ npm run build
 ## Usage
 
 ```
-Usage: cli.ts [options] <path> Fixtures folder path
+Usage: fixtures [options] <path> Fixtures folder path
 
 Options:
   -v, --version              output the version number
