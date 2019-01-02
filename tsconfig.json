@@ -15,9 +15,5 @@
     "pretty": true,
     "typeRoots": ["node_modules/@types", "src/types"]
   },
-  "exclude": [
-    "dist",
-    "test",
-    "node_modules"
-  ]
+  "exclude": ["dist", "coverage", ".nyc_output", "node_modules", "test"]
 }

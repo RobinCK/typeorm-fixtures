@@ -1,0 +1,15 @@
+"*.{ts,json,md}":
+  - prettier --write
+  - git add
+
+"*.ts":
+  - tslint --fix
+  - git add
+
+"*.json":
+  - jsonlint -c
+  - git add
+
+"*.{yaml,yml}":
+  - yamllint
+  - git add
