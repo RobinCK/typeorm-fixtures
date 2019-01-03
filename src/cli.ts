@@ -12,8 +12,6 @@ import { createConnection, fixturesIterator } from './util';
 import { Resolver } from './Resolver';
 import { getConnection, getRepository } from 'typeorm';
 
-const log = console.log; // tslint:disable-line
-
 commander
     .version(require('../package.json').version, '-v, --version')
     .usage('[options] <path> Fixtures folder path')
@@ -23,7 +21,9 @@ commander
     })
     .option('-c, --config <path>', 'TypeORM config path', 'ormconfig.yml')
     .option('-cn, --connection [value]', 'TypeORM connection name', 'default')
-    .option('--no-color', 'Disable color');
+    .option('-s --sync', 'Database schema sync')
+    .option('--no-color', 'Disable color')
+    .option('-d --debug', 'Enable debug');
 
 commander.parse(process.argv);
 
@@ -33,13 +33,27 @@ if (!commander.path) {
     process.exit(1);
 }
 
+const debug = (message: string) => {
+    if (commander.debug) {
+        console.log(chalk.grey(message)); // tslint:disable-line
+    }
+};
+
+const error = (message: string) => {
+    console.log(chalk.red(message)); // tslint:disable-line
+};
+
+const log = (message: string) => {
+    console.log(chalk.green(message)); // tslint:disable-line
+};
+
 const typeOrmConfigPath = path.resolve(commander.config);
 
 if (!fs.existsSync(typeOrmConfigPath)) {
     throw new Error(`TypeOrm config ${typeOrmConfigPath} not found`);
 }
 
-log(chalk.yellow('Connection to database...'));
+debug('Connection to database...');
 
 createConnection(
     {
@@ -49,43 +63,54 @@ createConnection(
     commander.connection,
 )
     .then(async connection => {
-        log(chalk.green('Database is connected'));
+        debug('Database is connected');
 
-        log(chalk.yellow('Loading fixtures'));
+        if (commander.sync) {
+            debug('Synchronize database schema');
+            await connection.synchronize(true);
+        }
+
+        debug('Loading fixtures');
         const loader = new Loader(path.resolve(commander.path));
-        log(chalk.yellow('Resolving fixtures'));
+
+        debug('Resolving fixtures');
         const resolver = new Resolver(connection);
 
         const bar = new cliProgress.Bar({
             format: `${chalk.yellow('Progress')}  ${chalk.green('[{bar}]')} ${chalk.yellow(
-                '{percentage}% | ETA: {eta}s | {value}/{total}',
+                '{percentage}% | ETA: {eta}s | {value}/{total} {name}',
             )} `,
             barCompleteChar: '\u2588',
             barIncompleteChar: '\u2591',
             fps: 5,
-            stopOnComplete: true,
             stream: process.stdout,
             barsize: loader.fixtures.length,
         });
 
-        bar.start(loader.fixtures.length, 0);
+        bar.start(loader.fixtures.length, 0, { name: '' });
 
         for (const fixture of fixturesIterator(loader.fixtures)) {
             const entity = resolver.resolve(fixture);
 
             try {
-                await getRepository(fixture.entity).save(entity);
-                bar.increment(1);
+                bar.increment(1, { name: fixture.name });
+                await getRepository(entity.constructor.name).save(entity);
             } catch (e) {
                 bar.stop();
+
                 throw e;
             }
         }
 
-        log(chalk.yellow('Database disconnect'));
+        bar.update(loader.fixtures.length, { name: '' });
+        bar.stop();
+
+        debug('\nDatabase disconnect');
         await connection.close();
     })
     .catch(async e => {
-        log(chalk.red('Fail fixtures loading: ' + e.message));
+        error('Fail fixtures loading: ' + e.message);
+        debug(e.query || e);
         await getConnection().close();
+        process.exit(1);
     });
