@@ -35,8 +35,10 @@ Options:
   -v, --version              output the version number
   -c, --config <path>        TypeORM config path (default: "ormconfig.yml")
   -cn, --connection [value]  TypeORM connection name (default: "default")
-  --no-color                 Disable color
+  -s --sync                  Database schema sync
+  -d --debug                 Enable debug
   -h, --help                 output usage information
+  --no-color                 Disable color
 ```
 
 ## Configure
