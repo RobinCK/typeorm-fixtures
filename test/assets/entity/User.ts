@@ -1,6 +1,6 @@
-import {Column, Entity, ManyToMany, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
-import {Profile} from './Profile';
-import {Group} from './Group';
+import { Column, Entity, JoinColumn, ManyToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Profile } from './Profile';
+import { Group } from './Group';
 
 @Entity()
 export class User {
@@ -23,6 +23,7 @@ export class User {
     email!: string;
 
     @OneToOne(type => Profile)
+    @JoinColumn()
     profile!: Profile;
 
     @ManyToMany(type => Group, group => group.members)
