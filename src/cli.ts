@@ -22,8 +22,8 @@ commander
     .option('-c, --config <path>', 'TypeORM config path', 'ormconfig.yml')
     .option('-cn, --connection [value]', 'TypeORM connection name', 'default')
     .option('-s --sync', 'Database schema sync')
-    .option('--no-color', 'Disable color')
-    .option('-d --debug', 'Enable debug');
+    .option('-d --debug', 'Enable debug')
+    .option('--no-color', 'Disable color');
 
 commander.parse(process.argv);
 
