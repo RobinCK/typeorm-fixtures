@@ -1,6 +1,6 @@
 {
   "name": "typeorm-fixtures-cli",
-  "version": "0.1.0",
+  "version": "0..0",
   "description": "",
   "main": "dist/index.js",
   "bin": {
@@ -12,6 +12,7 @@
     "lint:fix": "prettier src/**/*.ts --write && tslint --fix --project .",
     "lint": "tslint --project . && prettier src/**/*.ts --list-different",
     "test": "nyc --reporter=html --reporter=text mocha",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "commit": "npx git-cz"
   },
   "repository": {
