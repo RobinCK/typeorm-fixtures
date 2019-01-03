@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { Connection } from 'typeorm';
 import * as parsers from './parser';
-import { IFixture, IParser, IProcessor } from './interface';
+import { IFixture, IParser } from './interface';
 
 export class Resolver {
     private parsers: IParser[] = [];
