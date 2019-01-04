@@ -11,6 +11,8 @@ import { Loader } from './Loader';
 import { createConnection, fixturesIterator } from './util';
 import { Resolver } from './Resolver';
 import { getConnection, getRepository } from 'typeorm';
+import { Builder } from './Builder';
+import { Parser } from './Parser';
 
 commander
     .version(require('../package.json').version, '-v, --version')
@@ -28,7 +30,7 @@ commander
 commander.parse(process.argv);
 
 if (!commander.path) {
-    console.error('Path to fixtures folder is not passed.\n');
+    console.error('Path to fixtureConfigs folder is not passed.\n');
     commander.outputHelp();
     process.exit(1);
 }
@@ -41,10 +43,6 @@ const debug = (message: string) => {
 
 const error = (message: string) => {
     console.log(chalk.red(message)); // tslint:disable-line
-};
-
-const log = (message: string) => {
-    console.log(chalk.green(message)); // tslint:disable-line
 };
 
 const typeOrmConfigPath = path.resolve(commander.config);
@@ -70,11 +68,14 @@ createConnection(
             await connection.synchronize(true);
         }
 
-        debug('Loading fixtures');
-        const loader = new Loader(path.resolve(commander.path));
+        debug('Loading fixtureConfigs');
+        const loader = new Loader();
+        loader.load(path.resolve(commander.path));
 
-        debug('Resolving fixtures');
-        const resolver = new Resolver(connection);
+        debug('Resolving fixtureConfigs');
+        const resolver = new Resolver();
+        const fixtures = resolver.resolve(loader.fixtureConfigs);
+        const builder = new Builder(connection, new Parser());
 
         const bar = new cliProgress.Bar({
             format: `${chalk.yellow('Progress')}  ${chalk.green('[{bar}]')} ${chalk.yellow(
@@ -84,13 +85,13 @@ createConnection(
             barIncompleteChar: '\u2591',
             fps: 5,
             stream: process.stdout,
-            barsize: loader.fixtures.length,
+            barsize: loader.fixtureConfigs.length,
         });
 
-        bar.start(loader.fixtures.length, 0, { name: '' });
+        bar.start(loader.fixtureConfigs.length, 0, { name: '' });
 
-        for (const fixture of fixturesIterator(loader.fixtures)) {
-            const entity = resolver.resolve(fixture);
+        for (const fixture of fixturesIterator(fixtures)) {
+            const entity = builder.build(fixture);
 
             try {
                 bar.increment(1, { name: fixture.name });
@@ -102,14 +103,14 @@ createConnection(
             }
         }
 
-        bar.update(loader.fixtures.length, { name: '' });
+        bar.update(loader.fixtureConfigs.length, { name: '' });
         bar.stop();
 
         debug('\nDatabase disconnect');
         await connection.close();
     })
     .catch(async e => {
-        error('Fail fixtures loading: ' + e.message);
+        error('Fail fixture loading: ' + e.message);
         debug(e.query || e);
         await getConnection().close();
         process.exit(1);

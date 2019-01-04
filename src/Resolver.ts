@@ -1,104 +1,126 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import { Connection } from 'typeorm';
-import * as parsers from './parser';
-import { IFixture, IParser } from './interface';
+import { range, sample } from 'lodash';
+
+import { IFixture, IFixturesConfig } from './interface';
 
 export class Resolver {
-    private parsers: IParser[] = [];
-    public entities: any = {};
+    private stack: IFixture[] = [];
 
     /**
-     * @param {Connection} connection
+     * @param fixtureConfigs
+     * @return {IFixture[]}
      */
-    constructor(private readonly connection: Connection) {
-        for (const parser of Object.values(parsers)) {
-            this.parsers.push(new (parser as any)());
+    resolve(fixtureConfigs: IFixturesConfig[]): IFixture[] {
+        for (const { entity, items, parameters, processor } of fixtureConfigs) {
+            for (const [mainReferenceName, propertyList] of Object.entries(items)) {
+                const rangeRegExp = /^([\w-_]+)\{(\d+)\.\.(\d+)\}$/gm;
+                let referenceNames: string[] = [];
+
+                if (rangeRegExp.test(mainReferenceName)) {
+                    const result = mainReferenceName.split(rangeRegExp);
+
+                    if (result) {
+                        referenceNames = range(+result[2], +(+result[3]) + 1).map(
+                            rangeNumber => `${result[1]}${rangeNumber}`,
+                        );
+                    }
+                } else {
+                    referenceNames = [mainReferenceName];
+                }
+
+                for (const name of referenceNames) {
+                    this.stack.push({
+                        parameters: parameters || {},
+                        processor,
+                        entity: entity,
+                        name: name,
+                        dependencies: this.resolveDependencies(mainReferenceName, propertyList),
+                        data: propertyList,
+                    });
+                }
+            }
         }
+
+        return this.stack
+            .map(s => ({ ...s, dependencies: this.resolveDeepDependencies(s) }))
+            .sort((a: any, b: any) => a.dependencies.length - b.dependencies.length);
     }
 
     /**
-     * @param {IFixture} fixture
+     * @param {string} parentReferenceName
+     * @param {any[] | object} propertyList
+     * @return {any[]}
+     */
+    private resolveDependencies(parentReferenceName: string, propertyList: any): any[] {
+        const dependencies = [];
+
+        for (const [key, value] of Object.entries(propertyList)) {
+            if (typeof value === 'string' && value.indexOf('@') === 0) {
+                const reference = this.resolveReference(parentReferenceName, value.substr(1));
+
+                propertyList[key] = `@${reference}`;
+                dependencies.push(reference);
+            } else if (typeof value === 'object') {
+                dependencies.push(...this.resolveDependencies(parentReferenceName, value));
+            }
+        }
+
+        return dependencies;
+    }
+
+    /**
+     * @param {string} parentReferenceName
+     * @param {string} reference
      * @return {any}
      */
-    resolve(fixture: IFixture) {
-        const repository = this.connection.getRepository(fixture.entity);
-        const entity = repository.create();
-        let data = this.parse(fixture.data, fixture);
+    private resolveReference(parentReferenceName: string, reference: string) {
+        const currentRegExp = /^([\w-_]+)\(\$current\)$/gm;
+        const rangeRegExp = /^([\w-_]+)\{(\d+)\.\.(\d+)\}$/gm;
 
-        if (data.__call) {
-            if (typeof data.__call !== 'object') {
-                throw new Error('invalid "__call" parameter format');
-            }
+        if (currentRegExp.test(reference)) {
+            const currentIndexRegExp = /^[a-z\_\-]+(\d+)$/gi;
+            const splitting = parentReferenceName.split(currentIndexRegExp);
+            const index = splitting[1] || '';
 
-            for (const [method, values] of Object.entries(data.__call)) {
-                if ((entity as any)[method]) {
-                    (entity as any)[method].call(
-                        entity,
-                        this.parse(values instanceof Array ? values : [values], fixture),
+            return reference.replace('($current)', index);
+        } else if (rangeRegExp.test(reference)) {
+            const splitting = reference.split(rangeRegExp);
+            sample(range(+splitting[2], +(+splitting[3]) + 1));
+
+            return `${splitting[1]}${sample(range(+splitting[2], +(+splitting[3]) + 1))}`;
+        }
+
+        return reference;
+    }
+
+    /**
+     * @param item
+     * @return {any[]}
+     */
+    private resolveDeepDependencies(item: any) {
+        const dependencies: any[] = [];
+
+        for (const dependencyName of item.dependencies) {
+            const dependencyElement = this.stack.find(s => s.name === dependencyName);
+
+            if (!dependencyElement) {
+                if (dependencyName.substr(dependencyName.length - 1) !== '*') {
+                    throw new Error(`Reference "${dependencyName}" not found`);
+                }
+
+                const prefix = dependencyName.substr(0, dependencyName.length - 1);
+                const regex = new RegExp(`^${prefix}([0-9]+)$`);
+
+                for (const dependencyMaskElement of this.stack.filter(s => regex.test(s.name))) {
+                    dependencies.push(
+                        dependencyMaskElement.name,
+                        ...this.resolveDeepDependencies(dependencyMaskElement),
                     );
                 }
-            }
-
-            delete data.__call;
-        }
-
-        if (fixture.processor) {
-            const processorPath = path.resolve(fixture.processor);
-            const processorPathWithoutExtension = path.join(
-                path.dirname(processorPath),
-                path.basename(processorPath, path.extname(processorPath)),
-            );
-
-            if (
-                !fs.existsSync(processorPathWithoutExtension) &&
-                !fs.existsSync(processorPathWithoutExtension + '.ts') &&
-                !fs.existsSync(processorPathWithoutExtension + '.js')
-            ) {
-                throw new Error(`Processor "${processorPath}" not found`);
-            }
-
-            const processor = require(processorPath).default;
-            const processorInstance = new processor();
-
-            if (typeof processorInstance.preProcess === 'function') {
-                data = processorInstance.preProcess(fixture.name, data);
-            }
-
-            Object.assign(entity, data);
-
-            if (typeof processorInstance.postProcess === 'function') {
-                processorInstance.postProcess(fixture.name, entity);
-            }
-        } else {
-            Object.assign(entity, data);
-        }
-
-        this.entities[fixture.name] = entity;
-
-        return entity;
-    }
-
-    /**
-     * @param {object | any} data
-     * @param {IFixture} fixture
-     * @return {any}
-     */
-    private parse(data: object | any, fixture: IFixture): any {
-        const entityRawData = data instanceof Array ? [...data] : { ...data };
-
-        for (const [key, value] of Object.entries(entityRawData)) {
-            if (typeof value === 'string') {
-                for (const parser of this.parsers.sort((a, b) => b.priority - a.priority)) {
-                    if (parser.isSupport(value)) {
-                        entityRawData[key] = parser.parse(value, fixture, this.entities);
-                    }
-                }
-            } else if (typeof value === 'object') {
-                entityRawData[key] = this.parse(value, fixture);
+            } else {
+                dependencies.push(dependencyName, ...this.resolveDeepDependencies(dependencyElement));
             }
         }
 
-        return entityRawData;
+        return dependencies.filter((value: any, index: number, self: any[]) => self.indexOf(value) === index);
     }
 }
