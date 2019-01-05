@@ -5,6 +5,7 @@ Fixtures loader for typeorm
 ## Table of Contents
 
 - [Install](#install)
+- [Development Setup](#development-setup)
 - [Example](#example)
 - [Creating Fixtures](#creating-fixtures)
   - [Fixture Ranges](#fixture-ranges)
