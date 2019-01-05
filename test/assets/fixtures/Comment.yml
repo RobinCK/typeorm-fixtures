@@ -6,4 +6,3 @@ items:
     email: '{{internet.email}}'
     text: '{{lorem.paragraphs}}'
     post: '@post*'
-

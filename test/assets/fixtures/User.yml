@@ -1,6 +1,5 @@
 entity: User
 parameters: {}
-processor: test/assets/processor/UserProcessor
 items:
   user1:
     firstName: '{{name.firstName}}'
