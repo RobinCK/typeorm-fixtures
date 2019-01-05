@@ -1,6 +1,6 @@
-# typeorm-fixtures
+# typeorm-fixtures-cli
 
-Fixtures loader for typeorm
+Relying on [faker.js](https://github.com/marak/Faker.js/), typeorm-fixtures-cli allows you to create a ton of fixtures/fake data for use while developing or testing your project. It gives you a few essential tools to make it very easy to generate complex data with constraints in a readable and easy to edit way, so that everyone on your team can tweak the fixtures if needed.
 
 ## Table of Contents
 
