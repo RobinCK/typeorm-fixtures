@@ -12,6 +12,12 @@ Fixtures loader for typeorm
   - [Fixture Reference](#fixture-reference)
   - [Fixture Lists](#fixture-lists)
   - [Calling Methods](#calling-methods)
+- [Handling Relations](#handling-relations)
+- [Advanced Guide](#advanced-guide)
+  - [Parameters](#parameters)
+  - [Faker Data](#faker-data)
+  - [EJS templating](#ejs-templating)
+  - [Load Processor](#load-processor)
 - [Usage](#usage)
 
 ## Install
@@ -172,7 +178,7 @@ items:
     user: '@user($current)'
 ```
 
-In the case of a range (e.g. user{1..10}), <current()> will return 1 for user1, 2 for user2 etc.
+In the case of a range (e.g. user{1..10}), `($current)` will return 1 for user1, 2 for user2 etc.
 
 ### Calling Methods
 
@@ -192,6 +198,170 @@ items:
         - foo
 ```
 
+## Handling Relations
+
+```yaml
+entity: User
+items:
+  user1:
+    # ...
+
+entity: Group
+items:
+  group1:
+    name: '<{names.admin}>'
+    owner: '@user1'
+    members:
+      - '@user2'
+      - '@user3'
+
+```
+
+If you want to create ten users and ten groups and have each user own one group, you can use `($current)` which is replaced with the current ID of each iteration when using fixture ranges:
+
+```yaml
+entity: User
+items:
+  user1:
+    # ...
+
+entity: Group
+items:
+  group{1..10}:
+    name: 'name'
+    owner: '@user($current)'
+    members:
+      - '@user2'
+      - '@user3'
+
+```
+
+If you would like a random user instead of a fixed one, you can define a reference with a wildcard:
+
+```yaml
+entity: User
+items:
+  user1:
+    # ...
+
+entity: Group
+items:
+  group{1..10}:
+    name: 'name'
+    owner: '@user*'
+    members:
+      - '@user2'
+      - '@user3'
+
+```
+
+or
+
+```yaml
+entity: User
+items:
+  user1:
+    # ...
+
+entity: Group
+items:
+  group{1..10}:
+    name: 'name'
+    owner: '@user{1..2}' # @user1 or @user2
+    members:
+      - '@user2'
+      - '@user3'
+
+```
+
+## Advanced Guide
+
+### Parameters
+
+You can set global parameters that will be inserted everywhere those values are used to help with readability. For example:
+
+```yaml
+entity: Group
+parameters:
+  names:
+    admin: Admin
+items:
+  group1:
+    name: '<{names.admin}>' # <--- set Admin
+    owner: '@user1'
+    members:
+      - '@user2'
+      - '@user3'
+```
+
+### Faker Data
+
+This library integrates with the [faker.js](https://github.com/marak/Faker.js/) library. Using {{foo}} you can call Faker data providers to generate random data.
+
+Let's turn our static bob user into a randomized entry:
+
+```yaml
+entity: User
+items:
+  user{1..10}:
+    username: '{{internet.userName}}'
+    fullname: '{{name.firstName}} {{name.lastName}}'
+    birthDate: '{{date.past}}'
+    email: '{{internet.email}}'
+    favoriteNumber: '{{random.number}}'
+    _call:
+      setPassword:
+        - foo
+```
+
+### EJS templating
+
+This library integrates with the [EJS](https://github.com/mde/ejs)
+
+```yaml
+entity: Profile
+items:
+  profile1:
+    aboutMe: <%= ['about string', 'about string 2', 'about string 3'].join(", ") %>
+    skype: skype-account>
+    language: english
+```
+
+### Load Processor
+
+Processors allow you to process objects before and/or after they are persisted. Processors must implement the: `IProcessor`
+
+```typescript
+import { IProcessor } from 'typeorm-fixtures-cli';
+```
+
+Here is an example:
+
+`processor/UserProcessor.ts`
+
+```typescript
+import { IProcessor } from 'typeorm-fixtures-cli';
+import { User } from '../entity/User';
+
+export default class UserProcessor implements IProcessor<User> {
+  postProcess(name: string, object: { [key: string]: any }): void {
+    object.name = `${object.firstName} ${object.lastName}`;
+  }
+}
+```
+
+fixture config `fixtures/user.yml`
+
+```yaml
+entity: User
+processor: ../processor/UserProcessor
+items:
+  user1:
+    firstName: '{{name.firstName}}'
+    lastName: '{{name.lastName}}'
+    email: '{{internet.email}}'
+```
+
 ## Usage
 
 ```
@@ -206,7 +376,5 @@ Options:
   -h, --help                 output usage information
   --no-color                 Disable color
 ```
-
-## Configure
 
 MIT © [Igor Ognichenko](https://github.com/RobinCK)
