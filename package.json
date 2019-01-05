@@ -15,6 +15,16 @@
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "commit": "npx git-cz"
   },
+  "keywords": [
+    "typeorm",
+    "fixtures",
+    "orm",
+    "cli",
+    "typescript",
+    "faker",
+    "fixture-loader",
+    "typeorm-fixtures"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/RobinCK/typeorm-fixtures.git"
