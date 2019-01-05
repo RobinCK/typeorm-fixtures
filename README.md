@@ -34,6 +34,8 @@ npm run build
 
 ## Example
 
+`fixtures/Comment.yml`
+
 ```yaml
 entity: Comment
 parameters: {}
@@ -44,6 +46,8 @@ items:
     text: '{{lorem.paragraphs}}'
     post: '@post*'
 ```
+
+`fixtures/Post.yml`
 
 ```yaml
 entity: Post
@@ -58,6 +62,8 @@ items:
     description: '{{lorem.paragraphs}}'
     user: '@user($current)'
 ```
+
+`fixtures/User.yml`
 
 ```yaml
 entity: User
@@ -80,6 +86,8 @@ items:
       setPassword:
         - foo
 ```
+
+`fixtures/Profile.yml`
 
 ```yaml
 entity: Profile
