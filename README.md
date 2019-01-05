@@ -2,6 +2,11 @@
 
 Fixtures loader for typeorm
 
+## Table of Contents
+
+- [install](#install)
+- [Usage](#usage)
+
 ## Install
 
 #### NPM
