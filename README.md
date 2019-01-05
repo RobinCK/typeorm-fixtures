@@ -6,6 +6,11 @@ Fixtures loader for typeorm
 
 - [Install](#install)
 - [Example](#example)
+- [Creating Fixtures](#creating-fixtures)
+  - [Fixture Ranges](#fixture-ranges)
+  - [Fixture Reference](#fixture-reference)
+  - [Fixture Lists](#fixture-lists)
+  - [Calling Methods](#calling-methods)
 - [Usage](#usage)
 
 ## Install
@@ -38,7 +43,6 @@ npm run build
 
 ```yaml
 entity: Comment
-parameters: {}
 items:
   comment{1..10}:
     fullName: '{{name.firstName}} {{name.lastName}}'
@@ -51,7 +55,6 @@ items:
 
 ```yaml
 entity: Post
-parameters: {}
 items:
   post1:
     title: '{{name.title}}'
@@ -67,7 +70,6 @@ items:
 
 ```yaml
 entity: User
-parameters: {}
 items:
   user1:
     firstName: '{{name.firstName}}'
@@ -91,7 +93,6 @@ items:
 
 ```yaml
 entity: Profile
-parameters: {}
 items:
   profile1:
     aboutMe: <%= ['about string', 'about string 2', 'about string 3'].join(", ") %>
@@ -101,6 +102,93 @@ items:
     aboutMe: <%= ['about string', 'about string 2', 'about string 3'].join(", ") %>
     skype: skype-account
     language: english
+```
+
+## Creating Fixtures
+
+The most basic functionality of this library is to turn flat yaml files into objects
+
+```yaml
+entity: User
+items:
+  user0:
+    username: bob
+    fullname: Bob
+    birthDate: 1980-10-10
+    email: bob@example.org
+    favoriteNumber: 42
+
+  user1:
+    username: alice
+    fullname: Alice
+    birthDate: 1978-07-12
+    email: alice@example.org
+    favoriteNumber: 27
+```
+
+### Fixture Ranges
+
+The first step is to let create many copies of an object for you to remove duplication from the yaml file.
+
+You can do that by defining a range in the fixture name:
+
+```yaml
+entity: User
+items:
+  user{1..10}:
+    username: bob
+    fullname: Bob
+    birthDate: 1980-10-10
+    email: bob@example.org
+    favoriteNumber: 42
+```
+
+Now it will generate ten users, with IDs user1 to user10. Pretty good but we only have 10 bobs with the same name, username and email, which is not so fancy yet.
+
+### Fixture Reference
+
+You can also specify a reference to a previously created list of fixtures:
+
+```yaml
+entity: Post
+items:
+  post1:
+    title: 'Post title'
+    description: 'Post description'
+    user: '@user1'
+```
+
+### Fixture Lists
+
+You can also specify a list of values instead of a range:
+
+```yaml
+entity: Post
+items:
+  post{1..10}:
+    title: 'Post title'
+    description: 'Post description'
+    user: '@user($current)'
+```
+
+In the case of a range (e.g. user{1..10}), <current()> will return 1 for user1, 2 for user2 etc.
+
+### Calling Methods
+
+Sometimes though you need to call a method to initialize some more data, you can do this just like with properties but instead using the method name and giving it an array of arguments.
+
+```yaml
+entity: User
+items:
+  user{1..10}:
+    username: bob
+    fullname: Bob
+    birthDate: 1980-10-10
+    email: bob@example.org
+    favoriteNumber: 42
+    _call:
+      setPassword:
+        - foo
 ```
 
 ## Usage
