@@ -35,7 +35,9 @@ export class Builder {
         }
 
         if (fixture.processor) {
-            const processorPath = path.resolve(fixture.processor);
+            const processorPath = path.isAbsolute(fixture.processor)
+                ? path.resolve(fixture.processor)
+                : path.resolve(path.dirname(fixture.sourceFile), fixture.processor);
             const processorPathWithoutExtension = path.join(
                 path.dirname(processorPath),
                 path.basename(processorPath, path.extname(processorPath)),

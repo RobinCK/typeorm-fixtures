@@ -45,7 +45,10 @@ export class Loader {
                     throw new Error(`Invalid fixtures config. File "${file}"`);
                 }
 
-                this.fixtureConfigs.push(fixtureConfig);
+                this.fixtureConfigs.push({
+                    ...fixtureConfig,
+                    sourceFile: file,
+                });
             }
         }
     }
