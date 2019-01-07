@@ -1,3 +1,14 @@
+## [0.2.3](https://github.com/RobinCK/typeorm-fixtures/compare/0.2.2...0.2.3) (2019-01-07)
+
+### Bug Fixes
+
+- **processor:** relevant path ([c4ed99e](https://github.com/RobinCK/typeorm-fixtures/commit/c4ed99e))
+- **test:** integration assets ([d287e4d](https://github.com/RobinCK/typeorm-fixtures/commit/d287e4d))
+
+### Features
+
+- **loader:** load fixtures from file ([9287180](https://github.com/RobinCK/typeorm-fixtures/commit/9287180))
+
 ## [0.2.2](https://github.com/RobinCK/typeorm-fixtures/compare/0.2.1...0.2.2) (2019-01-07)
 
 ### Bug Fixes
