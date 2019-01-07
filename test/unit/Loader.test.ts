@@ -1,7 +1,7 @@
 import 'mocha';
 import * as path from 'path';
 import { expect } from 'chai';
-import { Loader } from '../../src';
+import { IFixturesConfig, Loader } from '../../src';
 
 describe('Loader', () => {
     it('should be loaded data from folder', () => {
@@ -9,8 +9,14 @@ describe('Loader', () => {
 
         loader.load(path.join(__dirname, 'assets/fixtures'));
 
-        expect(loader.fixtureConfigs).to.length(2);
-        expect(loader.fixtureConfigs).to.deep.equal([
+        const configs = loader.fixtureConfigs.map((fixtureConfig: IFixturesConfig) => {
+            delete fixtureConfig.sourceFile;
+
+            return fixtureConfig;
+        });
+
+        expect(configs).to.length(2);
+        expect(configs).to.deep.equal([
             {
                 entity: 'Post',
                 items: {
@@ -39,8 +45,14 @@ describe('Loader', () => {
 
         loader.load(path.join(__dirname, 'assets/fixtures/Post.yml'));
 
-        expect(loader.fixtureConfigs).to.length(1);
-        expect(loader.fixtureConfigs).to.deep.equal([
+        const configs = loader.fixtureConfigs.map((fixtureConfig: IFixturesConfig) => {
+            delete fixtureConfig.sourceFile;
+
+            return fixtureConfig;
+        });
+
+        expect(configs).to.length(1);
+        expect(configs).to.deep.equal([
             {
                 entity: 'Post',
                 items: {
