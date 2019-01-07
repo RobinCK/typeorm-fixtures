@@ -1,4 +1,4 @@
-import { IProcessor } from '../../../../src/interface/index';
+import { IProcessor } from '../../../../src/interface';
 import { User } from '../entity/User';
 
 export default class UserProcessor implements IProcessor<User> {

@@ -7,6 +7,6 @@
   synchronize: false
   logging: false
   entities:
-  - test/assets/entity/**/*.ts
+  - test/intergation/assets/entity/**/*.ts
   cli:
-    entitiesDir: test/assets/entity
+    entitiesDir: test/intergation/assets/entity
