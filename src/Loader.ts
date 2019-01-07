@@ -1,4 +1,5 @@
 import * as path from 'path';
+import * as fs from 'fs';
 import * as glob from 'glob';
 import * as Joi from 'joi';
 import * as loaders from './loaders';
@@ -20,7 +21,17 @@ export class Loader {
      */
     load(fixturesPath: string): void {
         const extensions = this.loaders.map(l => l.extensionSupport.map(e => e.substr(1)).join(',')).join(',');
-        const files = glob.sync(path.resolve(path.join(fixturesPath, `*.{${extensions}}`)));
+        let files: string[] = [];
+
+        if (fs.lstatSync(fixturesPath).isFile()) {
+            if (!this.loaders.find(l => l.isSupport(fixturesPath))) {
+                throw new Error(`File extension "${path.extname(fixturesPath)}" not support`);
+            }
+
+            files = [fixturesPath];
+        } else {
+            files = glob.sync(path.resolve(path.join(fixturesPath, `*.{${extensions}}`)));
+        }
 
         for (const file of files) {
             const loader = this.loaders.find(l => l.isSupport(file));
