@@ -1,3 +1,9 @@
+## [0.2.2](https://github.com/RobinCK/typeorm-fixtures/compare/0.2.1...0.2.2) (2019-01-07)
+
+### Bug Fixes
+
+- loader ([422a55c](https://github.com/RobinCK/typeorm-fixtures/commit/422a55c))
+
 ## [0.2.1](https://github.com/RobinCK/typeorm-fixtures/compare/0.2.0...0.2.1) (2019-01-05)
 
 ### Features
