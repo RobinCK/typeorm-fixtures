@@ -369,7 +369,7 @@ items:
 ## Usage
 
 ```
-Usage: fixtures [options] <path> Fixtures folder path
+Usage: fixtures [options] <path> Fixtures folder/file path
 
 Options:
   -v, --version              output the version number
