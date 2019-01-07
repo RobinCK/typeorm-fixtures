@@ -36,6 +36,7 @@ export class Loader {
         for (const file of files) {
             const loader = this.loaders.find(l => l.isSupport(file));
 
+            /* istanbul ignore else */
             if (loader) {
                 const fixtureConfig: IFixturesConfig = loader.load(file);
                 const { error } = Joi.validate(fixtureConfig, jFixturesSchema);
