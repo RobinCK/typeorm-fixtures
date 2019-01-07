@@ -344,6 +344,10 @@ import { IProcessor } from 'typeorm-fixtures-cli';
 import { User } from '../entity/User';
 
 export default class UserProcessor implements IProcessor<User> {
+  preProcess(name: string, object: any): any {
+    return { ...object, firstName: 'foo' };
+  }
+
   postProcess(name: string, object: { [key: string]: any }): void {
     object.name = `${object.firstName} ${object.lastName}`;
   }
