@@ -1,0 +1,6 @@
+entity: Post
+items:
+  post1:
+    title: '{{name.title}}'
+    description: '{{lorem.paragraphs}}'
+    user: '@user($current)'
