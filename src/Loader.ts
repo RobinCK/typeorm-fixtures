@@ -17,7 +17,7 @@ export class Loader {
 
     load(fixturesPath: string): void {
         const extensions = this.loaders.map(l => l.extensionSupport.map(e => e.substr(1)).join(',')).join(',');
-        const files = glob.sync(path.resolve(path.join(fixturesPath, `*.{${extensions}`)));
+        const files = glob.sync(path.resolve(path.join(fixturesPath, `*.{${extensions}}`)));
 
         for (const file of files) {
             const loader = this.loaders.find(l => l.isSupport(file));
