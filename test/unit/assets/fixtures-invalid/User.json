@@ -1,0 +1,9 @@
+{
+  "items": {
+    "user1": {
+      "firstName": "{{name.firstName}}",
+      "lastName": "{{name.lastName}}",
+      "email": "{{internet.email}}"
+    }
+  }
+}

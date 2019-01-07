@@ -53,4 +53,26 @@ describe('Loader', () => {
             },
         ]);
     });
+
+    it('should be fail load', () => {
+        const loader = new Loader();
+
+        expect(() => loader.load(path.join(__dirname, 'assets/fixtures/Comment.txt'))).to.throw(
+            'File extension ".txt" not support',
+        );
+    });
+
+    it('should be no such file', () => {
+        const loader = new Loader();
+
+        expect(() => loader.load(path.join(__dirname, 'assets/fixtures/Foo.txt'))).to.throw(
+            'no such file or directory,',
+        );
+    });
+
+    it('should be invalid fixture config', () => {
+        const loader = new Loader();
+
+        expect(() => loader.load(path.join(__dirname, 'assets/fixtures-invalid'))).to.throw('Invalid fixtures config.');
+    });
 });
