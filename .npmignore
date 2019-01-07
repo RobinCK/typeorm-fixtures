@@ -25,6 +25,8 @@ node_modules
 lib-cov
 coverage
 .nyc_output
+.nycrc
+mochawesome-report
 
 # Project
 src
