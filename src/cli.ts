@@ -16,7 +16,7 @@ import { Parser } from './Parser';
 
 commander
     .version(require('../package.json').version, '-v, --version')
-    .usage('[options] <path> Fixtures folder path')
+    .usage('[options] <path> Fixtures folder/file path')
     .arguments('<path>')
     .action((fixturesPath: string, options) => {
         options.path = fixturesPath;
