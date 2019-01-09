@@ -20,6 +20,14 @@ export class FakerParser implements IParser {
      * @return {any}
      */
     parse(value: string): any {
-        return faker.fake(value);
+        const result = faker.fake(value);
+
+        if ((+result).toString() === result) {
+            return +result;
+        } else if (result === 'true' || result === 'false') {
+            return result === 'true';
+        } else {
+            return result;
+        }
     }
 }
