@@ -20,13 +20,17 @@ export class Parser implements IDataParser {
         const entityRawData = data instanceof Array ? [...data] : { ...data };
 
         for (const [key, value] of Object.entries(entityRawData)) {
+            /* istanbul ignore else */
             if (typeof value === 'string') {
                 for (const parser of this.parsers.sort((a, b) => b.priority - a.priority)) {
                     if (parser.isSupport(value)) {
                         entityRawData[key] = parser.parse(value, fixture, entities);
                     }
                 }
-            } else if (typeof value === 'object') {
+            }
+
+            /* istanbul ignore else */
+            if (typeof value === 'object') {
                 entityRawData[key] = this.parse(value, fixture, entities);
             }
         }
