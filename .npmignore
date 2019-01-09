@@ -33,11 +33,16 @@ src
 test
 tslint.json
 tsconfig.json
+.editorconfig
 .commitlintrc.yml
 .czrc
 .huskyrc.yml
 .lintstagedrc.yml
 .prettierignore
 .prettierrc.yml
+CHANGELOG.md
+yarn.lock
 
+#CI
+.circleci
 
