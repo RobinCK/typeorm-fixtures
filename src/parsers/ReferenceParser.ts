@@ -22,14 +22,22 @@ export class ReferenceParser implements IParser {
      * @return {any}
      */
     parse(value: string, fixture: IFixture, entities: any): any {
+        let result;
+
         if (value.substr(value.length - 1) === '*') {
             const prefix = value.substr(1, value.length - 1);
             const regex = new RegExp(`^${prefix}([0-9]+)$`);
             const maskEntities = Object.keys(entities).filter((s: string) => regex.test(s));
 
-            return entities[maskEntities[random(maskEntities.length - 1)]];
+            result = entities[maskEntities[random(maskEntities.length - 1)]];
         } else {
-            return entities[value.substr(1)];
+            result = entities[value.substr(1)];
         }
+
+        if (!result) {
+            throw new Error(`Reference "${value}" not found`);
+        }
+
+        return result;
     }
 }
