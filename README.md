@@ -1,11 +1,11 @@
 # typeorm-fixtures-cli
 
 <p align="center">
-[![Coverage Status](https://coveralls.io/repos/github/RobinCK/typeorm-fixtures/badge.svg?branch=master)](https://coveralls.io/github/RobinCK/typeorm-fixtures?branch=master)
-[![CircleCI](https://circleci.com/gh/RobinCK/typeorm-fixtures.svg?style=svg)](https://circleci.com/gh/RobinCK/typeorm-fixtures)
-[![Downloads](https://img.shields.io/npm/dm/typeorm-fixtures.svg?style=flat-square)](https://circleci.com/gh/RobinCK/typeorm-fixtures)
-[![Version](https://img.shields.io/npm/v/typeorm-fixtures.svg?style=flat-square)](https://www.npmjs.com/package/typeorm-fixtures)
-[![License](https://img.shields.io/npm/l/typeorm-fixtures.svg?style=flat-square)](https://github.com/RobinCK/typeorm-fixtures/blob/master/LICENSE)
+  <a href="https://circleci.com/gh/RobinCK/typeorm-fixtures"><img src="https://circleci.com/gh/RobinCK/typeorm-fixtures.svg?style=svg"></a>
+  <a href="https://coveralls.io/github/RobinCK/typeorm-fixtures?branch=master"><img src="https://coveralls.io/repos/github/RobinCK/typeorm-fixtures/badge.svg?branch=master"></a>
+  <a href="https://circleci.com/gh/RobinCK/typeorm-fixtures"><img src="https://img.shields.io/npm/dm/typeorm-fixtures.svg?style=flat-square"></a>
+  <a href="https://www.npmjs.com/package/typeorm-fixtures"><img src="https://img.shields.io/npm/v/typeorm-fixtures.svg?style=flat-square"></a>
+  <a href="https://github.com/RobinCK/typeorm-fixtures/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/typeorm-fixtures.svg?style=flat-square"></a>
 </p>
 
 Relying on [faker.js](https://github.com/marak/Faker.js/), typeorm-fixtures-cli allows you to create a ton of fixtures/fake data for use while developing or testing your project. It gives you a few essential tools to make it very easy to generate complex data with constraints in a readable and easy to edit way, so that everyone on your team can tweak the fixtures if needed.
