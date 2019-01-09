@@ -1,5 +1,6 @@
 {
   "entity": "User",
+  "processor": "/foo/boo",
   "items": {
     "user1": {
       "firstName": "{{name.firstName}}",

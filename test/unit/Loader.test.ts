@@ -10,7 +10,7 @@ describe('Loader', () => {
         loader.load(path.join(__dirname, 'assets/fixtures'));
 
         const configs = loader.fixtureConfigs.map((fixtureConfig: IFixturesConfig) => {
-            delete fixtureConfig.sourceFile;
+            fixtureConfig.processor = '';
 
             return fixtureConfig;
         });
@@ -19,6 +19,7 @@ describe('Loader', () => {
         expect(configs).to.deep.equal([
             {
                 entity: 'Post',
+                processor: '',
                 items: {
                     post1: {
                         title: '{{name.title}}',
@@ -29,6 +30,7 @@ describe('Loader', () => {
             },
             {
                 entity: 'User',
+                processor: '',
                 items: {
                     user1: {
                         firstName: '{{name.firstName}}',
@@ -46,7 +48,7 @@ describe('Loader', () => {
         loader.load(path.join(__dirname, 'assets/fixtures/Post.yml'));
 
         const configs = loader.fixtureConfigs.map((fixtureConfig: IFixturesConfig) => {
-            delete fixtureConfig.sourceFile;
+            fixtureConfig.processor = '';
 
             return fixtureConfig;
         });
@@ -55,6 +57,7 @@ describe('Loader', () => {
         expect(configs).to.deep.equal([
             {
                 entity: 'Post',
+                processor: '',
                 items: {
                     post1: {
                         title: '{{name.title}}',
