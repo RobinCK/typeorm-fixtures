@@ -45,10 +45,14 @@ export class Loader {
                     throw new Error(`Invalid fixtures config. File "${file}"`);
                 }
 
-                this.fixtureConfigs.push({
-                    ...fixtureConfig,
-                    sourceFile: file,
-                });
+                /* istanbul ignore else */
+                if (fixtureConfig.processor) {
+                    fixtureConfig.processor = path.isAbsolute(fixtureConfig.processor)
+                        ? path.resolve(fixtureConfig.processor)
+                        : path.resolve(path.dirname(file), fixtureConfig.processor);
+                }
+
+                this.fixtureConfigs.push(fixtureConfig);
             }
         }
     }

@@ -35,12 +35,9 @@ export class Builder {
         }
 
         if (fixture.processor) {
-            const processorPath = path.isAbsolute(fixture.processor)
-                ? path.resolve(fixture.processor)
-                : path.resolve(path.dirname(fixture.sourceFile), fixture.processor);
             const processorPathWithoutExtension = path.join(
-                path.dirname(processorPath),
-                path.basename(processorPath, path.extname(processorPath)),
+                path.dirname(fixture.processor),
+                path.basename(fixture.processor, path.extname(fixture.processor)),
             );
 
             if (
@@ -48,10 +45,10 @@ export class Builder {
                 !fs.existsSync(processorPathWithoutExtension + '.ts') &&
                 !fs.existsSync(processorPathWithoutExtension + '.js')
             ) {
-                throw new Error(`Processor "${processorPath}" not found`);
+                throw new Error(`Processor "${fixture.processor}" not found`);
             }
 
-            const processor = require(processorPath).default;
+            const processor = require(processorPathWithoutExtension).default;
             const processorInstance = new processor();
 
             if (typeof processorInstance.preProcess === 'function') {
