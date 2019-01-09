@@ -1,3 +1,9 @@
+# [0.3.0](https://github.com/RobinCK/typeorm-fixtures/compare/0.2.4...0.3.0) (2019-01-09)
+
+### Features
+
+- **parser:** add support booalen and number for faker ([7d894b5](https://github.com/RobinCK/typeorm-fixtures/commit/7d894b5))
+
 ## [0.2.4](https://github.com/RobinCK/typeorm-fixtures/compare/0.2.3...0.2.4) (2019-01-07)
 
 ### Bug Fixes
