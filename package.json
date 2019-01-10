@@ -13,6 +13,7 @@
     "lint": "tslint --project . && prettier src/**/*.ts --list-different",
     "test": "nyc mocha",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+    "publish": "npm run build",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "commit": "npx git-cz"
   },
