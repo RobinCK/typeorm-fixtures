@@ -1,5 +1,7 @@
+import { UserEntity } from '../entity/UserEntity';
+
 export class Repository {
     create() {
-        return {};
+        return new UserEntity();
     }
 }
