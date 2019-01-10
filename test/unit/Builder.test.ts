@@ -61,7 +61,7 @@ describe('Builder', () => {
         );
     });
 
-    it('should be call method', () => {
+    it('should be call method ', () => {
         const connection = new MockConnection();
         const parser = new Parser();
         const builder = new Builder(<Connection>connection, parser);
@@ -78,11 +78,13 @@ describe('Builder', () => {
                 email: 'email',
                 __call: {
                     setEmail: ['liame'],
+                    setFirstName: 'emaNtsrif',
                 },
             },
         });
 
         expect(result.email).to.be.equal('liame');
+        expect(result.firstName).to.be.equal('emaNtsrif');
     });
 
     it('should be processor not found', () => {
@@ -104,5 +106,23 @@ describe('Builder', () => {
                 },
             }),
         ).to.throw('Processor "assets/processor/UserProcessor.ts" not found');
+    });
+
+    it('should be invalid __call parameter', () => {
+        const connection = new MockConnection();
+        const parser = new Parser();
+        const builder = new Builder(<Connection>connection, parser);
+
+        expect(() =>
+            builder.build({
+                parameters: {},
+                entity: 'User',
+                name: 'user1',
+                dependencies: [],
+                data: {
+                    __call: [],
+                },
+            }),
+        ).to.throw('invalid "__call" parameter format');
     });
 });

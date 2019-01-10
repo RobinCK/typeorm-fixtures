@@ -3,7 +3,11 @@ export class UserEntity {
     lastName!: string;
     email!: string;
 
-    setEmail(email: string) {
-        this.email = email;
+    setEmail(value: string) {
+        this.email = value;
+    }
+
+    setFirstName(value: string) {
+        this.firstName = value;
     }
 }

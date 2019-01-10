@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { isObject, isArray } from 'lodash';
 import { Connection } from 'typeorm';
 import { IDataParser, IFixture } from './interface';
 
@@ -18,8 +19,9 @@ export class Builder {
         let data = this.parser.parse(fixture.data, fixture, this.entities);
         let call;
 
+        /* istanbul ignore else */
         if (data.__call) {
-            if (typeof data.__call !== 'object' || data.__call === null) {
+            if (!isObject(data.__call) || isArray(data.__call)) {
                 throw new Error('invalid "__call" parameter format');
             }
 
@@ -54,6 +56,7 @@ export class Builder {
             /* istanbul ignore else */
             if (call) {
                 for (const [method, values] of Object.entries(call)) {
+                    /* istanbul ignore else */
                     if ((entity as any)[method]) {
                         (entity as any)[method].apply(
                             entity,
