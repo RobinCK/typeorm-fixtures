@@ -15,6 +15,7 @@ export class Resolver {
                 const rangeRegExp = /^([\w-_]+)\{(\d+)\.\.(\d+)\}$/gm;
                 let referenceNames: string[] = [];
 
+                /* istanbul ignore else */
                 if (rangeRegExp.test(mainReferenceName)) {
                     const result = mainReferenceName.split(rangeRegExp);
 

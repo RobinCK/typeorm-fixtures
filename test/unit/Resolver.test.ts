@@ -1,6 +1,6 @@
 import 'mocha';
 import * as path from 'path';
-import { expect } from 'chai';
+import { expect, assert } from 'chai';
 import { Loader, Resolver } from '../../src';
 
 describe('Resolver', () => {
@@ -90,5 +90,36 @@ describe('Resolver', () => {
                 },
             },
         ]);
+    });
+
+    it('should be resolved range reference', () => {
+        const resolver = new Resolver();
+        const result = resolver.resolve([
+            {
+                entity: 'Post',
+                items: {
+                    post1: {
+                        title: '{{name.title}}',
+                        description: '{{lorem.paragraphs}}',
+                        user: '@user{1..2}',
+                    },
+                },
+            },
+
+            {
+                entity: 'User',
+                items: {
+                    'user{1..2}': {
+                        firstName: '{{name.firstName}}',
+                        lastName: '{{name.lastName}}',
+                        email: '{{internet.email}}',
+                    },
+                },
+            },
+        ]);
+
+        const post = result.find(f => f.entity === 'Post') || { data: {} };
+
+        assert.isTrue(post.data.user === '@user2' || post.data.user === '@user1');
     });
 });
