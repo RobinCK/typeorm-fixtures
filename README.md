@@ -3,7 +3,7 @@
 <p align="center">
   <a href="https://circleci.com/gh/RobinCK/typeorm-fixtures"><img src="https://circleci.com/gh/RobinCK/typeorm-fixtures.svg?style=svg"></a>
   <a href="https://coveralls.io/github/RobinCK/typeorm-fixtures?branch=master"><img src="https://coveralls.io/repos/github/RobinCK/typeorm-fixtures/badge.svg?branch=master"></a>
-  <a href="https://circleci.com/gh/RobinCK/typeorm-fixtures"><img src="https://img.shields.io/npm/dm/typeorm-fixtures.svg?style=flat-square"></a>
+  <a href="https://www.npmjs.com/package/typeorm-fixtures"><img src="https://img.shields.io/npm/dm/typeorm-fixtures.svg?style=flat-square"></a>
   <a href="https://www.npmjs.com/package/typeorm-fixtures"><img src="https://img.shields.io/npm/v/typeorm-fixtures.svg?style=flat-square"></a>
   <a href="https://github.com/RobinCK/typeorm-fixtures/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/typeorm-fixtures.svg?style=flat-square"></a>
 </p>
