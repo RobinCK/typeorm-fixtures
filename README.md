@@ -1,7 +1,5 @@
 # TypeORM fixtures cli
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/RobinCK/typeorm-fixtures.svg)](https://greenkeeper.io/)
-
 <p align="center">
   <a href="https://circleci.com/gh/RobinCK/typeorm-fixtures"><img src="https://circleci.com/gh/RobinCK/typeorm-fixtures.svg?style=svg"></a>
   <a href="https://coveralls.io/github/RobinCK/typeorm-fixtures?branch=master"><img src="https://coveralls.io/repos/github/RobinCK/typeorm-fixtures/badge.svg?branch=master"></a>
@@ -11,6 +9,8 @@
 </p>
 
 Relying on [faker.js](https://github.com/marak/Faker.js/), typeorm-fixtures-cli allows you to create a ton of fixtures/fake data for use while developing or testing your project. It gives you a few essential tools to make it very easy to generate complex data with constraints in a readable and easy to edit way, so that everyone on your team can tweak the fixtures if needed.
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/RobinCK/typeorm-fixtures.svg)](https://greenkeeper.io/)
 
 ## Table of Contents
 
