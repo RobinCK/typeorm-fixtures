@@ -15,10 +15,10 @@ export class Resolver {
                 const rangeRegExp = /^([\w-_]+)\{(\d+)\.\.(\d+)\}$/gm;
                 let referenceNames: string[] = [];
 
-                /* istanbul ignore else */
                 if (rangeRegExp.test(mainReferenceName)) {
                     const result = mainReferenceName.split(rangeRegExp);
 
+                    /* istanbul ignore else */
                     if (result) {
                         referenceNames = range(+result[2], +(+result[3]) + 1).map(
                             rangeNumber => `${result[1]}${rangeNumber}`,
