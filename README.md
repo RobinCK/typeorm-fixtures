@@ -1,4 +1,4 @@
-# typeorm-fixtures-cli
+# TypeORM fixtures cli
 
 <p align="center">
   <a href="https://circleci.com/gh/RobinCK/typeorm-fixtures"><img src="https://circleci.com/gh/RobinCK/typeorm-fixtures.svg?style=svg"></a>
