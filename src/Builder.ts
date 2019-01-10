@@ -16,21 +16,14 @@ export class Builder {
         const repository = this.connection.getRepository(fixture.entity);
         const entity = repository.create();
         let data = this.parser.parse(fixture.data, fixture, this.entities);
+        let call;
 
         if (data.__call) {
-            if (typeof data.__call !== 'object') {
+            if (typeof data.__call !== 'object' || data.__call === null) {
                 throw new Error('invalid "__call" parameter format');
             }
 
-            for (const [method, values] of Object.entries(data.__call)) {
-                if ((entity as any)[method]) {
-                    (entity as any)[method].call(
-                        entity,
-                        this.parser.parse(values instanceof Array ? values : [values], fixture, this.entities),
-                    );
-                }
-            }
-
+            call = data.__call;
             delete data.__call;
         }
 
@@ -57,6 +50,18 @@ export class Builder {
             }
 
             Object.assign(entity, data);
+
+            /* istanbul ignore else */
+            if (call) {
+                for (const [method, values] of Object.entries(call)) {
+                    if ((entity as any)[method]) {
+                        (entity as any)[method].apply(
+                            entity,
+                            this.parser.parse(values instanceof Array ? values : [values], fixture, this.entities),
+                        );
+                    }
+                }
+            }
 
             /* istanbul ignore else */
             if (typeof processorInstance.postProcess === 'function') {
