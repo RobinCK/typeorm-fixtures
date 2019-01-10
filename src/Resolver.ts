@@ -83,6 +83,7 @@ export class Resolver {
             const currentIndexRegExp = /^[a-z\_\-]+(\d+)$/gi;
             const splitting = fixtureIdentify.split(currentIndexRegExp);
 
+            /* istanbul ignore else */
             if (!splitting[1]) {
                 throw new Error(
                     `Error parsed index in reference: "${reference}" and fixture identify: ${fixtureIdentify}`,
@@ -111,6 +112,7 @@ export class Resolver {
             const dependencyElement = this.stack.find(s => s.name === dependencyName);
 
             if (!dependencyElement) {
+                /* istanbul ignore else */
                 if (dependencyName.substr(dependencyName.length - 1) !== '*') {
                     throw new Error(`Reference "${dependencyName}" not found`);
                 }
