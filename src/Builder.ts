@@ -51,12 +51,14 @@ export class Builder {
             const processor = require(processorPathWithoutExtension).default;
             const processorInstance = new processor();
 
+            /* istanbul ignore else */
             if (typeof processorInstance.preProcess === 'function') {
                 data = processorInstance.preProcess(fixture.name, data);
             }
 
             Object.assign(entity, data);
 
+            /* istanbul ignore else */
             if (typeof processorInstance.postProcess === 'function') {
                 processorInstance.postProcess(fixture.name, entity);
             }
