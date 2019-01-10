@@ -10,7 +10,9 @@ export class EjsParser implements IParser {
     /**
      * @type {RegExp}
      */
-    private regExp = /<%(.+?)%>/gm;
+    private get regExp() {
+        return /<%(.+?)%>/gm;
+    }
 
     /**
      * @param {string} value

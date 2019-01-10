@@ -10,7 +10,9 @@ export class ParameterParser implements IParser {
     /**
      * @type {RegExp}
      */
-    private regExp = /<\{(.+?)\}>/gm;
+    private get regExp() {
+        return /<\{(.+?)\}>/gm;
+    }
 
     /**
      * @param {string} value
