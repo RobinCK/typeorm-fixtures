@@ -29,13 +29,15 @@ export class Resolver {
                 }
 
                 for (const name of referenceNames) {
+                    const data = { ...propertyList };
+
                     this.stack.push({
                         parameters: parameters || {},
                         processor,
                         entity: entity,
                         name: name,
-                        dependencies: this.resolveDependencies(mainReferenceName, propertyList),
-                        data: propertyList,
+                        data,
+                        dependencies: this.resolveDependencies(name, data),
                     });
                 }
             }
@@ -69,20 +71,25 @@ export class Resolver {
     }
 
     /**
-     * @param {string} parentReferenceName
+     * @param {string} fixtureIdentify
      * @param {string} reference
      * @return {any}
      */
-    private resolveReference(parentReferenceName: string, reference: string) {
+    private resolveReference(fixtureIdentify: string, reference: string) {
         const currentRegExp = /^([\w-_]+)\(\$current\)$/gm;
         const rangeRegExp = /^([\w-_]+)\{(\d+)\.\.(\d+)\}$/gm;
 
         if (currentRegExp.test(reference)) {
             const currentIndexRegExp = /^[a-z\_\-]+(\d+)$/gi;
-            const splitting = parentReferenceName.split(currentIndexRegExp);
-            const index = splitting[1] || '';
+            const splitting = fixtureIdentify.split(currentIndexRegExp);
 
-            return reference.replace('($current)', index);
+            if (!splitting[1]) {
+                throw new Error(
+                    `Error parsed index in reference: "${reference}" and fixture identify: ${fixtureIdentify}`,
+                );
+            }
+
+            return reference.replace('($current)', splitting[1]);
         } else if (rangeRegExp.test(reference)) {
             const splitting = reference.split(rangeRegExp);
             sample(range(+splitting[2], +(+splitting[3]) + 1));
