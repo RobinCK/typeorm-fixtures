@@ -85,10 +85,10 @@ createConnection(
             barIncompleteChar: '\u2591',
             fps: 5,
             stream: process.stdout,
-            barsize: loader.fixtureConfigs.length,
+            barsize: 50,
         });
 
-        bar.start(loader.fixtureConfigs.length, 0, { name: '' });
+        bar.start(fixtures.length, 0, { name: '' });
 
         for (const fixture of fixturesIterator(fixtures)) {
             const entity = builder.build(fixture);
@@ -103,7 +103,7 @@ createConnection(
             }
         }
 
-        bar.update(loader.fixtureConfigs.length, { name: '' });
+        bar.update(fixtures.length, { name: '' });
         bar.stop();
 
         debug('\nDatabase disconnect');
@@ -111,7 +111,7 @@ createConnection(
     })
     .catch(async e => {
         error('Fail fixture loading: ' + e.message);
-        debug(e.query || e);
         await getConnection().close();
+        console.log(e); // tslint:disable-line
         process.exit(1);
     });
