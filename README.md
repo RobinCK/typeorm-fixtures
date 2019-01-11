@@ -25,6 +25,7 @@ Relying on [faker.js](https://github.com/marak/Faker.js/), typeorm-fixtures-cli 
   - [Faker Data](#faker-data)
   - [EJS templating](#ejs-templating)
   - [Load Processor](#load-processor)
+- [Samples](#samples)
 - [Usage](#usage)
 
 ## Install
