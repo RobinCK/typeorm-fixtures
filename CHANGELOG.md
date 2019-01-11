@@ -1,3 +1,5 @@
+## [0.3.6](https://github.com/RobinCK/typeorm-fixtures/compare/0.3.5...0.3.6) (2019-01-11)
+
 ## [0.3.5](https://github.com/RobinCK/typeorm-fixtures/compare/0.3.4...0.3.5) (2019-01-10)
 
 ### Bug Fixes
