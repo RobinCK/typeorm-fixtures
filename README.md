@@ -391,4 +391,8 @@ Options:
   --no-color                 Disable color
 ```
 
+## Samples
+
+- [typeorm-fixtures-sample](https://github.com/RobinCK/typeorm-fixtures-sample)
+
 MIT © [Igor Ognichenko](https://github.com/RobinCK)
