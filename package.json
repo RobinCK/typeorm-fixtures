@@ -46,7 +46,6 @@
     "@types/ejs": "^2.6.1",
     "@types/faker": "^4.1.4",
     "@types/glob": "^7.1.1",
-    "@types/joi": "^14.0.1",
     "@types/js-yaml": "^3.11.4",
     "@types/lodash": "^4.14.119",
     "@types/mocha": "^5.2.5",
@@ -70,6 +69,7 @@
     "yaml-lint": "^1.2.4"
   },
   "dependencies": {
+    "@types/joi": "^14.0.1",
     "chai": "^4.2.0",
     "chalk": "^2.4.1",
     "cli-progress": "^2.1.1",
