@@ -1,3 +1,9 @@
+# [0.4.0](https://github.com/RobinCK/typeorm-fixtures/compare/0.3.6...0.4.0) (2019-01-12)
+
+### Features
+
+- **cli:** added require options ([430e02c](https://github.com/RobinCK/typeorm-fixtures/commit/430e02c))
+
 ## [0.3.6](https://github.com/RobinCK/typeorm-fixtures/compare/0.3.5...0.3.6) (2019-01-11)
 
 ## [0.3.5](https://github.com/RobinCK/typeorm-fixtures/compare/0.3.4...0.3.5) (2019-01-10)
