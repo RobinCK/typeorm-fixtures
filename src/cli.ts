@@ -5,6 +5,8 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as cliProgress from 'cli-progress';
 import * as commander from 'commander';
+import * as resolveFrom from 'resolve-from';
+import * as yargsParser from 'yargs-parser';
 import chalk from 'chalk';
 
 import { Loader } from './Loader';
@@ -21,6 +23,7 @@ commander
     .action((fixturesPath: string, options) => {
         options.path = fixturesPath;
     })
+    .option('--require <package>', 'A list of additional modules. e.g. ts-node/register')
     .option('-c, --config <path>', 'TypeORM config path', 'ormconfig.yml')
     .option('-cn, --connection [value]', 'TypeORM connection name', 'default')
     .option('-s --sync', 'Database schema sync')
@@ -28,6 +31,16 @@ commander
     .option('--no-color', 'Disable color');
 
 commander.parse(process.argv);
+
+const argv = yargsParser(process.argv.slice(2));
+
+if (argv.require) {
+    const requires = Array.isArray(argv) ? argv : [argv];
+
+    for (const req of requires) {
+        require(resolveFrom.silent(process.cwd(), commander.require) || commander.require);
+    }
+}
 
 if (!commander.path) {
     console.error('Path to fixtureConfigs folder is not passed.\n');
