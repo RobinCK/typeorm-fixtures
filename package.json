@@ -49,6 +49,8 @@
     "@types/js-yaml": "^3.11.4",
     "@types/lodash": "^4.14.119",
     "@types/mocha": "^5.2.5",
+    "@types/resolve-from": "^4.0.0",
+    "@types/yargs-parser": "^11.0.2",
     "commitizen": "^3.0.5",
     "conventional-changelog-cli": "^2.0.11",
     "coveralls": "^3.0.2",
@@ -81,7 +83,9 @@
     "joi": "^14.3.1",
     "js-yaml": "^3.12.1",
     "lodash": "^4.17.11",
-    "reflect-metadata": "^0.1.12"
+    "reflect-metadata": "^0.1.12",
+    "resolve-from": "^4.0.0",
+    "yargs-parser": "^11.1.1"
   },
   "peerDependencies": {
     "typeorm": "^0.2.11"
