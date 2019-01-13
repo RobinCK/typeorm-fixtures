@@ -62,7 +62,7 @@ export class Resolver {
 
                 propertyList[key] = `@${reference}`;
                 dependencies.push(reference);
-            } else if (typeof value === 'object' && value !== value) {
+            } else if (typeof value === 'object' && value !== null) {
                 dependencies.push(...this.resolveDependencies(parentReferenceName, value));
             }
         }
