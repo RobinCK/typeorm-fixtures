@@ -1,4 +1,8 @@
-# [0.4.0](https://github.com/RobinCK/typeorm-fixtures/compare/0.3.6...0.4.0) (2019-01-12)
+# [1.0.0](https://github.com/RobinCK/typeorm-fixtures/compare/0.3.6...1.0.0) (2019-01-14)
+
+### Bug Fixes
+
+- **resolver:** null peroperty ([54437b8](https://github.com/RobinCK/typeorm-fixtures/commit/54437b8))
 
 ### Features
 
@@ -19,14 +23,16 @@
 - **parser:** create getters for regexp ([e3daccf](https://github.com/RobinCK/typeorm-fixtures/commit/e3daccf))
 - **resolver:** resolve for nullable property ([ce97ba3](https://github.com/RobinCK/typeorm-fixtures/commit/ce97ba3))
 
-## [0.3.3](https://github.com/RobinCK/typeorm-fixtures/compare/0.3.2...0.3.3) (2019-01-10)
-
-## [0.3.2](https://github.com/RobinCK/typeorm-fixtures/compare/0.2.4...0.3.2) (2019-01-10)
+## [0.3.3](https://github.com/RobinCK/typeorm-fixtures/compare/0.3.1...0.3.3) (2019-01-10)
 
 ### Bug Fixes
 
 - **cli:** progress bar length ([4825f3f](https://github.com/RobinCK/typeorm-fixtures/commit/4825f3f))
 - **resolver:** resolve dependencies if used \$current ([47bd691](https://github.com/RobinCK/typeorm-fixtures/commit/47bd691))
+
+## [0.3.1](https://github.com/RobinCK/typeorm-fixtures/compare/0.3.0...0.3.1) (2019-01-10)
+
+# [0.3.0](https://github.com/RobinCK/typeorm-fixtures/compare/0.2.4...0.3.0) (2019-01-09)
 
 ### Features
 
