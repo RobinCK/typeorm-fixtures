@@ -382,6 +382,7 @@ Usage: fixtures [options] <path> Fixtures folder/file path
 Options:
   -v, --version              output the version number
   -c, --config <path>        TypeORM config path (default: "ormconfig.yml")
+  --require                  A list of additional modules. e.g. ts-node/register
   -cn, --connection [value]  TypeORM connection name (default: "default")
   -s --sync                  Database schema sync
   -d --debug                 Enable debug
