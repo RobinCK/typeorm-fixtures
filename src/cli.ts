@@ -19,9 +19,9 @@ import { Parser } from './Parser';
 commander
     .version(require('../package.json').version, '-v, --version')
     .usage('[options] <path> Fixtures folder/file path')
-    .arguments('<path>')
-    .action((fixturesPath: string, options) => {
-        options.path = fixturesPath;
+    .arguments('<path> [otherPaths...]')
+    .action((fixturesPath: string, otherPaths: Array<string>, options) => {
+        options.paths = [fixturesPath, ...otherPaths];
     })
     .option('--require <package>', 'A list of additional modules. e.g. ts-node/register')
     .option('-c, --config <path>', 'TypeORM config path', 'ormconfig.yml')
@@ -42,7 +42,7 @@ if (argv.require) {
     }
 }
 
-if (!commander.path) {
+if (!commander.paths) {
     console.error('Path to fixtureConfigs folder is not passed.\n');
     commander.outputHelp();
     process.exit(1);
@@ -83,8 +83,9 @@ createConnection(
 
         debug('Loading fixtureConfigs');
         const loader = new Loader();
-        loader.load(path.resolve(commander.path));
-
+        commander.paths.forEach((fixturePath: string) => {
+            loader.load(path.resolve(fixturePath));
+        });
         debug('Resolving fixtureConfigs');
         const resolver = new Resolver();
         const fixtures = resolver.resolve(loader.fixtureConfigs);
