@@ -48,7 +48,7 @@ export class Builder {
 
             /* istanbul ignore else */
             if (typeof processorInstance.preProcess === 'function') {
-                data = await Promise.resolve(processorInstance.preProcess(fixture.name, data));
+                data = await processorInstance.preProcess(fixture.name, data);
             }
 
             Object.assign(entity, data);
@@ -68,7 +68,7 @@ export class Builder {
 
             /* istanbul ignore else */
             if (typeof processorInstance.postProcess === 'function') {
-                await Promise.resolve(processorInstance.postProcess(fixture.name, entity));
+                await processorInstance.postProcess(fixture.name, entity);
             }
         } else {
             Object.assign(entity, data);
