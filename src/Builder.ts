@@ -13,7 +13,7 @@ export class Builder {
      * @param {IFixture} fixture
      * @return {any}
      */
-    build(fixture: IFixture) {
+    async build(fixture: IFixture) {
         const repository = this.connection.getRepository(fixture.entity);
         const entity = repository.create();
         let data = this.parser.parse(fixture.data, fixture, this.entities);
@@ -48,7 +48,7 @@ export class Builder {
 
             /* istanbul ignore else */
             if (typeof processorInstance.preProcess === 'function') {
-                data = processorInstance.preProcess(fixture.name, data);
+                data = await processorInstance.preProcess(fixture.name, data);
             }
 
             Object.assign(entity, data);
@@ -68,7 +68,7 @@ export class Builder {
 
             /* istanbul ignore else */
             if (typeof processorInstance.postProcess === 'function') {
-                processorInstance.postProcess(fixture.name, entity);
+                await processorInstance.postProcess(fixture.name, entity);
             }
         } else {
             Object.assign(entity, data);
