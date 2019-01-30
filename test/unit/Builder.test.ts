@@ -1,18 +1,21 @@
 import 'mocha';
 import * as path from 'path';
-import { expect } from 'chai';
+import * as chaiAsPromised from 'chai-as-promised';
+import * as chai from 'chai';
 import { Builder, Parser } from '../../src';
 import { Connection as MockConnection } from './assets/mock/Connection';
 import { Connection } from 'typeorm';
 import { UserEntity } from './assets/entity/UserEntity';
 
+chai.use(chaiAsPromised);
+
 describe('Builder', () => {
-    it('should be build entity', () => {
+    it('should be build entity', async () => {
         const connection = new MockConnection();
         const parser = new Parser();
         const builder = new Builder(<Connection>connection, parser);
 
-        const result = builder.build({
+        const result = await builder.build({
             parameters: {},
             entity: 'User',
             name: 'user1',
@@ -25,7 +28,7 @@ describe('Builder', () => {
             },
         });
 
-        expect(result).to.be.deep.equal(
+        chai.expect(result).to.be.deep.equal(
             Object.assign(new UserEntity(), {
                 firstName: 'firstName',
                 lastName: 'lastName',
@@ -34,12 +37,12 @@ describe('Builder', () => {
         );
     });
 
-    it('should be processed entity', () => {
+    it('should be processed entity', async () => {
         const connection = new MockConnection();
         const parser = new Parser();
         const builder = new Builder(<Connection>connection, parser);
 
-        const result = builder.build({
+        const result = await builder.build({
             parameters: {},
             entity: 'User',
             name: 'user1',
@@ -52,7 +55,7 @@ describe('Builder', () => {
             },
         });
 
-        expect(result).to.be.deep.equal(
+        chai.expect(result).to.be.deep.equal(
             Object.assign(new UserEntity(), {
                 firstName: 'foo',
                 lastName: 'boo',
@@ -61,12 +64,12 @@ describe('Builder', () => {
         );
     });
 
-    it('should be call method ', () => {
+    it('should be call method ', async () => {
         const connection = new MockConnection();
         const parser = new Parser();
         const builder = new Builder(<Connection>connection, parser);
 
-        const result: any = builder.build({
+        const result: any = await builder.build({
             parameters: {},
             entity: 'User',
             name: 'user1',
@@ -83,8 +86,8 @@ describe('Builder', () => {
             },
         });
 
-        expect(result.email).to.be.equal('liame');
-        expect(result.firstName).to.be.equal('emaNtsrif');
+        chai.expect(result.email).to.be.equal('liame');
+        chai.expect(result.firstName).to.be.equal('emaNtsrif');
     });
 
     it('should be processor not found', () => {
@@ -92,7 +95,7 @@ describe('Builder', () => {
         const parser = new Parser();
         const builder = new Builder(<Connection>connection, parser);
 
-        expect(() =>
+        chai.expect(
             builder.build({
                 parameters: {},
                 entity: 'User',
@@ -105,7 +108,7 @@ describe('Builder', () => {
                     email: 'email',
                 },
             }),
-        ).to.throw('Processor "assets/processor/UserProcessor.ts" not found');
+        ).to.be.rejectedWith('Processor "assets/processor/UserProcessor.ts" not found');
     });
 
     it('should be invalid __call parameter', () => {
@@ -113,7 +116,7 @@ describe('Builder', () => {
         const parser = new Parser();
         const builder = new Builder(<Connection>connection, parser);
 
-        expect(() =>
+        chai.expect(
             builder.build({
                 parameters: {},
                 entity: 'User',
@@ -123,6 +126,6 @@ describe('Builder', () => {
                     __call: [],
                 },
             }),
-        ).to.throw('invalid "__call" parameter format');
+        ).to.be.rejectedWith(`invalid "__call" parameter format`);
     });
 });
