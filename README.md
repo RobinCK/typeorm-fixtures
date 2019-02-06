@@ -3,7 +3,6 @@
 [![CircleCI](https://circleci.com/gh/RobinCK/typeorm-fixtures.svg?style=svg)](https://circleci.com/gh/RobinCK/typeorm-fixtures)
 [![Greenkeeper badge](https://badges.greenkeeper.io/RobinCK/typeorm-fixtures.svg)](https://greenkeeper.io/)
 [![Coverage Status](https://coveralls.io/repos/github/RobinCK/typeorm-fixtures/badge.svg?branch=master&service=github&random=1)](https://coveralls.io/github/RobinCK/typeorm-fixtures?branch=master)
-[![Downloads](https://img.shields.io/npm/dm/typeorm-fixtures.svg?style=flat-square)](https://www.npmjs.com/package/typeorm-fixtures-cli)
 [![Version](https://img.shields.io/npm/v/typeorm-fixtures-cli.svg?style=flat-square)](https://www.npmjs.com/package/typeorm-fixtures-cli)
 [![License](https://img.shields.io/npm/l/typeorm-fixtures-cli.svg?style=flat-square)](https://github.com/RobinCK/typeorm-fixtures/blob/master/LICENSE)
 
