@@ -110,6 +110,23 @@ createConnection(
             try {
                 bar.increment(1, { name: fixture.name });
                 await getRepository(entity.constructor.name).save(entity);
+
+                // If the fixtures set the createdAt or updatedAt timestamps, we need to
+                // update them manually because TypeORM overwrites them on save().
+                const timestamps: any = {};
+                if (fixture.data.createdAt) {
+                    timestamps.createdAt = fixture.data.createdAt;
+                }
+                if (fixture.data.updateAt) {
+                    timestamps.updatedAt = fixture.data.updatedAt;
+                }
+
+                if (Object.keys(timestamps).length > 0) {
+                    await getRepository(entity.constructor.name).update(
+                        entity.id,
+                        timestamps
+                    );
+                }
             } catch (e) {
                 bar.stop();
 
