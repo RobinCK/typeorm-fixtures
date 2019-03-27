@@ -117,7 +117,7 @@ createConnection(
                 if (fixture.data.createdAt) {
                     timestamps.createdAt = fixture.data.createdAt;
                 }
-                if (fixture.data.updateAt) {
+                if (fixture.data.updatedAt) {
                     timestamps.updatedAt = fixture.data.updatedAt;
                 }
 
