@@ -51,7 +51,7 @@
     "@types/lodash": "^4.14.121",
     "@types/mocha": "^5.2.6",
     "@types/resolve-from": "^4.0.0",
-    "@types/yargs-parser": "^11.0.2",
+    "@types/yargs-parser": "^13.0.0",
     "chai-as-promised": "^7.1.1",
     "commitizen": "^3.0.5",
     "conventional-changelog-cli": "^2.0.12",
