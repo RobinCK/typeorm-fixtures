@@ -17,7 +17,7 @@ export class Builder {
         const repository = this.connection.getRepository(fixture.entity);
         const entity = repository.create();
         let data = this.parser.parse(fixture.data, fixture, this.entities);
-        let call;
+        let call: object;
 
         /* istanbul ignore else */
         if (data.__call) {
@@ -28,6 +28,21 @@ export class Builder {
             call = data.__call;
             delete data.__call;
         }
+
+        const callExecutors = () => {
+            /* istanbul ignore else */
+            if (call) {
+                for (const [method, values] of Object.entries(call)) {
+                    /* istanbul ignore else */
+                    if ((entity as any)[method]) {
+                        (entity as any)[method].apply(
+                            entity,
+                            this.parser.parse(values instanceof Array ? values : [values], fixture, this.entities),
+                        );
+                    }
+                }
+            }
+        };
 
         if (fixture.processor) {
             const processorPathWithoutExtension = path.join(
@@ -52,19 +67,7 @@ export class Builder {
             }
 
             Object.assign(entity, data);
-
-            /* istanbul ignore else */
-            if (call) {
-                for (const [method, values] of Object.entries(call)) {
-                    /* istanbul ignore else */
-                    if ((entity as any)[method]) {
-                        (entity as any)[method].apply(
-                            entity,
-                            this.parser.parse(values instanceof Array ? values : [values], fixture, this.entities),
-                        );
-                    }
-                }
-            }
+            callExecutors();
 
             /* istanbul ignore else */
             if (typeof processorInstance.postProcess === 'function') {
@@ -72,6 +75,7 @@ export class Builder {
             }
         } else {
             Object.assign(entity, data);
+            callExecutors();
         }
 
         this.entities[fixture.name] = entity;
