@@ -50,7 +50,7 @@
     "@types/js-yaml": "^3.12.1",
     "@types/lodash": "^4.14.123",
     "@types/mocha": "^5.2.6",
-    "@types/resolve-from": "^4.0.0",
+    "@types/resolve-from": "^5.0.0",
     "@types/yargs-parser": "^13.0.0",
     "chai-as-promised": "^7.1.1",
     "commitizen": "^3.0.7",
