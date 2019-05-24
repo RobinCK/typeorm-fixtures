@@ -109,7 +109,7 @@ createConnection(
 
             try {
                 bar.increment(1, { name: fixture.name });
-                await getRepository(entity.constructor.name).save(entity);
+                await connection.getRepository(entity.constructor.name).save(entity);
             } catch (e) {
                 bar.stop();
 
