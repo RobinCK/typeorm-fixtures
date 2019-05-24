@@ -1,8 +1,10 @@
-## [1.1.2](https://github.com/RobinCK/typeorm-fixtures/compare/1.1.1...1.1.2) (2019-04-15)
+## [1.1.3](https://github.com/RobinCK/typeorm-fixtures/compare/1.1.1...1.1.3) (2019-05-24)
 
 ### Bug Fixes
 
 - **package:** update resolve-from to version 5.0.0 ([6197630](https://github.com/RobinCK/typeorm-fixtures/commit/6197630))
+- getting repository from established connection rather than default ([868528a](https://github.com/RobinCK/typeorm-fixtures/commit/868528a))
+- update execute logic for \_\_call ([f105e52](https://github.com/RobinCK/typeorm-fixtures/commit/f105e52))
 
 ## [1.1.1](https://github.com/RobinCK/typeorm-fixtures/compare/1.1.0...1.1.1) (2019-01-30)
 
@@ -20,13 +22,11 @@
 
 - allow multiple paths in cli arguments ([f672390](https://github.com/RobinCK/typeorm-fixtures/commit/f672390))
 
-# [1.0.0](https://github.com/RobinCK/typeorm-fixtures/compare/0.4.0...1.0.0) (2019-01-14)
+# [1.0.0](https://github.com/RobinCK/typeorm-fixtures/compare/0.3.6...1.0.0) (2019-01-14)
 
 ### Bug Fixes
 
 - **resolver:** null peroperty ([54437b8](https://github.com/RobinCK/typeorm-fixtures/commit/54437b8))
-
-# [0.4.0](https://github.com/RobinCK/typeorm-fixtures/compare/0.3.6...0.4.0) (2019-01-12)
 
 ### Features
 
@@ -47,9 +47,7 @@
 - **parser:** create getters for regexp ([e3daccf](https://github.com/RobinCK/typeorm-fixtures/commit/e3daccf))
 - **resolver:** resolve for nullable property ([ce97ba3](https://github.com/RobinCK/typeorm-fixtures/commit/ce97ba3))
 
-## [0.3.3](https://github.com/RobinCK/typeorm-fixtures/compare/0.3.2...0.3.3) (2019-01-10)
-
-## [0.3.2](https://github.com/RobinCK/typeorm-fixtures/compare/0.2.4...0.3.2) (2019-01-10)
+## [0.3.3](https://github.com/RobinCK/typeorm-fixtures/compare/0.2.4...0.3.3) (2019-01-10)
 
 ### Bug Fixes
 
