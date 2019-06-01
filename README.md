@@ -389,6 +389,13 @@ Options:
   --no-color                 Disable color
 ```
 
+##### Require multiple additional modules
+If you're using multiple modules at once (e.g. ts-node and tsconfig-paths)
+you have the ability to require these modules with multiple require flags. For example:
+```
+fixtures ./fixtures --config ./typeorm.config.ts --sync --require=ts-node/register --require=tsconfig-paths/register
+```
+
 ## Samples
 
 - [typeorm-fixtures-sample](https://github.com/RobinCK/typeorm-fixtures-sample)
