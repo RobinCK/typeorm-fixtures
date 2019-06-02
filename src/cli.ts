@@ -35,10 +35,10 @@ commander.parse(process.argv);
 const argv = yargsParser(process.argv.slice(2));
 
 if (argv.require) {
-    const requires = Array.isArray(argv) ? argv : [argv];
+    const requires = Array.isArray(argv.require) ? argv.require : [argv.require];
 
     for (const req of requires) {
-        require(resolveFrom.silent(process.cwd(), commander.require) || commander.require);
+        require(resolveFrom.silent(process.cwd(), req) || req);
     }
 }
 
