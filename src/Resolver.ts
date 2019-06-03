@@ -62,6 +62,8 @@ export class Resolver {
 
                 propertyList[key] = `@${reference}`;
                 dependencies.push(reference);
+            } else if (typeof value === 'string' && value.includes('(%current)')) {
+                propertyList[key] = value.replace(/\(%current\)/g, this.resolveCurrent(parentReferenceName));
             } else if (typeof value === 'object' && value !== null) {
                 dependencies.push(...this.resolveDependencies(parentReferenceName, value));
             }
@@ -99,6 +101,15 @@ export class Resolver {
         }
 
         return reference;
+    }
+
+    /**
+     * @param {string} fixtureIdentify
+     */
+    private resolveCurrent(fixtureIdentify: string) {
+        const currentIndexRegExp = /^[a-z\_\-]+(\d+)$/gi;
+        const splitting = fixtureIdentify.split(currentIndexRegExp);
+        return splitting[1];
     }
 
     /**
