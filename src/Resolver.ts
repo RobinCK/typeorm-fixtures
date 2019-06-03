@@ -62,8 +62,8 @@ export class Resolver {
 
                 propertyList[key] = `@${reference}`;
                 dependencies.push(reference);
-            } else if (typeof value === 'string' && value.includes('(%current)')) {
-                propertyList[key] = value.replace(/\(%current\)/g, this.resolveCurrent(parentReferenceName));
+            } else if (typeof value === 'string' && value.includes('($current)')) {
+                propertyList[key] = value.replace(/\(\$current\)/g, this.resolveCurrent(parentReferenceName));
             } else if (typeof value === 'object' && value !== null) {
                 dependencies.push(...this.resolveDependencies(parentReferenceName, value));
             }
@@ -82,17 +82,15 @@ export class Resolver {
         const rangeRegExp = /^([\w-_]+)\{(\d+)\.\.(\d+)\}$/gm;
 
         if (currentRegExp.test(reference)) {
-            const currentIndexRegExp = /^[a-z\_\-]+(\d+)$/gi;
-            const splitting = fixtureIdentify.split(currentIndexRegExp);
-
+            const index = this.resolveCurrent(fixtureIdentify);
             /* istanbul ignore else */
-            if (!splitting[1]) {
+            if (!index) {
                 throw new Error(
                     `Error parsed index in reference: "${reference}" and fixture identify: ${fixtureIdentify}`,
                 );
             }
 
-            return reference.replace('($current)', splitting[1]);
+            return reference.replace('($current)', index);
         } else if (rangeRegExp.test(reference)) {
             const splitting = reference.split(rangeRegExp);
             sample(range(+splitting[2], +(+splitting[3]) + 1));
@@ -109,6 +107,7 @@ export class Resolver {
     private resolveCurrent(fixtureIdentify: string) {
         const currentIndexRegExp = /^[a-z\_\-]+(\d+)$/gi;
         const splitting = fixtureIdentify.split(currentIndexRegExp);
+
         return splitting[1];
     }
 
