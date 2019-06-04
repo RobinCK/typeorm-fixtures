@@ -55,6 +55,7 @@ export class Resolver {
      */
     private resolveDependencies(parentReferenceName: string, propertyList: any): any[] {
         const dependencies = [];
+        const currentRegExp = /\(\$current((\+|\-|\/|\*)\d+)?\)/g;
 
         for (const [key, value] of Object.entries(propertyList)) {
             if (typeof value === 'string' && value.indexOf('@') === 0) {
@@ -62,6 +63,8 @@ export class Resolver {
 
                 propertyList[key] = `@${reference}`;
                 dependencies.push(reference);
+            } else if (typeof value === 'string' && currentRegExp.test(value)) {
+                propertyList[key] = value.replace(currentRegExp, this.resolveCurrent(parentReferenceName, value));
             } else if (typeof value === 'object' && value !== null) {
                 dependencies.push(...this.resolveDependencies(parentReferenceName, value));
             }
@@ -76,21 +79,19 @@ export class Resolver {
      * @return {any}
      */
     private resolveReference(fixtureIdentify: string, reference: string) {
-        const currentRegExp = /^([\w-_]+)\(\$current\)$/gm;
+        const currentRegExp = /^([\w-_]+)\(\$current((\+|\-|\/|\*)\d+)?\)$/gm;
         const rangeRegExp = /^([\w-_]+)\{(\d+)\.\.(\d+)\}$/gm;
 
         if (currentRegExp.test(reference)) {
-            const currentIndexRegExp = /^[a-z\_\-]+(\d+)$/gi;
-            const splitting = fixtureIdentify.split(currentIndexRegExp);
-
+            const index = this.resolveCurrent(fixtureIdentify, reference);
             /* istanbul ignore else */
-            if (!splitting[1]) {
+            if (!index) {
                 throw new Error(
                     `Error parsed index in reference: "${reference}" and fixture identify: ${fixtureIdentify}`,
                 );
             }
 
-            return reference.replace('($current)', splitting[1]);
+            return reference.replace(/\(\$current((\+|\-|\/|\*)\d+)?\)/g, index);
         } else if (rangeRegExp.test(reference)) {
             const splitting = reference.split(rangeRegExp);
             sample(range(+splitting[2], +(+splitting[3]) + 1));
@@ -99,6 +100,23 @@ export class Resolver {
         }
 
         return reference;
+    }
+
+    /**
+     * @param {string} fixtureIdentify
+     * @param {string} value
+     */
+    private resolveCurrent(fixtureIdentify: string, value: string): any {
+        const currentIndexRegExp = /^[a-z\_\-]+(\d+)$/gi;
+        const currentRegExp = /\(\$current((\+|\-|\/|\*)\d+)\)/gi;
+        const splitting = fixtureIdentify.split(currentIndexRegExp);
+        if (currentRegExp.test(value)) {
+            const calc = String(value.match(/(\+|\-|\/|\*)\d+/gi));
+
+            return eval(splitting[1].concat(calc));
+        }
+
+        return splitting[1];
     }
 
     /**

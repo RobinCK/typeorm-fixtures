@@ -37,7 +37,7 @@
     "no-debugger": true,
     "no-duplicate-variable": true,
     "no-empty": true,
-    "no-eval": true,
+    "no-eval": false,
     "no-inferrable-types": true,
     "no-internal-module": true,
     "no-invalid-this": true,
