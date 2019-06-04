@@ -187,6 +187,30 @@ items:
 
 In the case of a range (e.g. user{1..10}), `($current)` will return 1 for user1, 2 for user2 etc.
 
+The current iteration can be used as a string value:
+
+```yaml
+entity: Post
+items:
+  post{1..10}:
+    title: 'Post($current)'
+    description: 'Post description'
+```
+
+`Post($current)` will return Post1 for post1, Post2 for post2 etc.
+
+You can mutate this output by using basic math operators:
+
+```yaml
+entity: Post
+items:
+  post{1..10}:
+    title: 'Post($current*100)'
+    description: 'Post description'
+```
+
+`Post($current*100)` will return Post100 for post1, Post200 for post2 etc.
+
 ### Calling Methods
 
 Sometimes though you need to call a method to initialize some more data, you can do this just like with properties but instead using the method name and giving it an array of arguments.
@@ -390,8 +414,10 @@ Options:
 ```
 
 ##### Require multiple additional modules
+
 If you're using multiple modules at once (e.g. ts-node and tsconfig-paths)
 you have the ability to require these modules with multiple require flags. For example:
+
 ```
 fixtures ./fixtures --config ./typeorm.config.ts --sync --require=ts-node/register --require=tsconfig-paths/register
 ```
