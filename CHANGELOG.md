@@ -1,4 +1,21 @@
-## [1.1.5](https://github.com/RobinCK/typeorm-fixtures/compare/1.1.1...1.1.5) (2019-06-02)
+# [1.2.0](https://github.com/RobinCK/typeorm-fixtures/compare/1.1.4...1.2.0) (2019-06-04)
+
+### Bug Fixes
+
+- index as \$ ([8655ed4](https://github.com/RobinCK/typeorm-fixtures/commit/8655ed4))
+- restore tslint format ([2313139](https://github.com/RobinCK/typeorm-fixtures/commit/2313139))
+- restore tslint format ([e53e330](https://github.com/RobinCK/typeorm-fixtures/commit/e53e330))
+- tslint empty line ([a22e3d4](https://github.com/RobinCK/typeorm-fixtures/commit/a22e3d4))
+- updated readme & unit tests ([62a2faa](https://github.com/RobinCK/typeorm-fixtures/commit/62a2faa))
+
+### Features
+
+- add calculations to current ([370cf46](https://github.com/RobinCK/typeorm-fixtures/commit/370cf46))
+- current resolved as string ([97fab7b](https://github.com/RobinCK/typeorm-fixtures/commit/97fab7b))
+
+## [1.1.4](https://github.com/RobinCK/typeorm-fixtures/compare/1.1.3...1.1.4) (2019-05-24)
+
+## [1.1.3](https://github.com/RobinCK/typeorm-fixtures/compare/1.1.1...1.1.3) (2019-05-24)
 
 ### Bug Fixes
 
