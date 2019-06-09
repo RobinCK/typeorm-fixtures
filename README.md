@@ -422,6 +422,53 @@ you have the ability to require these modules with multiple require flags. For e
 fixtures ./fixtures --config ./typeorm.config.ts --sync --require=ts-node/register --require=tsconfig-paths/register
 ```
 
+### Programmatically loading fixtures
+
+Although typeorm-fixtures-cli is intended to use as a CLI, you can still load
+fixtures via APIs in your program.
+
+For example, the below code snippet will load all fixtures exist in `./fixtures` directory:
+
+```typescript
+import * as path from "path";
+import { Builder, fixturesIterator, Loader, Parser, Resolver } from "typeorm-fixtures-cli/dist";
+import { createConnection, getRepository } from "typeorm";
+
+const loadFixtures = async (fixturesPath: string) => {
+    let connection;
+
+    try {
+        connection = await createConnection();
+        await connection.synchronize(true);
+
+        const loader = new Loader();
+        loader.load(path.resolve(fixturesPath));
+
+        const resolver = new Resolver();
+        const fixtures = resolver.resolve(loader.fixtureConfigs);
+        const builder = new Builder(connection, new Parser());
+
+        for (const fixture of fixturesIterator(fixtures)) {
+            const entity = await builder.build(fixture);
+            await getRepository(entity.constructor.name).save(entity);
+        }
+    } catch (err) {
+        throw err;
+    } finally {
+        if (connection) {
+            await connection.close();
+        }
+    }
+};
+
+loadFixtures("./fixtures")
+    .then(() => {
+        console.log("Fixtures are successfully loaded.");
+    })
+    .catch(err => console.log(err));
+
+```
+
 ## Samples
 
 - [typeorm-fixtures-sample](https://github.com/RobinCK/typeorm-fixtures-sample)
