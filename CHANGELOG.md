@@ -1,3 +1,9 @@
+# [1.3.0](https://github.com/RobinCK/typeorm-fixtures/compare/1.2.1...1.3.0) (2019-06-25)
+
+### Features
+
+- **builder:** added class-transformer support ([32b242c](https://github.com/RobinCK/typeorm-fixtures/commit/32b242c))
+
 ## [1.2.1](https://github.com/RobinCK/typeorm-fixtures/compare/1.2.0...1.2.1) (2019-06-04)
 
 # [1.2.0](https://github.com/RobinCK/typeorm-fixtures/compare/1.1.4...1.2.0) (2019-06-04)
