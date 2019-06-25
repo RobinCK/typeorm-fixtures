@@ -1,3 +1,9 @@
+## [1.3.1](https://github.com/RobinCK/typeorm-fixtures/compare/1.3.0...1.3.1) (2019-06-25)
+
+### Bug Fixes
+
+- build ([25be751](https://github.com/RobinCK/typeorm-fixtures/commit/25be751))
+
 # [1.3.0](https://github.com/RobinCK/typeorm-fixtures/compare/1.2.1...1.3.0) (2019-06-25)
 
 ### Features
