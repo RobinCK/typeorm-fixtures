@@ -5,7 +5,8 @@ import * as chai from 'chai';
 import { Builder, Parser } from '../../src';
 import { Connection as MockConnection } from './assets/mock/Connection';
 import { Connection } from 'typeorm';
-import { UserEntity } from './assets/entity/UserEntity';
+import { User } from './assets/entity/User';
+import { Listing } from './assets/entity/Listing';
 
 chai.use(chaiAsPromised);
 
@@ -29,12 +30,37 @@ describe('Builder', () => {
         });
 
         chai.expect(result).to.be.deep.equal(
-            Object.assign(new UserEntity(), {
+            Object.assign(new User(), {
                 firstName: 'firstName',
                 lastName: 'lastName',
                 email: 'email',
             }),
         );
+    });
+
+    it('should be build and transformed entity', async () => {
+        const connection = new MockConnection();
+        const parser = new Parser();
+        const builder = new Builder(<Connection>connection, parser);
+
+        const result = await builder.build({
+            parameters: {},
+            entity: 'Listing',
+            name: 'listing1',
+            processor: undefined,
+            dependencies: [],
+            data: {
+                location: {
+                    type: 'Point',
+                    coordinates: [1, 2],
+                },
+            },
+        });
+
+        chai.expect((result as Listing).location).to.be.deep.equal({
+            lat: 1,
+            lng: 2,
+        });
     });
 
     it('should be processed entity', async () => {
@@ -56,7 +82,7 @@ describe('Builder', () => {
         });
 
         chai.expect(result).to.be.deep.equal(
-            Object.assign(new UserEntity(), {
+            Object.assign(new User(), {
                 firstName: 'foo',
                 lastName: 'boo',
                 email: 'email',

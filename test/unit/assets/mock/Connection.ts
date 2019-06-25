@@ -1,7 +1,15 @@
-import { Repository } from './Repository';
+import { UserRepository } from './UserRepository';
+import { ListingRepository } from './ListingRepository';
 
 export class Connection {
     getRepository(name: string) {
-        return new Repository();
+        switch (name) {
+            case 'User':
+                return new UserRepository();
+            case 'Listing':
+                return new ListingRepository();
+            default:
+                throw new Error(`Repository "${name}" not found! Please update ${__dirname}/Connection.ts`);
+        }
     }
 }

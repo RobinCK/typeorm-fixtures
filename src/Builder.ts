@@ -3,6 +3,7 @@ import * as path from 'path';
 import { isObject, isArray } from 'lodash';
 import { Connection } from 'typeorm';
 import { IDataParser, IFixture } from './interface';
+import { plainToClassFromExist } from 'class-transformer';
 
 export class Builder {
     public entities: any = {};
@@ -15,7 +16,7 @@ export class Builder {
      */
     async build(fixture: IFixture) {
         const repository = this.connection.getRepository(fixture.entity);
-        const entity = repository.create();
+        let entity = repository.create();
         let data = this.parser.parse(fixture.data, fixture, this.entities);
         let call: object;
 
@@ -66,7 +67,7 @@ export class Builder {
                 data = await processorInstance.preProcess(fixture.name, data);
             }
 
-            Object.assign(entity, data);
+            entity = plainToClassFromExist(entity, data, { ignoreDecorators: false });
             callExecutors();
 
             /* istanbul ignore else */
@@ -74,7 +75,7 @@ export class Builder {
                 await processorInstance.postProcess(fixture.name, entity);
             }
         } else {
-            Object.assign(entity, data);
+            entity = plainToClassFromExist(entity, data, { ignoreDecorators: false });
             callExecutors();
         }
 
