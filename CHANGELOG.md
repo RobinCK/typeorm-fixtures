@@ -1,3 +1,9 @@
+## [1.3.2](https://github.com/RobinCK/typeorm-fixtures/compare/1.3.1...1.3.2) (2019-06-25)
+
+### Bug Fixes
+
+- **transformer:** ignored @Expose and @Exclude ([3aa272c](https://github.com/RobinCK/typeorm-fixtures/commit/3aa272c))
+
 ## [1.3.1](https://github.com/RobinCK/typeorm-fixtures/compare/1.3.0...1.3.1) (2019-06-25)
 
 ### Bug Fixes
