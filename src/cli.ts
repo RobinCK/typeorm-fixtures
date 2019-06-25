@@ -105,7 +105,7 @@ createConnection(
         bar.start(fixtures.length, 0, { name: '' });
 
         for (const fixture of fixturesIterator(fixtures)) {
-            const entity = await builder.build(fixture);
+            const entity: any = await builder.build(fixture);
 
             try {
                 bar.increment(1, { name: fixture.name });
