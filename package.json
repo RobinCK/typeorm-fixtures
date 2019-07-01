@@ -57,7 +57,7 @@
     "conventional-changelog-cli": "^2.0.21",
     "coveralls": "^3.0.4",
     "cz-conventional-changelog": "^2.1.0",
-    "husky": "^2.5.0",
+    "husky": "^3.0.0",
     "jsonlint": "^1.6.3",
     "lint-staged": "^9.0.0",
     "mocha": "^6.1.4",
