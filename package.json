@@ -48,7 +48,7 @@
     "@types/faker": "^4.1.5",
     "@types/glob": "^7.1.1",
     "@types/js-yaml": "^3.12.1",
-    "@types/lodash": "^4.14.134",
+    "@types/lodash": "^4.14.136",
     "@types/mocha": "^5.2.7",
     "@types/resolve-from": "^5.0.0",
     "@types/yargs-parser": "^13.0.0",
@@ -59,7 +59,7 @@
     "cz-conventional-changelog": "^2.1.0",
     "husky": "^3.0.0",
     "jsonlint": "^1.6.3",
-    "lint-staged": "^9.0.0",
+    "lint-staged": "^9.2.0",
     "mocha": "^6.1.4",
     "nyc": "^14.1.1",
     "prettier": "^1.18.2",
@@ -67,9 +67,9 @@
     "ts-node": "^8.3.0",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-immutable": "^6.0.0",
+    "tslint-immutable": "^6.0.1",
     "typeorm": "^0.2.18",
-    "typescript": "^3.5.2",
+    "typescript": "^3.5.3",
     "yaml-lint": "^1.2.4"
   },
   "dependencies": {
@@ -84,7 +84,7 @@
     "glob": "^7.1.4",
     "joi": "^14.3.1",
     "js-yaml": "^3.13.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.14",
     "reflect-metadata": "^0.1.13",
     "resolve-from": "^5.0.0",
     "yargs-parser": "^13.1.1"
