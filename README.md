@@ -5,6 +5,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/RobinCK/typeorm-fixtures/badge.svg?branch=master&service=github&random=1)](https://coveralls.io/github/RobinCK/typeorm-fixtures?branch=master)
 [![Version](https://img.shields.io/npm/v/typeorm-fixtures-cli.svg?style=flat-square)](https://www.npmjs.com/package/typeorm-fixtures-cli)
 [![License](https://img.shields.io/npm/l/typeorm-fixtures-cli.svg?style=flat-square)](https://github.com/RobinCK/typeorm-fixtures/blob/master/LICENSE)
+[![Backers on Open Collective](https://opencollective.com/typeorm-fixtures/backers/badge.svg)](#backers) 
+[![Sponsors on Open Collective](https://opencollective.com/typeorm-fixtures/sponsors/badge.svg)](#sponsors)
 
 Relying on [faker.js](https://github.com/marak/Faker.js/), typeorm-fixtures-cli allows you to create a ton of fixtures/fake data for use while developing or testing your project. It gives you a few essential tools to make it very easy to generate complex data with constraints in a readable and easy to edit way, so that everyone on your team can tweak the fixtures if needed.
 
@@ -472,5 +474,13 @@ loadFixtures("./fixtures")
 ## Samples
 
 - [typeorm-fixtures-sample](https://github.com/RobinCK/typeorm-fixtures-sample)
+
+## Backers
+ Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/parcel#backer)]
+ <a href="https://opencollective.com/typeorm-fixtures#backers" target="_blank"><img src="https://opencollective.com/typeorm-fixtures/backers.svg?width=890"></a>
+ 
+ 
+ ## Sponsors
+ Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/typeorm-fixtures#sponsor)]
 
 MIT © [Igor Ognichenko](https://github.com/RobinCK)
