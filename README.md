@@ -476,7 +476,7 @@ loadFixtures("./fixtures")
 - [typeorm-fixtures-sample](https://github.com/RobinCK/typeorm-fixtures-sample)
 
 ## Backers
- Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/parcel#backer)]
+ Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/typeorm-fixtures#backer)]
  <a href="https://opencollective.com/typeorm-fixtures#backers" target="_blank"><img src="https://opencollective.com/typeorm-fixtures/backers.svg?width=890"></a>
  
  
