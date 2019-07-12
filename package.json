@@ -85,11 +85,15 @@
     "joi": "^14.3.1",
     "js-yaml": "3.13.1",
     "lodash": "^4.17.14",
+    "opencollective-postinstall": "^2.0.2",
     "reflect-metadata": "^0.1.13",
     "resolve-from": "^5.0.0",
     "yargs-parser": "^13.1.1"
   },
   "peerDependencies": {
     "typeorm": "^0.2.11"
+  },
+  "collective": {
+    "url": "https://opencollective.com/typeorm-fixtures"
   }
 }
