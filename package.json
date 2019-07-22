@@ -57,7 +57,7 @@
     "commitizen": "^3.1.1",
     "conventional-changelog-cli": "^2.0.21",
     "coveralls": "^3.0.4",
-    "cz-conventional-changelog": "^2.1.0",
+    "cz-conventional-changelog": "^3.0.2",
     "husky": "^3.0.0",
     "jsonlint": "^1.6.3",
     "lint-staged": "^9.2.0",
