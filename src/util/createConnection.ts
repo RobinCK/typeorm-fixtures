@@ -4,6 +4,6 @@ export async function createConnection(config: object, connectionName: string): 
     const options = await new ConnectionOptionsReader(config).get(connectionName);
 
     return getConnectionManager()
-        .create(options)
+        .create(options.default ? options.default : options)
         .connect();
 }
