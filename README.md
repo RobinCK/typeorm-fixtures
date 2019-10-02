@@ -1,5 +1,6 @@
 # TypeORM fixtures cli
 
+[![](https://opencollective.com/typeorm-fixtures/all/badge.svg?label=financial+contributors)](https://opencollective.com/typeorm-fixtures)
 [![CircleCI](https://circleci.com/gh/RobinCK/typeorm-fixtures.svg?style=svg)](https://circleci.com/gh/RobinCK/typeorm-fixtures)
 [![Greenkeeper badge](https://badges.greenkeeper.io/RobinCK/typeorm-fixtures.svg)](https://greenkeeper.io/)
 [![Coverage Status](https://coveralls.io/repos/github/RobinCK/typeorm-fixtures/badge.svg?branch=master&service=github&random=1)](https://coveralls.io/github/RobinCK/typeorm-fixtures?branch=master)
@@ -474,13 +475,35 @@ loadFixtures('./fixtures')
 
 - [typeorm-fixtures-sample](https://github.com/RobinCK/typeorm-fixtures-sample)
 
-## Backers
+## Contributors
 
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/typeorm-fixtures#backer)]
-<a href="https://opencollective.com/typeorm-fixtures#backers" target="_blank"><img src="https://opencollective.com/typeorm-fixtures/backers.svg?width=890"></a>
+### Code Contributors
 
-## Sponsors
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/RobinCK/typeorm-fixtures/graphs/contributors"><img src="https://opencollective.com/typeorm-fixtures/contributors.svg?width=890&button=false" /></a>
 
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/typeorm-fixtures#sponsor)]
+### Financial Contributors
+
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/typeorm-fixtures/contribute)]
+
+#### Individuals
+
+<a href="https://opencollective.com/typeorm-fixtures"><img src="https://opencollective.com/typeorm-fixtures/individuals.svg?width=890"></a>
+
+#### Organizations
+
+Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/typeorm-fixtures/contribute)]
+
+<a href="https://opencollective.com/typeorm-fixtures/organization/0/website"><img src="https://opencollective.com/typeorm-fixtures/organization/0/avatar.svg"></a>
+<a href="https://opencollective.com/typeorm-fixtures/organization/1/website"><img src="https://opencollective.com/typeorm-fixtures/organization/1/avatar.svg"></a>
+<a href="https://opencollective.com/typeorm-fixtures/organization/2/website"><img src="https://opencollective.com/typeorm-fixtures/organization/2/avatar.svg"></a>
+<a href="https://opencollective.com/typeorm-fixtures/organization/3/website"><img src="https://opencollective.com/typeorm-fixtures/organization/3/avatar.svg"></a>
+<a href="https://opencollective.com/typeorm-fixtures/organization/4/website"><img src="https://opencollective.com/typeorm-fixtures/organization/4/avatar.svg"></a>
+<a href="https://opencollective.com/typeorm-fixtures/organization/5/website"><img src="https://opencollective.com/typeorm-fixtures/organization/5/avatar.svg"></a>
+<a href="https://opencollective.com/typeorm-fixtures/organization/6/website"><img src="https://opencollective.com/typeorm-fixtures/organization/6/avatar.svg"></a>
+<a href="https://opencollective.com/typeorm-fixtures/organization/7/website"><img src="https://opencollective.com/typeorm-fixtures/organization/7/avatar.svg"></a>
+<a href="https://opencollective.com/typeorm-fixtures/organization/8/website"><img src="https://opencollective.com/typeorm-fixtures/organization/8/avatar.svg"></a>
+<a href="https://opencollective.com/typeorm-fixtures/organization/9/website"><img src="https://opencollective.com/typeorm-fixtures/organization/9/avatar.svg"></a>
+
 
 MIT © [Igor Ognichenko](https://github.com/RobinCK)
