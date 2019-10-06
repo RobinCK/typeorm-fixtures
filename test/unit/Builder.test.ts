@@ -108,6 +108,7 @@ describe('Builder', () => {
                 __call: {
                     setEmail: ['liame'],
                     setFirstName: 'emaNtsrif',
+                    setPassword: 'mypassword',
                 },
             },
         });

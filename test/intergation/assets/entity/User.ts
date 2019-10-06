@@ -32,8 +32,4 @@ export class User {
     setPassword(value: string) {
         this.password = value + 'md5';
     }
-
-    // async setPassword(value: string) {
-    //     this.password = await value + 'md5';
-    // }
 }
