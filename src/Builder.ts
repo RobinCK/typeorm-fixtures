@@ -34,10 +34,13 @@ export class Builder {
             /* istanbul ignore else */
             if (call) {
                 for (const [method, values] of Object.entries(call)) {
-                    await (entity as any)[method].apply(
-                        entity,
-                        this.parser.parse(values instanceof Array ? values : [values], fixture, this.entities),
-                    );
+                    /* istanbul ignore else */
+                    if ((entity as any)[method]) {
+                        await (entity as any)[method].apply(
+                            entity,
+                            this.parser.parse(values instanceof Array ? values : [values], fixture, this.entities),
+                        );
+                    }
                 }
             }
         };
