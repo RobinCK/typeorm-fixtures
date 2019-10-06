@@ -1,6 +1,5 @@
 # TypeORM fixtures cli
 
-
 [![CircleCI](https://circleci.com/gh/RobinCK/typeorm-fixtures.svg?style=svg)](https://circleci.com/gh/RobinCK/typeorm-fixtures)
 [![OpenCollective](https://opencollective.com/typeorm-fixtures/all/badge.svg?label=financial+contributors)](https://opencollective.com/typeorm-fixtures)
 [![Greenkeeper badge](https://badges.greenkeeper.io/RobinCK/typeorm-fixtures.svg)](https://greenkeeper.io/)
@@ -215,7 +214,7 @@ items:
 
 `Post($current*100)` will return Post100 for post1, Post200 for post2 etc.
 
-### Calling Methods
+### Calling Sync and Async Methods
 
 Sometimes though you need to call a method to initialize some more data, you can do this just like with properties but instead using the method name and giving it an array of arguments.
 
@@ -228,7 +227,7 @@ items:
     birthDate: 1980-10-10
     email: bob@example.org
     favoriteNumber: 42
-    _call:
+    __call:
       setPassword:
         - foo
 ```
@@ -344,7 +343,7 @@ items:
     birthDate: '{{date.past}}'
     email: '{{internet.email}}'
     favoriteNumber: '{{random.number}}'
-    _call:
+    __call:
       setPassword:
         - foo
 ```
@@ -505,6 +504,5 @@ Support this project with your organization. Your logo will show up here with a 
 <a href="https://opencollective.com/typeorm-fixtures/organization/7/website"><img src="https://opencollective.com/typeorm-fixtures/organization/7/avatar.svg"></a>
 <a href="https://opencollective.com/typeorm-fixtures/organization/8/website"><img src="https://opencollective.com/typeorm-fixtures/organization/8/avatar.svg"></a>
 <a href="https://opencollective.com/typeorm-fixtures/organization/9/website"><img src="https://opencollective.com/typeorm-fixtures/organization/9/avatar.svg"></a>
-
 
 MIT © [Igor Ognichenko](https://github.com/RobinCK)
