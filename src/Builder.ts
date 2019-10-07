@@ -30,13 +30,13 @@ export class Builder {
             delete data.__call;
         }
 
-        const callExecutors = () => {
+        const callExecutors = async () => {
             /* istanbul ignore else */
             if (call) {
                 for (const [method, values] of Object.entries(call)) {
                     /* istanbul ignore else */
                     if ((entity as any)[method]) {
-                        (entity as any)[method].apply(
+                        await (entity as any)[method].apply(
                             entity,
                             this.parser.parse(values instanceof Array ? values : [values], fixture, this.entities),
                         );
@@ -68,7 +68,7 @@ export class Builder {
             }
 
             entity = plainToClassFromExist(entity, data, { ignoreDecorators: true });
-            callExecutors();
+            await callExecutors();
 
             /* istanbul ignore else */
             if (typeof processorInstance.postProcess === 'function') {
@@ -76,7 +76,7 @@ export class Builder {
             }
         } else {
             entity = plainToClassFromExist(entity, data, { ignoreDecorators: true });
-            callExecutors();
+            await callExecutors();
         }
 
         this.entities[fixture.name] = entity;
