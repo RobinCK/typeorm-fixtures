@@ -74,7 +74,8 @@
     "yaml-lint": "^1.2.4"
   },
   "dependencies": {
-    "@types/joi": "^14.3.3",
+    "@hapi/joi": "^16.1.8",
+    "@types/hapi__joi": "^16.0.3",
     "chai": "^4.2.0",
     "chalk": "^2.4.2",
     "class-transformer": "^0.2.3",
@@ -83,7 +84,6 @@
     "ejs": "^2.6.2",
     "faker": "^4.1.0",
     "glob": "^7.1.4",
-    "joi": "^14.3.1",
     "js-yaml": "3.13.1",
     "lodash": "^4.17.14",
     "opencollective-postinstall": "^2.0.2",
