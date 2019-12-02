@@ -1,7 +1,6 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import * as glob from 'glob';
-import * as Joi from 'joi';
 import * as loaders from './loaders';
 import { IFixturesConfig, ILoader } from './interface';
 import { jFixturesSchema } from './schema';
@@ -39,7 +38,7 @@ export class Loader {
             /* istanbul ignore else */
             if (loader) {
                 const fixtureConfig: IFixturesConfig = loader.load(file);
-                const { error } = Joi.validate(fixtureConfig, jFixturesSchema);
+                const { error } = jFixturesSchema.validate(fixtureConfig);
 
                 if (error) {
                     throw new Error(`Invalid fixtures config. File "${file}"`);
