@@ -1,3 +1,9 @@
+# [1.5.0](https://github.com/RobinCK/typeorm-fixtures/compare/1.4.2...1.5.0) (2020-02-13)
+
+### Features
+
+- parses parameters from process.env ([53e6f64](https://github.com/RobinCK/typeorm-fixtures/commit/53e6f64))
+
 ## [1.4.2](https://github.com/RobinCK/typeorm-fixtures/compare/1.4.1...1.4.2) (2019-12-02)
 
 ## [1.4.1](https://github.com/RobinCK/typeorm-fixtures/compare/1.4.0...1.4.1) (2019-12-02)
