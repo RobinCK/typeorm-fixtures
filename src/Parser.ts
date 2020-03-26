@@ -27,6 +27,11 @@ export class Parser implements IDataParser {
                         entityRawData[key] = parser.parse(value, fixture, entities);
                     }
                 }
+                
+                // Process escape sequences
+                if (typeof entityRawData[key] === 'string') {
+                    entityRawData[key] = this.processEscapes(entityRawData[key]);
+                }
             }
 
             /* istanbul ignore else */
@@ -57,7 +62,7 @@ export class Parser implements IDataParser {
      *
      * @param {string} value
      */
-    public unescapeValue(value: string) {
+    public processEscapes(value: string) {
         let state = 'unescaped';
         let unescapedValue = '';
 
