@@ -54,7 +54,7 @@ export class Parser implements IDataParser {
      * {{name.firstName}} === 'John'
      *
      * // Escape curly braces, no faker interpolation
-     * %{%name.firstName%}%} === '%{%{name.firstName%}%}'
+     * %{%{name.firstName%}%} === '{{name.firstName}}'
      *
      * // Escape %
      * %%{{name.firstName}}%% === '%John%'
