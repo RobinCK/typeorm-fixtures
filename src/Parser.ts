@@ -37,4 +37,58 @@ export class Parser implements IDataParser {
 
         return entityRawData;
     }
+    
+    /**
+     * Process `%` escape sequence. Currently used to escape curly braces to
+     * prevent `faker` interpolation.
+     *
+     * For example:
+     *
+     * ```
+     * // Faker interpolation
+     * {{name.firstName}} === 'John'
+     *
+     * // Escape curly braces, no faker interpolation
+     * %{%name.firstName%}%} === '%{%{name.firstName%}%}'
+     *
+     * // Escape %
+     * %%{{name.firstName}}%% === '%John%'
+     * ```
+     *
+     * @param {string} value
+     */
+    public unescapeValue(value: string) {
+        let state = 'unescaped';
+        let unescapedValue = '';
+
+        for (const ch of value) {
+            switch (state) {
+                case 'unescaped':
+                    switch (ch) {
+                        case '%':
+                            state = 'escaped';
+                            break;
+                        default:
+                            unescapedValue += ch;
+                    }
+                    break;
+                case 'escaped':
+                    switch (ch) {
+                        case '{':
+                        case '}':
+                            unescapedValue += ch;
+                            break;
+                        case '%':
+                            unescapedValue += '%';
+                            break;
+                        default:
+                            throw new Error(`Invalid escape sequence: "%${ch}"`);
+                    }
+                    state = 'unescaped';
+                    break;
+            }
+        }
+
+        return unescapedValue;
+    }
 }
