@@ -1,1 +1,10 @@
-<!-- Love parcel? Please consider supporting our collective: 👉 https://opencollective.com/parcel/donate -->
+---
+name: Feature request
+about: Suggest an idea for this project
+title: "[Feature request]"
+labels: Feature request
+assignees: RobinCK
+
+---
+
+
