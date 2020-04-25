@@ -80,7 +80,7 @@
     "chalk": "^2.4.2",
     "class-transformer": "^0.2.3",
     "cli-progress": "^3.0.0",
-    "commander": "^3.0.0",
+    "commander": "^5.1.0",
     "ejs": "^2.6.2",
     "faker": "^4.1.0",
     "glob": "^7.1.6",
