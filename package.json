@@ -43,7 +43,7 @@
     "@types/chai": "^4.2.11",
     "@types/chai-as-promised": "^7.1.2",
     "@types/chalk": "^2.2.0",
-    "@types/cli-progress": "^1.8.1",
+    "@types/cli-progress": "^3.7.0",
     "@types/commander": "^2.12.2",
     "@types/ejs": "^2.6.3",
     "@types/faker": "^4.1.11",
