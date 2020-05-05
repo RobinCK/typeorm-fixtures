@@ -440,10 +440,10 @@
   dependencies:
     chalk "*"
 
-"@types/cli-progress@^1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@types/cli-progress/-/cli-progress-1.8.1.tgz#f52f2c15ca85acab99617fd91616936faf070bd3"
-  integrity sha512-W31ZRQPQ1CM42pb5iqs3TzQlMv/RDRsPZ6pTCsl71oLFqFI/TYors3Pukj6tMinlUmXmv+Az5RD/94fZPcxMrw==
+"@types/cli-progress@^3.7.0":
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/@types/cli-progress/-/cli-progress-3.7.0.tgz#2c77da02e861699f83cce1f26b4da6cb0e438f04"
+  integrity sha512-h/f9+pomRHSodXOPgBjlLEESWhv2Z34pP5djmruylvEZ7MzTd1pljOmdsBpVh3uCGjTVOzb2ux8ZaXYqyPFgpQ==
   dependencies:
     "@types/node" "*"
 
