@@ -7,12 +7,12 @@ import * as cliProgress from 'cli-progress';
 import * as commander from 'commander';
 import * as resolveFrom from 'resolve-from';
 import * as yargsParser from 'yargs-parser';
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 
 import { Loader } from './Loader';
 import { createConnection, fixturesIterator } from './util';
 import { Resolver } from './Resolver';
-import { getConnection, getRepository } from 'typeorm';
+import { getConnection } from 'typeorm';
 import { Builder } from './Builder';
 import { Parser } from './Parser';
 
@@ -109,7 +109,7 @@ createConnection(
 
             try {
                 bar.increment(1, { name: fixture.name });
-                await connection.getRepository(entity.constructor.name).save(entity);
+                await connection.getRepository(fixture.entity).save(entity);
             } catch (e) {
                 bar.stop();
 

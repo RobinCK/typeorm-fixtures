@@ -6,7 +6,7 @@ export function* fixturesIterator(fixtures: IFixture[]) {
 
     while (true) {
         const result = fixtures.find(
-            l =>
+            (l) =>
                 sum(l.dependencies.map((d: string) => (state[d] !== undefined ? 1 : 0))) === l.dependencies.length &&
                 !state[l.name],
         );
