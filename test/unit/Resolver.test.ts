@@ -9,7 +9,7 @@ describe('Resolver', () => {
         loader.load(path.join(__dirname, 'assets/fixtures'));
 
         const resolver = new Resolver();
-        const result = resolver.resolve(loader.fixtureConfigs).map(f => {
+        const result = resolver.resolve(loader.fixtureConfigs).map((f) => {
             delete f.processor;
 
             return f;
@@ -118,7 +118,7 @@ describe('Resolver', () => {
             },
         ]);
 
-        const post = result.find(f => f.entity === 'Post') || { data: {} };
+        const post = result.find((f) => f.entity === 'Post') || { data: {} };
 
         assert.isTrue(post.data.user === '@user2' || post.data.user === '@user1');
     });
@@ -201,7 +201,7 @@ describe('Resolver', () => {
             },
         ]);
 
-        const post: any = result.find(f => f.entity === 'Post') || { data: {} };
+        const post: any = result.find((f) => f.entity === 'Post') || { data: {} };
 
         expect(post.dependencies).to.be.include('user1');
     });
@@ -231,7 +231,7 @@ describe('Resolver', () => {
             },
         ]);
 
-        const post: any = result.find(f => f.entity === 'Post') || { data: {} };
+        const post: any = result.find((f) => f.entity === 'Post') || { data: {} };
 
         expect(post.dependencies).to.be.include('user1');
     });
@@ -448,5 +448,37 @@ describe('Resolver', () => {
                 },
             ]),
         ).to.be.throw('Reference "user2" not found');
+    });
+
+    it('should be resolved with equal dependencies for wildcard', () => {
+        const resolver = new Resolver();
+        const result = resolver.resolve([
+            {
+                entity: 'Post',
+                items: {
+                    'post{1..3}': {
+                        title: '{{name.title}}',
+                        user: '@user*',
+                    },
+                },
+            },
+            {
+                entity: 'User',
+                items: {
+                    'user{1..2}': {
+                        email: '{{internet.email}}',
+                    },
+                },
+            },
+        ]);
+
+        const posts: any[] = result.filter((f) => f.entity === 'Post');
+
+        const dependencies = ['user1', 'user2'];
+        expect(posts).to.satisfy((items: any[]) =>
+            items.every((post: { dependencies: string[] }) => {
+                return post.dependencies.every((dependency, index) => dependency === dependencies[index]);
+            }),
+        );
     });
 });
