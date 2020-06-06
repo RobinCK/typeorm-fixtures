@@ -1,3 +1,9 @@
+# [1.7.0](https://github.com/RobinCK/typeorm-fixtures/compare/1.6.0...1.7.0) (2020-06-06)
+
+### Bug Fixes
+
+- large datasets times scaling exponential ([06a0235](https://github.com/RobinCK/typeorm-fixtures/commit/06a0235a55e22b7b7f9e54c3c36c350cb0dfe757))
+
 # [1.6.0](https://github.com/RobinCK/typeorm-fixtures/compare/1.3.6...1.6.0) (2020-05-23)
 
 ### Bug Fixes
