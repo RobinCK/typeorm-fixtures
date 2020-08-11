@@ -1,3 +1,9 @@
+## [1.7.1](https://github.com/RobinCK/typeorm-fixtures/compare/1.7.0...1.7.1) (2020-08-11)
+
+### Bug Fixes
+
+- table names with underscores cannot be loaded ([7aadf55](https://github.com/RobinCK/typeorm-fixtures/commit/7aadf5592358e18dd9482ae5bc7fb4e546dd28d0))
+
 # [1.7.0](https://github.com/RobinCK/typeorm-fixtures/compare/1.6.0...1.7.0) (2020-06-06)
 
 ### Bug Fixes
