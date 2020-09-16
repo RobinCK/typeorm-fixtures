@@ -1,5 +1,5 @@
 import * as faker from 'faker';
-import { IParser } from '../interface';
+import { IFixture, IParser } from '../interface';
 
 export class FakerParser implements IParser {
     /**
@@ -17,9 +17,14 @@ export class FakerParser implements IParser {
 
     /**
      * @param {string} value
+     * @param {IFixture} fixture
      * @return {any}
      */
-    parse(value: string): any {
+    parse(value: string, fixture?: IFixture): any {
+        if (fixture?.locale) {
+            // @ts-ignore
+            faker.locale = fixture.locale;
+        }
         const result = faker.fake(value);
 
         if ((+result).toString() === result) {

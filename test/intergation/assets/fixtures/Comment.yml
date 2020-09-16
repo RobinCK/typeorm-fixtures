@@ -1,4 +1,5 @@
 entity: Comment
+locale: 'pl'
 parameters: {}
 items:
   comment{1..10}:

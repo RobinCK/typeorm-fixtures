@@ -1,4 +1,5 @@
 entity: User
+locale: 'pl'
 parameters: {}
 processor: ../processor/UserProcessor
 items:

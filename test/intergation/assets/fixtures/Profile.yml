@@ -1,4 +1,5 @@
 entity: Profile
+locale: 'pl'
 parameters: {}
 items:
   profile1:
