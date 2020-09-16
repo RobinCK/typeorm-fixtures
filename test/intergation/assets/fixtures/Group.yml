@@ -1,4 +1,5 @@
 entity: Group
+locale: 'pl'
 parameters:
   names:
     admin: Admin
