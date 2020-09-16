@@ -1,14 +1,13 @@
-## [1.7.1](https://github.com/RobinCK/typeorm-fixtures/compare/1.7.0...1.7.1) (2020-08-11)
-
-### Bug Fixes
-
-- table names with underscores cannot be loaded ([7aadf55](https://github.com/RobinCK/typeorm-fixtures/commit/7aadf5592358e18dd9482ae5bc7fb4e546dd28d0))
-
-# [1.7.0](https://github.com/RobinCK/typeorm-fixtures/compare/1.6.0...1.7.0) (2020-06-06)
+# [1.8.0](https://github.com/RobinCK/typeorm-fixtures/compare/1.6.0...1.8.0) (2020-09-16)
 
 ### Bug Fixes
 
 - large datasets times scaling exponential ([06a0235](https://github.com/RobinCK/typeorm-fixtures/commit/06a0235a55e22b7b7f9e54c3c36c350cb0dfe757))
+- table names with underscores cannot be loaded ([7aadf55](https://github.com/RobinCK/typeorm-fixtures/commit/7aadf5592358e18dd9482ae5bc7fb4e546dd28d0))
+
+### Features
+
+- added faker locale support ([2385ab9](https://github.com/RobinCK/typeorm-fixtures/commit/2385ab9d5c3091242b7cc7bac18ec8f2078a2f37))
 
 # [1.6.0](https://github.com/RobinCK/typeorm-fixtures/compare/1.3.6...1.6.0) (2020-05-23)
 
