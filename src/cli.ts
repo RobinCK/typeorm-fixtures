@@ -122,6 +122,7 @@ createConnection(
 
         debug('\nDatabase disconnect');
         await connection.close();
+        process.exit(0);
     })
     .catch(async e => {
         error('Fail fixture loading: ' + e.message);
