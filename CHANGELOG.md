@@ -1,3 +1,5 @@
+## [1.8.1](https://github.com/RobinCK/typeorm-fixtures/compare/1.8.0...1.8.1) (2020-11-11)
+
 # [1.8.0](https://github.com/RobinCK/typeorm-fixtures/compare/1.6.0...1.8.0) (2020-09-16)
 
 ### Bug Fixes
