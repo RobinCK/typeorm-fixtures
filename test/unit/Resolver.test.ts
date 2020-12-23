@@ -11,6 +11,7 @@ describe('Resolver', () => {
         const resolver = new Resolver();
         const result = resolver.resolve(loader.fixtureConfigs).map((f) => {
             delete f.processor;
+            delete f.resolvedFields;
 
             return f;
         });
@@ -21,7 +22,6 @@ describe('Resolver', () => {
                 entity: 'User',
                 name: 'user1',
                 dependencies: [],
-                resolvedFields: undefined,
                 data: {
                     firstName: '{{name.firstName}}',
                     lastName: '{{name.lastName}}',
@@ -33,7 +33,6 @@ describe('Resolver', () => {
                 entity: 'Post',
                 name: 'post1',
                 dependencies: ['user1'],
-                resolvedFields: undefined,
                 data: {
                     title: '{{name.title}}',
                     description: '{{lorem.paragraphs}}',
