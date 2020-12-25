@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { isObject, isArray } from 'lodash';
 import { Connection } from 'typeorm';
-import { IDataParser, IFixture } from './interface';
+import { IDataParser, IEntity, IFixture } from './interface';
 import { plainToClassFromExist } from 'class-transformer';
 
 export class Builder {
@@ -16,7 +16,7 @@ export class Builder {
      */
     async build(fixture: IFixture) {
         const repository = this.connection.getRepository(fixture.entity);
-        let entity = repository.create();
+        let entity: IEntity = repository.create() as IEntity;
         let data = this.parser.parse(fixture.data, fixture, this.entities);
         let call: object;
 
@@ -79,10 +79,11 @@ export class Builder {
             await callExecutors();
         }
 
-        fixture.resolvedFields?.forEach((f) => {
-            // @ts-ignore
-            entity[f] = Promise.resolve(data[f]);
-        });
+        if (fixture.resolvedFields && Array.isArray(fixture.resolvedFields)) {
+            fixture.resolvedFields.forEach((propertyName) => {
+                entity[propertyName] = Promise.resolve(data[propertyName]);
+            });
+        }
 
         this.entities[fixture.name] = entity;
 
