@@ -1,5 +1,6 @@
 {
   "entity": "User",
+  "locale": "pl",
   "processor": "/foo/boo",
   "items": {
     "user1": {

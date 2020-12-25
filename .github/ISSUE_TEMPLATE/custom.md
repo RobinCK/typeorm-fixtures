@@ -1,1 +1,10 @@
-<!-- Love parcel? Please consider supporting our collective: 👉 https://opencollective.com/parcel/donate -->
+---
+name: Custom issue template
+about: Describe this issue template's purpose here.
+title: ''
+labels: ''
+assignees: ''
+
+---
+
+

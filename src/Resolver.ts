@@ -4,6 +4,7 @@ import { IFixture, IFixturesConfig } from './interface';
 
 export class Resolver {
     private stack: IFixture[] = [];
+    private resolved: Record<string, string[]> = {};
 
     /**
      * @param fixtureConfigs
@@ -21,7 +22,7 @@ export class Resolver {
                     /* istanbul ignore else */
                     if (result) {
                         referenceNames = range(+result[2], +(+result[3]) + 1).map(
-                            rangeNumber => `${result[1]}${rangeNumber}`,
+                            (rangeNumber) => `${result[1]}${rangeNumber}`,
                         );
                     }
                 } else {
@@ -44,7 +45,7 @@ export class Resolver {
         }
 
         return this.stack
-            .map(s => ({ ...s, dependencies: this.resolveDeepDependencies(s) }))
+            .map((s) => ({ ...s, dependencies: this.resolveDeepDependencies(s) }))
             .sort((a: any, b: any) => a.dependencies.length - b.dependencies.length);
     }
 
@@ -120,6 +121,14 @@ export class Resolver {
     }
 
     /**
+     * @param {string[]} dependencies
+     * @return {string[]} filtered dependencies
+     */
+    private filterUnique(dependencies: string[]) {
+        return dependencies.filter((value, index, self) => self.indexOf(value) === index);
+    }
+
+    /**
      * @param item
      * @return {any[]}
      */
@@ -127,7 +136,7 @@ export class Resolver {
         const dependencies: any[] = [];
 
         for (const dependencyName of item.dependencies) {
-            const dependencyElement = this.stack.find(s => s.name === dependencyName);
+            const dependencyElement = this.stack.find((s) => s.name === dependencyName);
 
             if (!dependencyElement) {
                 /* istanbul ignore else */
@@ -135,20 +144,26 @@ export class Resolver {
                     throw new Error(`Reference "${dependencyName}" not found`);
                 }
 
-                const prefix = dependencyName.substr(0, dependencyName.length - 1);
-                const regex = new RegExp(`^${prefix}([0-9]+)$`);
+                if (this.resolved[dependencyName]) {
+                    dependencies.push(...this.resolved[dependencyName]);
+                } else {
+                    const prefix = dependencyName.substr(0, dependencyName.length - 1);
+                    const regex = new RegExp(`^${prefix}([0-9]+)$`);
 
-                for (const dependencyMaskElement of this.stack.filter(s => regex.test(s.name))) {
-                    dependencies.push(
-                        dependencyMaskElement.name,
-                        ...this.resolveDeepDependencies(dependencyMaskElement),
-                    );
+                    for (const dependencyMaskElement of this.stack.filter((s) => regex.test(s.name))) {
+                        dependencies.push(
+                            dependencyMaskElement.name,
+                            ...this.resolveDeepDependencies(dependencyMaskElement),
+                        );
+                    }
+
+                    this.resolved[dependencyName] = this.filterUnique(dependencies);
                 }
             } else {
                 dependencies.push(dependencyName, ...this.resolveDeepDependencies(dependencyElement));
             }
         }
 
-        return dependencies.filter((value: any, index: number, self: any[]) => self.indexOf(value) === index);
+        return this.filterUnique(dependencies);
     }
 }

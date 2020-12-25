@@ -19,6 +19,7 @@ describe('Loader', () => {
         expect(configs).to.deep.equal([
             {
                 entity: 'Post',
+                locale: 'pl',
                 processor: '',
                 items: {
                     post1: {
@@ -30,6 +31,7 @@ describe('Loader', () => {
             },
             {
                 entity: 'User',
+                locale: 'pl',
                 processor: '',
                 items: {
                     user1: {
@@ -58,6 +60,7 @@ describe('Loader', () => {
             {
                 entity: 'Post',
                 processor: '',
+                locale: 'pl',
                 items: {
                     post1: {
                         title: '{{name.title}}',

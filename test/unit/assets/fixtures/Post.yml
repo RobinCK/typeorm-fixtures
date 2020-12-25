@@ -1,4 +1,5 @@
 entity: Post
+locale: 'pl'
 processor: '../processor/PostProcessor'
 items:
   post1:
