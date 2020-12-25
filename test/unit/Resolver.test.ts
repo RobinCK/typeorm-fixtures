@@ -63,6 +63,7 @@ describe('Resolver', () => {
                 name: 'post1',
                 processor: undefined,
                 dependencies: [],
+                resolvedFields: undefined,
                 data: {
                     title: '{{name.title}}',
                     description: '{{lorem.paragraphs}}',
@@ -74,6 +75,7 @@ describe('Resolver', () => {
                 name: 'post2',
                 processor: undefined,
                 dependencies: [],
+                resolvedFields: undefined,
                 data: {
                     title: '{{name.title}}',
                     description: '{{lorem.paragraphs}}',
@@ -85,6 +87,7 @@ describe('Resolver', () => {
                 name: 'post3',
                 processor: undefined,
                 dependencies: [],
+                resolvedFields: undefined,
                 data: {
                     title: '{{name.title}}',
                     description: '{{lorem.paragraphs}}',
@@ -145,6 +148,7 @@ describe('Resolver', () => {
                 name: 'post1',
                 processor: undefined,
                 dependencies: [],
+                resolvedFields: undefined,
                 data: {
                     title: '{{name.title}}',
                     description: '{{lorem.paragraphs}}',
@@ -156,6 +160,7 @@ describe('Resolver', () => {
                 name: 'post2',
                 processor: undefined,
                 dependencies: [],
+                resolvedFields: undefined,
                 data: {
                     title: '{{name.title}}',
                     description: '{{lorem.paragraphs}}',
@@ -167,6 +172,7 @@ describe('Resolver', () => {
                 name: 'post3',
                 processor: undefined,
                 dependencies: [],
+                resolvedFields: undefined,
                 data: {
                     title: '{{name.title}}',
                     description: '{{lorem.paragraphs}}',
@@ -269,6 +275,7 @@ describe('Resolver', () => {
                 name: 'user1',
                 processor: undefined,
                 dependencies: [],
+                resolvedFields: undefined,
                 data: {
                     firstName: 'firstName1',
                     lastName: '{{name.lastName}}',
@@ -281,6 +288,7 @@ describe('Resolver', () => {
                 name: 'user2',
                 processor: undefined,
                 dependencies: [],
+                resolvedFields: undefined,
                 data: {
                     firstName: 'firstName2',
                     lastName: '{{name.lastName}}',
@@ -293,6 +301,7 @@ describe('Resolver', () => {
                 name: 'user3',
                 processor: undefined,
                 dependencies: [],
+                resolvedFields: undefined,
                 data: {
                     firstName: 'firstName3',
                     lastName: '{{name.lastName}}',
@@ -305,6 +314,7 @@ describe('Resolver', () => {
                 name: 'post1',
                 processor: undefined,
                 dependencies: ['user1'],
+                resolvedFields: undefined,
                 data: {
                     title: '{{name.title}}',
                     description: '{{lorem.paragraphs}}',
@@ -317,6 +327,7 @@ describe('Resolver', () => {
                 name: 'post2',
                 processor: undefined,
                 dependencies: ['user2'],
+                resolvedFields: undefined,
                 data: {
                     title: '{{name.title}}',
                     description: '{{lorem.paragraphs}}',
@@ -329,6 +340,7 @@ describe('Resolver', () => {
                 name: 'post3',
                 processor: undefined,
                 dependencies: ['user3'],
+                resolvedFields: undefined,
                 data: {
                     title: '{{name.title}}',
                     description: '{{lorem.paragraphs}}',
@@ -360,6 +372,7 @@ describe('Resolver', () => {
                 name: 'user1',
                 processor: undefined,
                 dependencies: [],
+                resolvedFields: undefined,
                 data: {
                     firstName: 'firstName100',
                     lastName: '{{name.lastName}}',
@@ -372,6 +385,7 @@ describe('Resolver', () => {
                 name: 'user2',
                 processor: undefined,
                 dependencies: [],
+                resolvedFields: undefined,
                 data: {
                     firstName: 'firstName200',
                     lastName: '{{name.lastName}}',
@@ -384,6 +398,7 @@ describe('Resolver', () => {
                 name: 'user3',
                 processor: undefined,
                 dependencies: [],
+                resolvedFields: undefined,
                 data: {
                     firstName: 'firstName300',
                     lastName: '{{name.lastName}}',

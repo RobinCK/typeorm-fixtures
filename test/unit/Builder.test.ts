@@ -23,6 +23,7 @@ describe('Builder', () => {
             name: 'user1',
             processor: undefined,
             dependencies: [],
+            resolvedFields: undefined,
             data: {
                 firstName: 'firstName',
                 lastName: 'lastName',
@@ -50,6 +51,7 @@ describe('Builder', () => {
             name: 'listing1',
             processor: undefined,
             dependencies: [],
+            resolvedFields: undefined,
             data: {
                 location: {
                     type: 'Point',
@@ -75,6 +77,7 @@ describe('Builder', () => {
             name: 'user1',
             processor: path.join(__dirname, 'assets/processor/UserProcessor.ts'),
             dependencies: [],
+            resolvedFields: undefined,
             data: {
                 firstName: 'firstName',
                 lastName: 'lastName',
@@ -102,6 +105,7 @@ describe('Builder', () => {
             name: 'user1',
             processor: path.join(__dirname, 'assets/processor/UserProcessor.ts'),
             dependencies: [],
+            resolvedFields: undefined,
             data: {
                 firstName: 'firstName',
                 lastName: 'lastName',
@@ -130,6 +134,7 @@ describe('Builder', () => {
                 name: 'user1',
                 processor: 'assets/processor/UserProcessor.ts',
                 dependencies: [],
+                resolvedFields: undefined,
                 data: {
                     firstName: 'firstName',
                     lastName: 'lastName',
@@ -149,6 +154,7 @@ describe('Builder', () => {
                 parameters: {},
                 entity: 'User',
                 name: 'user1',
+                resolvedFields: undefined,
                 dependencies: [],
                 data: {
                     __call: [],
