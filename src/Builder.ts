@@ -79,6 +79,11 @@ export class Builder {
             await callExecutors();
         }
 
+        fixture.resolvedFields?.forEach((f) => {
+            // @ts-ignore
+            entity[f] = Promise.resolve(data[f]);
+        });
+
         this.entities[fixture.name] = entity;
 
         return entity;
