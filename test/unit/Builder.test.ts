@@ -7,6 +7,7 @@ import { Connection as MockConnection } from './assets/mock/Connection';
 import { Connection } from 'typeorm';
 import { User } from './assets/entity/User';
 import { Listing } from './assets/entity/Listing';
+import { Post } from './assets/entity/Post';
 
 chai.use(chaiAsPromised);
 
@@ -22,6 +23,7 @@ describe('Builder', () => {
             name: 'user1',
             processor: undefined,
             dependencies: [],
+            resolvedFields: undefined,
             data: {
                 firstName: 'firstName',
                 lastName: 'lastName',
@@ -49,6 +51,7 @@ describe('Builder', () => {
             name: 'listing1',
             processor: undefined,
             dependencies: [],
+            resolvedFields: undefined,
             data: {
                 location: {
                     type: 'Point',
@@ -74,6 +77,7 @@ describe('Builder', () => {
             name: 'user1',
             processor: path.join(__dirname, 'assets/processor/UserProcessor.ts'),
             dependencies: [],
+            resolvedFields: undefined,
             data: {
                 firstName: 'firstName',
                 lastName: 'lastName',
@@ -101,6 +105,7 @@ describe('Builder', () => {
             name: 'user1',
             processor: path.join(__dirname, 'assets/processor/UserProcessor.ts'),
             dependencies: [],
+            resolvedFields: undefined,
             data: {
                 firstName: 'firstName',
                 lastName: 'lastName',
@@ -129,6 +134,7 @@ describe('Builder', () => {
                 name: 'user1',
                 processor: 'assets/processor/UserProcessor.ts',
                 dependencies: [],
+                resolvedFields: undefined,
                 data: {
                     firstName: 'firstName',
                     lastName: 'lastName',
@@ -148,11 +154,53 @@ describe('Builder', () => {
                 parameters: {},
                 entity: 'User',
                 name: 'user1',
+                resolvedFields: undefined,
                 dependencies: [],
                 data: {
                     __call: [],
                 },
             }),
         ).to.be.rejectedWith(`invalid "__call" parameter format`);
+    });
+
+    it('should be resolved entity field as promised', async () => {
+        const connection = new MockConnection();
+        const parser = new Parser();
+        const builder = new Builder(<Connection>connection, parser);
+        builder.entities = {
+            user1: Object.assign(new User(), {
+                firstName: 'foo',
+                lastName: 'boo',
+                email: 'email',
+            }),
+        };
+
+        const result = await builder.build({
+            parameters: {},
+            entity: 'Post',
+            name: 'post1',
+            dependencies: ['user1'],
+            processor: undefined,
+            resolvedFields: ['user'],
+            data: {
+                title: 'A Post',
+                description: 'A description',
+                user: '@user1',
+            },
+        });
+
+        chai.expect(result).to.be.instanceOf(Post);
+        const post = result as Post;
+        const awaitedResult = {
+            title: post.title,
+            description: post.description,
+            user: await post.user,
+        };
+
+        chai.expect(awaitedResult).to.be.deep.equal({
+            title: 'A Post',
+            description: 'A description',
+            user: builder.entities['user1'],
+        });
     });
 });

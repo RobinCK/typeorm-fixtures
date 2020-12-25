@@ -5,5 +5,6 @@ export interface IFixture {
     entity: string;
     name: string;
     dependencies: string[];
+    resolvedFields?: string[];
     data: any;
 }
