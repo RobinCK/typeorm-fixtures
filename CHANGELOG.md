@@ -1,3 +1,9 @@
+# [1.9.0](https://github.com/RobinCK/typeorm-fixtures/compare/1.8.1...1.9.0) (2020-12-25)
+
+### Bug Fixes
+
+- removed ignore flag for class transformer decorators ([f500747](https://github.com/RobinCK/typeorm-fixtures/commit/f500747c830a15be47cd57f93c75f03945c8feea))
+
 ## [1.8.1](https://github.com/RobinCK/typeorm-fixtures/compare/1.8.0...1.8.1) (2020-11-11)
 
 # [1.8.0](https://github.com/RobinCK/typeorm-fixtures/compare/1.6.0...1.8.0) (2020-09-16)
@@ -30,7 +36,7 @@
 ### Bug Fixes
 
 - build ([25be751](https://github.com/RobinCK/typeorm-fixtures/commit/25be7514b1c01297273f10355b93c16383dfb861))
-- index as \$ ([8655ed4](https://github.com/RobinCK/typeorm-fixtures/commit/8655ed4b601f960b03631db9b12b2a4848e8f099))
+- index as $ ([8655ed4](https://github.com/RobinCK/typeorm-fixtures/commit/8655ed4b601f960b03631db9b12b2a4848e8f099))
 - restore tslint format ([2313139](https://github.com/RobinCK/typeorm-fixtures/commit/23131394c73fe47c481e60f5d54b11de902f9906))
 - restore tslint format ([e53e330](https://github.com/RobinCK/typeorm-fixtures/commit/e53e33061b4592e68b2e34469279d7408bf49766))
 - tslint empty line ([a22e3d4](https://github.com/RobinCK/typeorm-fixtures/commit/a22e3d45bd80a71acb989c19ebf6503a7721f560))
@@ -102,7 +108,7 @@
 ### Bug Fixes
 
 - **cli:** progress bar length ([4825f3f](https://github.com/RobinCK/typeorm-fixtures/commit/4825f3f22bf9eaefffde16a994bd10edb2c110dc))
-- **resolver:** resolve dependencies if used \$current ([47bd691](https://github.com/RobinCK/typeorm-fixtures/commit/47bd6914110f3a5f011761961fdc07920460be60))
+- **resolver:** resolve dependencies if used $current ([47bd691](https://github.com/RobinCK/typeorm-fixtures/commit/47bd6914110f3a5f011761961fdc07920460be60))
 
 ### Features
 
