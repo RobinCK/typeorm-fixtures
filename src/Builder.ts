@@ -67,7 +67,7 @@ export class Builder {
                 data = await processorInstance.preProcess(fixture.name, data);
             }
 
-            entity = plainToClassFromExist(entity, data, { ignoreDecorators: true });
+            entity = plainToClassFromExist(entity, data, { ignoreDecorators: false });
             await callExecutors();
 
             /* istanbul ignore else */
@@ -75,7 +75,7 @@ export class Builder {
                 await processorInstance.postProcess(fixture.name, entity);
             }
         } else {
-            entity = plainToClassFromExist(entity, data, { ignoreDecorators: true });
+            entity = plainToClassFromExist(entity, data, { ignoreDecorators: false });
             await callExecutors();
         }
 
