@@ -7,7 +7,7 @@ import { Connection as MockConnection } from './assets/mock/Connection';
 import { Connection } from 'typeorm';
 import { User } from './assets/entity/User';
 import { Listing } from './assets/entity/Listing';
-import {Post} from './assets/entity/Post';
+import { Post } from './assets/entity/Post';
 
 chai.use(chaiAsPromised);
 
@@ -23,7 +23,6 @@ describe('Builder', () => {
             name: 'user1',
             processor: undefined,
             dependencies: [],
-            resolvedFields: undefined,
             data: {
                 firstName: 'firstName',
                 lastName: 'lastName',
@@ -51,7 +50,6 @@ describe('Builder', () => {
             name: 'listing1',
             processor: undefined,
             dependencies: [],
-            resolvedFields: undefined,
             data: {
                 location: {
                     type: 'Point',
@@ -77,7 +75,6 @@ describe('Builder', () => {
             name: 'user1',
             processor: path.join(__dirname, 'assets/processor/UserProcessor.ts'),
             dependencies: [],
-            resolvedFields: undefined,
             data: {
                 firstName: 'firstName',
                 lastName: 'lastName',
@@ -105,7 +102,6 @@ describe('Builder', () => {
             name: 'user1',
             processor: path.join(__dirname, 'assets/processor/UserProcessor.ts'),
             dependencies: [],
-            resolvedFields: undefined,
             data: {
                 firstName: 'firstName',
                 lastName: 'lastName',
@@ -134,7 +130,6 @@ describe('Builder', () => {
                 name: 'user1',
                 processor: 'assets/processor/UserProcessor.ts',
                 dependencies: [],
-                resolvedFields: undefined,
                 data: {
                     firstName: 'firstName',
                     lastName: 'lastName',
@@ -154,7 +149,6 @@ describe('Builder', () => {
                 parameters: {},
                 entity: 'User',
                 name: 'user1',
-                resolvedFields: undefined,
                 dependencies: [],
                 data: {
                     __call: [],
@@ -168,7 +162,7 @@ describe('Builder', () => {
         const parser = new Parser();
         const builder = new Builder(<Connection>connection, parser);
         builder.entities = {
-            'user1': Object.assign(new User(), {
+            user1: Object.assign(new User(), {
                 firstName: 'foo',
                 lastName: 'boo',
                 email: 'email',
@@ -197,12 +191,10 @@ describe('Builder', () => {
             user: await post.user,
         };
 
-        chai.expect(awaitedResult).to.be.deep.equal(
-            {
-                title: 'A Post',
-                description: 'A description',
-                user: builder.entities['user1'],
-            }
-        );
+        chai.expect(awaitedResult).to.be.deep.equal({
+            title: 'A Post',
+            description: 'A description',
+            user: builder.entities['user1'],
+        });
     });
 });
