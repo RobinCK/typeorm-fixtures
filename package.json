@@ -7,7 +7,7 @@
     "fixtures": "dist/cli.js"
   },
   "scripts": {
-    "postinstall": "opencollective-postinstall",
+    "postinstall": "opencollective-postinstall || exit 0",
     "build": "npm run clean && tsc -p tsconfig.json",
     "prepare": "npm run build",
     "clean": "trash dist",
