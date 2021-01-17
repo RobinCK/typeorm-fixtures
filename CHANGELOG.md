@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/RobinCK/typeorm-fixtures/compare/1.9.0...1.9.1) (2021-01-17)
+
+### Bug Fixes
+
+- Recognize EJS over multiple lines ([b3f6043](https://github.com/RobinCK/typeorm-fixtures/commit/b3f6043612dc96542e73603965568b0a5806cec3))
+- update postinstall script ([3cdc24f](https://github.com/RobinCK/typeorm-fixtures/commit/3cdc24fa101ff2c0c6045e1a51a34cc6704a200f)), closes [#147](https://github.com/RobinCK/typeorm-fixtures/issues/147)
+
 # [1.9.0](https://github.com/RobinCK/typeorm-fixtures/compare/1.8.1...1.9.0) (2020-12-25)
 
 ### Bug Fixes
