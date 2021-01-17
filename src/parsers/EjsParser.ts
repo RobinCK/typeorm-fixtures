@@ -11,7 +11,7 @@ export class EjsParser implements IParser {
      * @type {RegExp}
      */
     private get regExp() {
-        return /<%(.+?)%>/gm;
+        return /<%(.+?)%>/gms;
     }
 
     /**
