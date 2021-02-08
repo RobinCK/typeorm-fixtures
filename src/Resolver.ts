@@ -11,7 +11,7 @@ export class Resolver {
      * @return {IFixture[]}
      */
     resolve(fixtureConfigs: IFixturesConfig[]): IFixture[] {
-        for (const { entity, items, parameters, processor, resolvedFields } of fixtureConfigs) {
+        for (const { entity, items, parameters, processor, resolvedFields, locale } of fixtureConfigs) {
             for (const [mainReferenceName, propertyList] of Object.entries(items)) {
                 const rangeRegExp = /^([\w-_]+)\{(\d+)\.\.(\d+)\}$/gm;
                 let referenceNames: string[] = [];
@@ -39,6 +39,7 @@ export class Resolver {
                         name: name,
                         resolvedFields,
                         data,
+                        locale,
                         dependencies: this.resolveDependencies(name, data),
                     });
                 }
