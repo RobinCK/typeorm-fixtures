@@ -348,6 +348,19 @@ items:
         - foo
 ```
 
+#### Defining a locale parameter for [faker.js](https://github.com/marak/Faker.js/)
+
+You can add the `locale` key in your fixture root document to define the used locale in faker.js.
+
+```yaml
+entity: User
+locale: fr
+items:
+  user{1..10}:
+    ...
+```
+
+
 ### EJS templating
 
 This library integrates with the [EJS](https://github.com/mde/ejs)
