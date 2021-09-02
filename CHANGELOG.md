@@ -1,3 +1,9 @@
+## [1.9.2](https://github.com/RobinCK/typeorm-fixtures/compare/1.9.1...1.9.2) (2021-09-02)
+
+### Features
+
+- support parsing `null` values as `null` ([b5db29b](https://github.com/RobinCK/typeorm-fixtures/commit/b5db29b0a605ea1638a7c796be9030cc8d7adb6e))
+
 ## [1.9.1](https://github.com/RobinCK/typeorm-fixtures/compare/1.9.0...1.9.1) (2021-01-17)
 
 ### Bug Fixes
@@ -28,11 +34,11 @@
 
 ### Bug Fixes
 
+- **package:** update yargs-parser to version 15.0.0 ([cba52a0](https://github.com/RobinCK/typeorm-fixtures/commit/cba52a0e2eb44dd9b7958064f528486395f92dca))
+- check if entity method ([191dd0f](https://github.com/RobinCK/typeorm-fixtures/commit/191dd0f120ebbb07cd39109e974cc4a01c828456))
 - **package:** update cli-progress to version 3.0.0 ([8cf6ff8](https://github.com/RobinCK/typeorm-fixtures/commit/8cf6ff8b10fdcf5304561afc279d14cf00c8a6d1))
 - **package:** update commander to version 3.0.0 ([978d4c0](https://github.com/RobinCK/typeorm-fixtures/commit/978d4c0ee0a66ec17e213e40e6052ee28306d87c))
 - **package:** update yargs-parser to version 14.0.0 ([ce4f273](https://github.com/RobinCK/typeorm-fixtures/commit/ce4f273cc878a06204bea0ed22565e8cd4f81298))
-- check if entity method ([191dd0f](https://github.com/RobinCK/typeorm-fixtures/commit/191dd0f120ebbb07cd39109e974cc4a01c828456))
-- **package:** update yargs-parser to version 15.0.0 ([cba52a0](https://github.com/RobinCK/typeorm-fixtures/commit/cba52a0e2eb44dd9b7958064f528486395f92dca))
 
 ### Features
 
@@ -42,19 +48,19 @@
 
 ### Bug Fixes
 
+- **transformer:** ignored @Expose and @Exclude ([3aa272c](https://github.com/RobinCK/typeorm-fixtures/commit/3aa272c9c771b7569ff08c16a576edade75567f5))
 - build ([25be751](https://github.com/RobinCK/typeorm-fixtures/commit/25be7514b1c01297273f10355b93c16383dfb861))
 - index as $ ([8655ed4](https://github.com/RobinCK/typeorm-fixtures/commit/8655ed4b601f960b03631db9b12b2a4848e8f099))
 - restore tslint format ([2313139](https://github.com/RobinCK/typeorm-fixtures/commit/23131394c73fe47c481e60f5d54b11de902f9906))
 - restore tslint format ([e53e330](https://github.com/RobinCK/typeorm-fixtures/commit/e53e33061b4592e68b2e34469279d7408bf49766))
 - tslint empty line ([a22e3d4](https://github.com/RobinCK/typeorm-fixtures/commit/a22e3d45bd80a71acb989c19ebf6503a7721f560))
 - updated readme & unit tests ([62a2faa](https://github.com/RobinCK/typeorm-fixtures/commit/62a2faaad8f8fe31148ad76fae07142991974ebe))
-- **transformer:** ignored @Expose and @Exclude ([3aa272c](https://github.com/RobinCK/typeorm-fixtures/commit/3aa272c9c771b7569ff08c16a576edade75567f5))
 
 ### Features
 
-- add calculations to current ([370cf46](https://github.com/RobinCK/typeorm-fixtures/commit/370cf464f58e81630d8240d1ebb8d01554a94944))
-- **builder:** added class-transformer support ([32b242c](https://github.com/RobinCK/typeorm-fixtures/commit/32b242c164aebd98cb72390999d1f8c5359305ee))
 - added support "export default" for ormconfig ([0712ffc](https://github.com/RobinCK/typeorm-fixtures/commit/0712ffcdb29e770f879ab070b00afba515253a30))
+- **builder:** added class-transformer support ([32b242c](https://github.com/RobinCK/typeorm-fixtures/commit/32b242c164aebd98cb72390999d1f8c5359305ee))
+- add calculations to current ([370cf46](https://github.com/RobinCK/typeorm-fixtures/commit/370cf464f58e81630d8240d1ebb8d01554a94944))
 - current resolved as string ([97fab7b](https://github.com/RobinCK/typeorm-fixtures/commit/97fab7b28a3f95d0a24531da7b6908d98ba44847))
 
 ### Reverts
@@ -65,9 +71,9 @@
 
 ### Bug Fixes
 
-- **package:** update resolve-from to version 5.0.0 ([6197630](https://github.com/RobinCK/typeorm-fixtures/commit/619763028f9398173facf31d1dd6e6781c461b37))
 - getting repository from established connection rather than default ([868528a](https://github.com/RobinCK/typeorm-fixtures/commit/868528af1b46031b96b9c7c1d02d0507a7a2dda2))
 - update execute logic for \_\_call ([f105e52](https://github.com/RobinCK/typeorm-fixtures/commit/f105e526b9c48629396871cf2da6c18a91c4170f))
+- **package:** update resolve-from to version 5.0.0 ([6197630](https://github.com/RobinCK/typeorm-fixtures/commit/619763028f9398173facf31d1dd6e6781c461b37))
 
 ## [1.1.1](https://github.com/RobinCK/typeorm-fixtures/compare/1.1.0...1.1.1) (2019-01-30)
 

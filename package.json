@@ -1,6 +1,6 @@
 {
   "name": "typeorm-fixtures-cli",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "description": "",
   "main": "dist/index.js",
   "bin": {
