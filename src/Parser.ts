@@ -11,12 +11,16 @@ export class Parser implements IDataParser {
     }
 
     /**
-     * @param {object | any} data
+     * @param {object | null | any} data
      * @param {IFixture} fixture
      * @param entities
      * @return {any}
      */
-    parse(data: object | any, fixture: IFixture, entities: any): any {
+    parse(data: object | null | any, fixture: IFixture, entities: any): any {
+        if (data === null) {
+            return null;
+        }
+
         const entityRawData = data instanceof Array ? [...data] : { ...data };
 
         for (const [key, value] of Object.entries(entityRawData)) {
