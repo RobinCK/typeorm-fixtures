@@ -9,7 +9,7 @@
 [![Backers on Open Collective](https://opencollective.com/typeorm-fixtures/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/typeorm-fixtures/sponsors/badge.svg)](#sponsors)
 
-Relying on [faker.js](https://github.com/marak/Faker.js/), typeorm-fixtures-cli allows you to create a ton of fixtures/fake data for use while developing or testing your project. It gives you a few essential tools to make it very easy to generate complex data with constraints in a readable and easy to edit way, so that everyone on your team can tweak the fixtures if needed.
+Relying on [faker.js](https://github.com/faker-js/faker), typeorm-fixtures-cli allows you to create a ton of fixtures/fake data for use while developing or testing your project. It gives you a few essential tools to make it very easy to generate complex data with constraints in a readable and easy to edit way, so that everyone on your team can tweak the fixtures if needed.
 
 ## Table of Contents
 
@@ -330,7 +330,7 @@ items:
 
 ### Faker Data
 
-This library integrates with the [faker.js](https://github.com/marak/Faker.js/) library. Using {{foo}} you can call Faker data providers to generate random data.
+This library integrates with the [faker.js](https://github.com/faker-js/faker) library. Using {{foo}} you can call Faker data providers to generate random data.
 
 Let's turn our static bob user into a randomized entry:
 
@@ -468,7 +468,7 @@ loadFixtures('./fixtures')
   .then(() => {
     console.log('Fixtures are successfully loaded.');
   })
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 ```
 
 ## Samples
