@@ -1,4 +1,4 @@
-## [1.9.2](https://github.com/RobinCK/typeorm-fixtures/compare/1.9.1...1.9.2) (2021-09-02)
+# [1.10.0](https://github.com/RobinCK/typeorm-fixtures/compare/1.9.1...1.10.0) (2022-01-15)
 
 ### Features
 
