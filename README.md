@@ -342,7 +342,7 @@ items:
     fullname: '{{name.firstName}} {{name.lastName}}'
     birthDate: '{{date.past}}'
     email: '{{internet.email}}'
-    favoriteNumber: '{{random.number}}'
+    favoriteNumber: '{{datatype.number}}'
     __call:
       setPassword:
         - foo
