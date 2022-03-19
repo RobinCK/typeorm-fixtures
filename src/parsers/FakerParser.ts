@@ -1,4 +1,4 @@
-import * as faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { IFixture, IParser } from '../interface';
 
 export class FakerParser implements IParser {
