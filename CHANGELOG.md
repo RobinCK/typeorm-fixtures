@@ -1,3 +1,5 @@
+# [1.11.0](https://github.com/RobinCK/typeorm-fixtures/compare/1.10.1...1.11.0) (2022-03-20)
+
 ## [1.10.1](https://github.com/RobinCK/typeorm-fixtures/compare/1.10.0...1.10.1) (2022-01-15)
 
 # [1.10.0](https://github.com/RobinCK/typeorm-fixtures/compare/1.9.1...1.10.0) (2022-01-15)
