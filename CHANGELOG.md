@@ -1,3 +1,9 @@
+## [1.11.1](https://github.com/RobinCK/typeorm-fixtures/compare/1.11.0...1.11.1) (2022-03-29)
+
+### Bug Fixes
+
+- circleci ([28beb04](https://github.com/RobinCK/typeorm-fixtures/commit/28beb04511e385ff888d5b6fc20ecb2b9f0362e4))
+
 # [1.11.0](https://github.com/RobinCK/typeorm-fixtures/compare/1.10.1...1.11.0) (2022-03-20)
 
 ## [1.10.1](https://github.com/RobinCK/typeorm-fixtures/compare/1.10.0...1.10.1) (2022-01-15)
