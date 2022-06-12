@@ -13,7 +13,7 @@ export class Resolver {
     resolve(fixtureConfigs: IFixturesConfig[]): IFixture[] {
         for (const { entity, items, parameters, processor, resolvedFields } of fixtureConfigs) {
             for (const [mainReferenceName, propertyList] of Object.entries(items)) {
-                const rangeRegExp = /^([\w-_]+)\{(\d+)\.\.(\d+)\}$/gm;
+                const rangeRegExp = /^([\w-_]+)\{(\d+)\.\.(\d+)}$/gm;
                 let referenceNames: string[] = [];
 
                 if (rangeRegExp.test(mainReferenceName)) {
@@ -57,11 +57,11 @@ export class Resolver {
      */
     private resolveDependencies(parentReferenceName: string, propertyList: any): any[] {
         const dependencies = [];
-        const currentRegExp = /\(\$current((\+|\-|\/|\*)\d+)?\)/g;
+        const currentRegExp = /\(\$current(([+\-/*])\d+)?\)/g;
 
         for (const [key, value] of Object.entries(propertyList)) {
             if (typeof value === 'string' && value.indexOf('@') === 0) {
-                const reference = this.resolveReference(parentReferenceName, value.substr(1));
+                const reference = this.resolveReference(parentReferenceName, value.substring(1));
 
                 propertyList[key] = `@${reference}`;
                 dependencies.push(reference);
@@ -81,8 +81,8 @@ export class Resolver {
      * @return {any}
      */
     private resolveReference(fixtureIdentify: string, reference: string) {
-        const currentRegExp = /^([\w-_]+)\(\$current((\+|\-|\/|\*)\d+)?\)$/gm;
-        const rangeRegExp = /^([\w-_]+)\{(\d+)\.\.(\d+)\}$/gm;
+        const currentRegExp = /^([\w-_]+)\(\$current(([+\-/*])\d+)?\)$/gm;
+        const rangeRegExp = /^([\w-_]+)\{(\d+)\.\.(\d+)}$/gm;
 
         if (currentRegExp.test(reference)) {
             const index = this.resolveCurrent(fixtureIdentify, reference);
@@ -93,7 +93,7 @@ export class Resolver {
                 );
             }
 
-            return reference.replace(/\(\$current((\+|\-|\/|\*)\d+)?\)/g, index);
+            return reference.replace(/\(\$current(([+\-/*])\d+)?\)/g, index);
         } else if (rangeRegExp.test(reference)) {
             const splitting = reference.split(rangeRegExp);
             sample(range(+splitting[2], +(+splitting[3]) + 1));
@@ -109,11 +109,11 @@ export class Resolver {
      * @param {string} value
      */
     private resolveCurrent(fixtureIdentify: string, value: string): any {
-        const currentIndexRegExp = /^[a-z\_\-]+(\d+)$/gi;
-        const currentRegExp = /\(\$current((\+|\-|\/|\*)\d+)\)/gi;
+        const currentIndexRegExp = /^[a-z_-]+(\d+)$/gi;
+        const currentRegExp = /\(\$current(([+\-/*])\d+)\)/gi;
         const splitting = fixtureIdentify.split(currentIndexRegExp);
         if (currentRegExp.test(value)) {
-            const calc = String(value.match(/(\+|\-|\/|\*)\d+/gi));
+            const calc = String(value.match(/([+\-/*])\d+/gi));
 
             return eval(splitting[1].concat(calc));
         }

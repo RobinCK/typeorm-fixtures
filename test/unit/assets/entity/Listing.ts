@@ -2,10 +2,10 @@ import { Transform } from 'class-transformer';
 
 export class Listing {
     @Transform(
-        value => {
+        (params) => {
             return {
-                lat: value.coordinates[0],
-                lng: value.coordinates[1],
+                lat: params.value.coordinates[0],
+                lng: params.value.coordinates[1],
             };
         },
         { toClassOnly: true },
