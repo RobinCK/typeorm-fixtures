@@ -82,4 +82,22 @@ describe('Parser', () => {
             ),
         ).to.deep.equal({ prop: { deep: ['boo'] } });
     });
+
+    it('should parse `null` as `null`', () => {
+        const parser = new Parser();
+
+        expect(
+            parser.parse(
+                { prop: { value: null } },
+                {
+                    parameters: {},
+                    entity: 'test',
+                    name: 'name',
+                    dependencies: [],
+                    data: {},
+                },
+                {},
+            ),
+        ).to.deep.equal({ prop: { value: null } });
+    });
 });
