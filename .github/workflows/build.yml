@@ -16,15 +16,15 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x]
+        node-version: [ 14.x, 16.x ]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-    - uses: borales/actions-yarn@v2.3.0
+    - uses: borales/actions-yarn@v3.0.0
       with:
         cmd: install
     - run: sudo chmod -R 777 ./dist
