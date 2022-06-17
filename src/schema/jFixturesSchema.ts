@@ -1,4 +1,4 @@
-import * as Joi from '@hapi/joi';
+import * as Joi from 'joi';
 
 export const jFixturesSchema = Joi.object().keys({
     entity: Joi.string().min(1).required(),

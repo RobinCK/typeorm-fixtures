@@ -15,6 +15,6 @@ export class Comment {
     @Column()
     text!: string;
 
-    @ManyToOne(type => Post)
+    @ManyToOne(() => Post)
     post!: Post;
 }

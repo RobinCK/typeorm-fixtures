@@ -9,10 +9,10 @@ export class Group {
     @Column()
     name!: string;
 
-    @ManyToOne(type => User)
+    @ManyToOne(() => User)
     owner!: User;
 
-    @ManyToMany(type => User, user => user.groups)
+    @ManyToMany(() => User, (user) => user.groups)
     @JoinTable()
     members!: User[];
 }

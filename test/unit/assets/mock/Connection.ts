@@ -1,6 +1,6 @@
 import { UserRepository } from './UserRepository';
 import { ListingRepository } from './ListingRepository';
-import {PostRepository} from './PostRepository';
+import { PostRepository } from './PostRepository';
 
 export class Connection {
     getRepository(name: string) {
