@@ -12,7 +12,7 @@ export class FakerParser implements IParser {
      * @return {boolean}
      */
     isSupport(value: string): boolean {
-        return /\{\{.+\}\}/gm.test(value);
+        return /\{\{.+}}/gm.test(value);
     }
 
     /**
@@ -22,7 +22,6 @@ export class FakerParser implements IParser {
      */
     parse(value: string, fixture?: IFixture): any {
         if (fixture?.locale) {
-            // @ts-ignore
             faker.locale = fixture.locale;
         }
         const result = faker.fake(value);

@@ -22,11 +22,11 @@ export class User {
     @Column()
     email!: string;
 
-    @OneToOne(type => Profile)
+    @OneToOne(() => Profile)
     @JoinColumn()
     profile!: Profile;
 
-    @ManyToMany(type => Group, group => group.members)
+    @ManyToMany(() => Group, (group) => group.members)
     groups!: Group[];
 
     setPassword(value: string) {

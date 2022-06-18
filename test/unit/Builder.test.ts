@@ -4,7 +4,7 @@ import * as chaiAsPromised from 'chai-as-promised';
 import * as chai from 'chai';
 import { Builder, Parser } from '../../src';
 import { Connection as MockConnection } from './assets/mock/Connection';
-import { Connection } from 'typeorm';
+import { DataSource } from 'typeorm';
 import { User } from './assets/entity/User';
 import { Listing } from './assets/entity/Listing';
 import { Post } from './assets/entity/Post';
@@ -15,7 +15,7 @@ describe('Builder', () => {
     it('should be build entity', async () => {
         const connection = new MockConnection();
         const parser = new Parser();
-        const builder = new Builder(<Connection>connection, parser);
+        const builder = new Builder(<DataSource>connection, parser);
 
         const result = await builder.build({
             parameters: {},
@@ -43,7 +43,7 @@ describe('Builder', () => {
     it('should be build and transformed entity', async () => {
         const connection = new MockConnection();
         const parser = new Parser();
-        const builder = new Builder(<Connection>connection, parser);
+        const builder = new Builder(<DataSource>connection, parser);
 
         const result = await builder.build({
             parameters: {},
@@ -69,7 +69,7 @@ describe('Builder', () => {
     it('should be processed entity', async () => {
         const connection = new MockConnection();
         const parser = new Parser();
-        const builder = new Builder(<Connection>connection, parser);
+        const builder = new Builder(<DataSource>connection, parser);
 
         const result = await builder.build({
             parameters: {},
@@ -97,7 +97,7 @@ describe('Builder', () => {
     it('should be call method ', async () => {
         const connection = new MockConnection();
         const parser = new Parser();
-        const builder = new Builder(<Connection>connection, parser);
+        const builder = new Builder(<DataSource>connection, parser);
 
         const result: any = await builder.build({
             parameters: {},
@@ -125,7 +125,7 @@ describe('Builder', () => {
     it('should be processor not found', () => {
         const connection = new MockConnection();
         const parser = new Parser();
-        const builder = new Builder(<Connection>connection, parser);
+        const builder = new Builder(<DataSource>connection, parser);
 
         chai.expect(
             builder.build({
@@ -147,7 +147,7 @@ describe('Builder', () => {
     it('should be invalid __call parameter', () => {
         const connection = new MockConnection();
         const parser = new Parser();
-        const builder = new Builder(<Connection>connection, parser);
+        const builder = new Builder(<DataSource>connection, parser);
 
         chai.expect(
             builder.build({
@@ -160,13 +160,13 @@ describe('Builder', () => {
                     __call: [],
                 },
             }),
-        ).to.be.rejectedWith(`invalid "__call" parameter format`);
+        ).to.be.rejectedWith('invalid "__call" parameter format');
     });
 
     it('should be resolved entity field as promised', async () => {
         const connection = new MockConnection();
         const parser = new Parser();
-        const builder = new Builder(<Connection>connection, parser);
+        const builder = new Builder(<DataSource>connection, parser);
         builder.entities = {
             user1: Object.assign(new User(), {
                 firstName: 'foo',
