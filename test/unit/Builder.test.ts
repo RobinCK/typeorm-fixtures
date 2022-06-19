@@ -88,7 +88,7 @@ describe('Builder', () => {
         chai.expect(result).to.be.deep.equal(
             Object.assign(new User(), {
                 firstName: 'foo',
-                lastName: 'boo',
+                lastName: 'bar',
                 email: 'email',
             }),
         );
