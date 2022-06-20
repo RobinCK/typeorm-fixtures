@@ -407,11 +407,11 @@ Usage: fixtures [options] <path> Fixtures folder/file path
 
 Options:
   -v, --version              output the version number
-  -c, --config <path>        TypeORM config path (default: "ormconfig.yml")
+  -c, -d, --dataSource [path]        TypeORM config path (default: "dataSource.ts")
   --require                  A list of additional modules. e.g. ts-node/register
   -cn, --connection [value]  TypeORM connection name (default: "default")
-  -s --sync                  Database schema sync
-  -d --debug                 Enable debug
+  -s, --sync                  Database schema sync
+  --debug                 Enable debug
   -h, --help                 output usage information
   --no-color                 Disable color
 ```
@@ -468,7 +468,9 @@ loadFixtures('./fixtures')
   .then(() => {
     console.log('Fixtures are successfully loaded.');
   })
-  .catch((err) => console.log(err));
+  .catch((err) => {
+    console.log(err);
+  });
 ```
 
 ## Samples

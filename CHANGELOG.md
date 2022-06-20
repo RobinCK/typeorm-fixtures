@@ -7,7 +7,7 @@
 
 ### BREAKING CHANGES
 
-- Imcompatible with typeorm 0.2.0, this version uses the new datasource class of
+- Incompatible with typeorm 0.2.0, this version uses the new datasource class of
   typeorm 0.3.0.
 
 ## [1.11.1](https://github.com/RobinCK/typeorm-fixtures/compare/1.11.0...1.11.1) (2022-03-29)

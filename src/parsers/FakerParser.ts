@@ -7,19 +7,10 @@ export class FakerParser implements IParser {
      */
     public priority = 70;
 
-    /**
-     * @param {string} value
-     * @return {boolean}
-     */
     isSupport(value: string): boolean {
         return /\{\{.+}}/gm.test(value);
     }
 
-    /**
-     * @param {string} value
-     * @param {IFixture} fixture
-     * @return {any}
-     */
     parse(value: string, fixture?: IFixture): any {
         if (fixture?.locale) {
             faker.locale = fixture.locale;

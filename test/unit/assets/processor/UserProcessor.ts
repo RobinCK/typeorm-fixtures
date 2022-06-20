@@ -1,4 +1,4 @@
-import { IProcessor } from '../../../../src/interface';
+import { IProcessor } from '../../../../src';
 
 export default class UserProcessor implements IProcessor<any> {
     preProcess(name: string, object: { [key: string]: any }): any {
@@ -6,6 +6,6 @@ export default class UserProcessor implements IProcessor<any> {
     }
 
     postProcess(name: string, object: { [key: string]: any }): void {
-        object.lastName = 'boo';
+        object.lastName = 'bar';
     }
 }

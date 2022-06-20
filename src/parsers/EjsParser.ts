@@ -7,26 +7,10 @@ export class EjsParser implements IParser {
      */
     public priority = 80;
 
-    /**
-     * @type {RegExp}
-     */
-    private get regExp() {
-        return /<%(.+?)%>/gms;
-    }
-
-    /**
-     * @param {string} value
-     * @return {boolean}
-     */
     isSupport(value: string): boolean {
-        return this.regExp.test(value);
+        return /<%(.+?)%>/gms.test(value);
     }
 
-    /**
-     * @param {string} value
-     * @param {IFixture} fixture
-     * @return {any}
-     */
     parse(value: string, fixture: IFixture): any {
         return ejs.render(value, fixture);
     }

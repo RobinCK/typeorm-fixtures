@@ -26,12 +26,13 @@ const debug = (message: string) => {
 const command = new Command();
 command
     .version(require('../package.json').version, '-v, --version')
+    .usage('[options] <paths> Fixtures folder/file path')
     .arguments('<path...>')
     .option('--require <require...>', 'A list of additional modules. e.g. ts-node/register')
-    .option('-c, --dataSource <dataSource>', 'TypeORM dataSource path', 'dataSource.ts')
+    .option('-c, -d, --dataSource <dataSource>', 'TypeORM dataSource path', 'dataSource.ts')
     .option('-cn, --connection <connection>', 'TypeORM connection name', 'default')
-    .option('-s --sync', 'Database schema sync')
-    .option('-d --debug', 'Enable debug')
+    .option('-s, --sync', 'Database schema sync')
+    .option('--debug', 'Enable debug')
     .option('--no-color', 'Disable color')
     .parse();
 
