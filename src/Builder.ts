@@ -30,7 +30,7 @@ export class Builder {
         const entity: IEntity = repository.create() as IEntity;
 
         // exclude prefixes to ignore __call methods
-        return plainToClassFromExist(entity, data, { excludePrefixes: ['__'], ignoreDecorators: false });
+        return plainToClassFromExist(entity, data, { excludePrefixes: ['__'], ignoreDecorators: true });
     }
 
     async build(fixture: IFixture): Promise<IEntity> {
