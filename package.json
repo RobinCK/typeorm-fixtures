@@ -1,5 +1,5 @@
 {
-  "name": "typeorm-fixtures-cli",
+  "name": "typeorm-fixtures-cli-fork",
   "version": "2.1.0",
   "description": "",
   "main": "dist/index.js",
