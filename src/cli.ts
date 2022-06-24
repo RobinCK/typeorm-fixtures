@@ -7,9 +7,11 @@ import * as chalk from 'chalk';
 import * as cliProgress from 'cli-progress';
 import * as resolveFrom from 'resolve-from';
 import { Command } from 'commander';
+import { CommandUtils } from 'typeorm/commands/CommandUtils';
+import { DataSource } from 'typeorm';
 
 import { Loader } from './Loader';
-import { createConnection, fixturesIterator } from './util';
+import { fixturesIterator } from './util';
 import { Resolver } from './Resolver';
 import { Builder } from './Builder';
 import { Parser } from './Parser';
@@ -29,8 +31,7 @@ command
     .usage('[options] <paths> Fixtures folder/file path')
     .arguments('<path...>')
     .option('--require <require...>', 'A list of additional modules. e.g. ts-node/register')
-    .option('-c, -d, --dataSource <dataSource>', 'TypeORM dataSource path', 'dataSource.ts')
-    .option('-cn, --connection <connection>', 'TypeORM connection name', 'default')
+    .option('-d, --dataSource <dataSource>', 'TypeORM dataSource path', 'dataSource.ts')
     .option('-s, --sync', 'Database schema sync')
     .option('--debug', 'Enable debug')
     .option('--no-color', 'Disable color')
@@ -45,10 +46,10 @@ if (!paths) {
     process.exit(1);
 }
 
-const typeOrmConfigPath = path.resolve(options.dataSource);
+const dataSourcePath = path.resolve(options.dataSource);
 
-if (!fs.existsSync(typeOrmConfigPath)) {
-    throw new Error(`TypeOrm config ${typeOrmConfigPath} not found`);
+if (!fs.existsSync(dataSourcePath)) {
+    throw new Error(`TypeOrm config ${dataSourcePath} not found`);
 }
 
 if (options.require) {
@@ -57,16 +58,13 @@ if (options.require) {
     }
 }
 
-debug('Connection to database...');
-createConnection(
-    {
-        root: path.dirname(typeOrmConfigPath),
-        configName: path.basename(typeOrmConfigPath, path.extname(typeOrmConfigPath)),
-    },
-    options.connection,
-)
-    .then(async (dataSource) => {
-        debug('Database is connected');
+async function main(): Promise<void> {
+    let dataSource: DataSource | undefined = undefined;
+
+    try {
+        debug('Connection to database...');
+        dataSource = await CommandUtils.loadDataSource(dataSourcePath);
+        await dataSource.initialize();
 
         if (options.sync) {
             debug('Synchronize database schema');
@@ -112,12 +110,17 @@ createConnection(
         bar.update(fixtures.length, { name: '' });
         bar.stop();
 
-        debug('\nDatabase disconnect');
+        debug('Database disconnect');
         await dataSource.destroy();
         process.exit(0);
-    })
-    .catch(async (e) => {
-        error('Fail fixture loading: ' + e.message);
-        console.log(e); // eslint-disable-line
+    } catch (err: any) {
+        error('Fail fixture loading: ' + err.message);
+        if (dataSource) {
+            await dataSource.destroy();
+        }
+        console.log(err); // eslint-disable-line
         process.exit(1);
-    });
+    }
+}
+
+main().then(() => null);
