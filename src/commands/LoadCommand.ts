@@ -22,16 +22,6 @@ export class LoadCommand implements yargs.CommandModule {
 
     private withDebug = false;
 
-    private printDebug(message: string) {
-        if (this.withDebug) {
-            console.log(chalk.grey(message)); // eslint-disable-line
-        }
-    }
-
-    private printError(message: string) {
-        console.log(chalk.red(message)); // eslint-disable-line
-    }
-
     builder(args: yargs.Argv) {
         return args
             .positional('paths', {
@@ -70,7 +60,7 @@ export class LoadCommand implements yargs.CommandModule {
     }
 
     async handler(args: yargs.Arguments): Promise<void> {
-        this.withDebug = args.debug as boolean;
+        const withDebug = args.debug as boolean;
 
         for (const req of args.require as string[]) {
             require(resolveFrom.silent(process.cwd(), req) || req);
@@ -83,16 +73,22 @@ export class LoadCommand implements yargs.CommandModule {
 
         let dataSource: DataSource | undefined = undefined;
         try {
-            this.printDebug('Connection to database...');
+            if (withDebug) {
+                console.log(chalk.grey('Connection to database...')); // eslint-disable-line
+            }
             dataSource = await CommandUtils.loadDataSource(dataSourcePath);
             await dataSource.initialize();
 
             if (args.sync) {
-                this.printDebug('Synchronize database schema');
+                if (withDebug) {
+                    console.log(chalk.grey('Synchronize database schema')); // eslint-disable-line
+                }
                 await dataSource.synchronize(true);
             }
 
-            this.printDebug('Loading fixtureConfigs');
+            if (withDebug) {
+                console.log(chalk.grey('Loading fixtureConfigs')); // eslint-disable-line
+            }
             const loader = new Loader();
             (args.paths as string[]).forEach((fixturePath: string) => {
                 loader.load(path.resolve(fixturePath));
@@ -109,7 +105,9 @@ export class LoadCommand implements yargs.CommandModule {
                 barsize: 50,
             });
 
-            this.printDebug('Resolving fixtureConfigs');
+            if (withDebug) {
+                console.log(chalk.grey('Resolving fixtureConfigs')); // eslint-disable-line
+            }
             const resolver = new Resolver();
             const fixtures = resolver.resolve(loader.fixtureConfigs);
             const builder = new Builder(dataSource, new Parser(), args.ignoreDecorators as boolean);
@@ -131,11 +129,14 @@ export class LoadCommand implements yargs.CommandModule {
             bar.update(fixtures.length, { name: '' });
             bar.stop();
 
-            this.printDebug('Database disconnect');
+            if (withDebug) {
+                console.log(chalk.grey('Database disconnect')); // eslint-disable-line
+            }
             await dataSource.destroy();
             process.exit(0);
         } catch (err: any) {
-            this.printError('Fail fixture loading: ' + err.message);
+            console.log(chalk.red('Fail fixture loading: ' + err.message)); // eslint-disable-line
+
             if (dataSource) {
                 await dataSource.destroy();
             }
