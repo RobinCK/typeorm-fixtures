@@ -11,6 +11,6 @@ export class YamlLoader implements ILoader {
     }
 
     load(filePath: string): IFixturesConfig {
-        return yaml.safeLoad(fs.readFileSync(filePath).toString()) as IFixturesConfig;
+        return yaml.load(fs.readFileSync(filePath).toString()) as IFixturesConfig;
     }
 }
