@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
 import 'reflect-metadata';
+import * as chalk from 'chalk';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as cliProgress from 'cli-progress';
 import * as resolveFrom from 'resolve-from';
 import * as yargs from 'yargs';
-import chalk from 'chalk';
 import { CommandUtils } from 'typeorm/commands/CommandUtils';
 import { DataSource } from 'typeorm';
 
