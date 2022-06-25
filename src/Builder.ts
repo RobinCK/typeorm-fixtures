@@ -8,7 +8,11 @@ import { plainToClassFromExist } from 'class-transformer';
 export class Builder {
     public entities: any = {};
 
-    constructor(private readonly dataSource: DataSource, private readonly parser: IDataParser) {}
+    constructor(
+        private readonly dataSource: DataSource,
+        private readonly parser: IDataParser,
+        private readonly ignoreDecorators: boolean,
+    ) {}
 
     private async callExecutors(entity: IEntity, fixture: IFixture, data: any): Promise<IEntity> {
         /* istanbul ignore else */
@@ -30,7 +34,10 @@ export class Builder {
         const entity: IEntity = repository.create() as IEntity;
 
         // exclude prefixes to ignore __call methods
-        return plainToClassFromExist(entity, data, { excludePrefixes: ['__'], ignoreDecorators: true });
+        return plainToClassFromExist(entity, data, {
+            excludePrefixes: ['__'],
+            ignoreDecorators: this.ignoreDecorators,
+        });
     }
 
     async build(fixture: IFixture): Promise<IEntity> {

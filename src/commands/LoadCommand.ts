@@ -22,13 +22,13 @@ export class LoadCommand implements yargs.CommandModule {
 
     private withDebug = false;
 
-    private debug(message: string) {
+    private printDebug(message: string) {
         if (this.withDebug) {
             console.log(chalk.grey(message)); // eslint-disable-line
         }
     }
 
-    private error(message: string) {
+    private printError(message: string) {
         console.log(chalk.red(message)); // eslint-disable-line
     }
 
@@ -83,16 +83,16 @@ export class LoadCommand implements yargs.CommandModule {
 
         let dataSource: DataSource | undefined = undefined;
         try {
-            this.debug('Connection to database...');
+            this.printDebug('Connection to database...');
             dataSource = await CommandUtils.loadDataSource(dataSourcePath);
             await dataSource.initialize();
 
             if (args.sync) {
-                this.debug('Synchronize database schema');
+                this.printDebug('Synchronize database schema');
                 await dataSource.synchronize(true);
             }
 
-            this.debug('Loading fixtureConfigs');
+            this.printDebug('Loading fixtureConfigs');
             const loader = new Loader();
             (args.paths as string[]).forEach((fixturePath: string) => {
                 loader.load(path.resolve(fixturePath));
@@ -109,10 +109,10 @@ export class LoadCommand implements yargs.CommandModule {
                 barsize: 50,
             });
 
-            this.debug('Resolving fixtureConfigs');
+            this.printDebug('Resolving fixtureConfigs');
             const resolver = new Resolver();
             const fixtures = resolver.resolve(loader.fixtureConfigs);
-            const builder = new Builder(dataSource, new Parser());
+            const builder = new Builder(dataSource, new Parser(), args.ignoreDecorators as boolean);
 
             bar.start(fixtures.length, 0, { name: '' });
 
@@ -131,15 +131,14 @@ export class LoadCommand implements yargs.CommandModule {
             bar.update(fixtures.length, { name: '' });
             bar.stop();
 
-            this.debug('Database disconnect');
+            this.printDebug('Database disconnect');
             await dataSource.destroy();
             process.exit(0);
         } catch (err: any) {
-            this.error('Fail fixture loading: ' + err.message);
+            this.printError('Fail fixture loading: ' + err.message);
             if (dataSource) {
                 await dataSource.destroy();
             }
-            console.log(err); // eslint-disable-line
             process.exit(1);
         }
     }
