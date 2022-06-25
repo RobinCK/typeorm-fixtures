@@ -1,6 +1,6 @@
 {
   "name": "typeorm-fixtures-cli-fork",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -60,7 +60,7 @@
     "chai-as-promised": "^7.1.1",
     "commitizen": "^4.2.4",
     "conventional-changelog-cli": "^2.1.1",
-    "coveralls": "^3.0.4",
+    "coveralls": "^3.1.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.17.0",
     "husky": "^8.0.0",

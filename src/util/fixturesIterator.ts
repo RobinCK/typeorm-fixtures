@@ -5,11 +5,15 @@ export function* fixturesIterator(fixtures: IFixture[]) {
     const state: any = {};
 
     while (true) {
-        const result = fixtures.find(
-            (l) =>
-                sum(l.dependencies.map((d: string) => (state[d] !== undefined ? 1 : 0))) === l.dependencies.length &&
-                !state[l.name],
-        );
+        const result = fixtures.find((fixture) => {
+            return (
+                sum(
+                    fixture.dependencies.map((dependency: string) => {
+                        return state[dependency] === undefined ? 0 : 1;
+                    }),
+                ) === fixture.dependencies.length && !state[fixture.name]
+            );
+        });
 
         if (result) {
             state[result.name] = true;

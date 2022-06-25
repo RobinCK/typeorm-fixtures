@@ -17,7 +17,7 @@ import { Parser } from '../Parser';
 import { Resolver } from '../Resolver';
 
 export class LoadCommand implements yargs.CommandModule {
-    public command = 'load';
+    public command = 'load <paths...>';
     public describe = 'Load fixtures.';
 
     private withDebug = false;
@@ -36,7 +36,7 @@ export class LoadCommand implements yargs.CommandModule {
         return args
             .positional('paths', {
                 demandOption: true,
-                describe: 'Fixtures folder/file path.',
+                describe: 'Fixtures folder/file paths.',
             })
             .option('dataSource', {
                 alias: 'd',

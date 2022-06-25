@@ -2,6 +2,7 @@
 
 import 'reflect-metadata';
 import * as yargs from 'yargs';
+
 import { LoadCommand } from './commands/LoadCommand';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-expressions,no-unused-expressions
