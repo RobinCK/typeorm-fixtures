@@ -41,21 +41,22 @@ export class LoadCommand implements yargs.CommandModule {
                 describe: 'A list of additional modules. e.g. ts-node/register.',
                 string: true, // eslint-disable-line id-denylist
             })
-            .option('ignoreDecorators', {
-                boolean: true, // eslint-disable-line id-denylist
-                default: false,
-                describe: 'Set the option "ignoreDecorator" of class-transformer.',
-            })
-            .option('sync', {
-                boolean: true, // eslint-disable-line id-denylist
-                default: false,
-                describe: 'Database schema sync.',
-            })
+            .boolean('ignoreDecorators')
+            .boolean('sync')
             .boolean('debug')
             .boolean('color')
+            .describe({
+                color: 'Enable / disable color output (default: --color).',
+                debug: 'Enable / disable debug (default: --debug).',
+                ignoreDecorators:
+                    'Enable / disable "ignoreDecorator" option of class-transformer. (default: --no-ignoreDecorators)',
+                sync: 'Enable / disable database schema sync (default: --no-sync).',
+            })
             .default({
-                debug: false,
                 color: true,
+                debug: true,
+                ignoreDecorators: false,
+                sync: false,
             });
     }
 

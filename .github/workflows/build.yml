@@ -29,8 +29,8 @@ jobs:
         cmd: install
     - run: sudo chmod -R 777 ./dist
     - run: npm set unsafe-perm true
-    - run: npm run build --if-present
     - run: npm run lint
+    - run: npm run build --if-present
     - run: npm run test
       env:
         CI: true
