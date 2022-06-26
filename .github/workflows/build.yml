@@ -11,26 +11,20 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [ 14.x, 16.x ]
+        node-version: [ 14, 16 ]
 
     steps:
     - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+    - uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-    - uses: borales/actions-yarn@v3.0.0
-      with:
-        cmd: install
+    - run: yarn lint
     - run: sudo chmod -R 777 ./dist
-    - run: npm set unsafe-perm true
-    - run: npm run lint
-    - run: npm run build --if-present
-    - run: npm run test
+    - run: yarn build --if-present
+    - run: yarn test
       env:
         CI: true
