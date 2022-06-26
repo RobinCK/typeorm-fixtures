@@ -25,7 +25,7 @@ jobs:
     - run: yarn install
     - run: yarn lint
     - run: sudo chmod -R 777 ./dist
-    - run: yarn build --if-present
+    - run: yarn build
     - run: yarn test
       env:
         CI: true
