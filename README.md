@@ -403,17 +403,39 @@ items:
 ## Usage
 
 ```
-Usage: fixtures [options] <path> Fixtures folder/file path
+Usage: fixtures load [options] <path> Fixtures folder/file path
 
-Options:
-  -v, --version              output the version number
-  -c, --config <path>        TypeORM config path (default: "ormconfig.yml")
-  --require                  A list of additional modules. e.g. ts-node/register
-  -cn, --connection [value]  TypeORM connection name (default: "default")
-  -s --sync                  Database schema sync
-  -d --debug                 Enable debug
-  -h, --help                 output usage information
-  --no-color                 Disable color
+Use -h or --help to show details of options: fixtures load -h
+```
+
+##### If entities files are in typescript (like [typeorm](https://typeorm.io/using-cli#if-entities-files-are-in-typescript))
+
+This CLI tool is written in javascript and to be run on node. If your entity files are in typescript, you will need to transpile them to javascript before using CLI. You may skip this section if you only use javascript.
+
+You may setup ts-node in your project to ease the operation as follows:
+
+Install ts-node:
+
+```
+npm install ts-node --save-dev
+```
+
+Add typeorm command under scripts section in package.json
+
+```
+"scripts": {
+    ...
+    "fixtures": "fixtures-ts-node-commonjs"
+}
+```
+
+For ESM projects add this instead:
+
+```
+"scripts": {
+    ...
+    "fixtures": "fixtures-ts-node-esm"
+}
 ```
 
 ##### Require multiple additional modules
@@ -422,7 +444,7 @@ If you're using multiple modules at once (e.g. ts-node and tsconfig-paths)
 you have the ability to require these modules with multiple require flags. For example:
 
 ```
-fixtures ./fixtures --config ./typeorm.config.ts --sync --require=ts-node/register --require=tsconfig-paths/register
+fixtures load ./fixtures --dataSource=./dataSource.ts --sync --require=ts-node/register --require=tsconfig-paths/register
 ```
 
 ### Programmatically loading fixtures
@@ -436,30 +458,32 @@ For example, the below code snippet will load all fixtures exist in `./fixtures`
 import * as path from 'path';
 import { Builder, fixturesIterator, Loader, Parser, Resolver } from 'typeorm-fixtures-cli/dist';
 import { createConnection, getRepository } from 'typeorm';
+import { CommandUtils } from 'typeorm/commands/CommandUtils';
 
 const loadFixtures = async (fixturesPath: string) => {
-  let connection;
+  let dataSource: DataSource | undefined = undefined;
 
   try {
-    connection = await createConnection();
-    await connection.synchronize(true);
+    dataSource = await CommandUtils.loadDataSource(dataSourcePath);
+    await dataSource.initialize();
+    await dataSource.synchronize(true);
 
     const loader = new Loader();
     loader.load(path.resolve(fixturesPath));
 
     const resolver = new Resolver();
     const fixtures = resolver.resolve(loader.fixtureConfigs);
-    const builder = new Builder(connection, new Parser());
+    const builder = new Builder(connection, new Parser(), false);
 
     for (const fixture of fixturesIterator(fixtures)) {
-      const entity = await builder.build(fixture);
-      await getRepository(entity.constructor.name).save(entity);
+      const entity: any = await builder.build(fixture);
+      await dataSource.getRepository(fixture.entity).save(entity);
     }
   } catch (err) {
     throw err;
   } finally {
-    if (connection) {
-      await connection.close();
+    if (dataSource) {
+      await dataSource.destroy();
     }
   }
 };
@@ -468,7 +492,9 @@ loadFixtures('./fixtures')
   .then(() => {
     console.log('Fixtures are successfully loaded.');
   })
-  .catch((err) => console.log(err));
+  .catch((err) => {
+    console.log(err);
+  });
 ```
 
 ## Samples

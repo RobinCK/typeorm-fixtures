@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
-    "target": "es6",
+    "target": "es2019",
     "module": "commonjs",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -11,9 +11,21 @@
     "declaration": true,
     "strict": true,
     "lib": ["es2017"],
+    // "lib": ["es5", "es6"],
     "types": ["node"],
-    "pretty": true,
-    "typeRoots": ["node_modules/@types", "src/types"]
+    "pretty": true
   },
   "exclude": ["dist", "coverage", ".nyc_output", "node_modules", "test"]
 }
+
+//  "compilerOptions": {
+//    "allowSyntheticDefaultImports": true,
+//    "esModuleInterop": true,
+//    "importHelpers": true,
+//    "noFallthroughCasesInSwitch": true,
+//    "noImplicitReturns": true,
+//    "stripInternal": true,
+//    "strictNullChecks": true,
+//    "noUnusedLocals": true,
+//    "downlevelIteration": true
+//  },
