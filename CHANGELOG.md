@@ -1,3 +1,28 @@
+# [3.0.0](https://github.com/RobinCK/typeorm-fixtures/compare/2.0.0...3.0.0) (2022-07-02)
+
+### Bug Fixes
+
+- **chalk:** revert to chalk version 4 ([6347787](https://github.com/RobinCK/typeorm-fixtures/commit/63477870105e4f1e65ff189cd1ad56a82b35621f))
+- **cli:** add cli to have esm and cjs mode like typeorm cli ([aec7d09](https://github.com/RobinCK/typeorm-fixtures/commit/aec7d09b500e99f3d7e11e1c9c36c4ca315c4f52))
+- **cli:** fix yargs arguments ([c328299](https://github.com/RobinCK/typeorm-fixtures/commit/c3282990ff2d124e22883842d5de0783d0c598ce))
+- fix call function ([5f2f31b](https://github.com/RobinCK/typeorm-fixtures/commit/5f2f31bb7da92eb1059dd0ae9ca92de92fde0727))
+- **fix:** fix call function ([c6f1e9c](https://github.com/RobinCK/typeorm-fixtures/commit/c6f1e9cee42c8b6e8a983f33f8b5d97be9a4f2c8))
+- **lint:** fix configuration of eslint ([3fce893](https://github.com/RobinCK/typeorm-fixtures/commit/3fce8938558ed5d77bd5ee90a0315f28b48ad7c0))
+- **test:** provide new argument ignoreDecorators ([aa3c261](https://github.com/RobinCK/typeorm-fixtures/commit/aa3c261307de518fb18ef05673d499fb7af7ff0c))
+
+### Code Refactoring
+
+- **all:** update outdated packages, use yargs ([e523d55](https://github.com/RobinCK/typeorm-fixtures/commit/e523d5585f778f815745a17ceceb976172de324a))
+
+### Features
+
+- **datasource:** use new method to load dataSource ([78559af](https://github.com/RobinCK/typeorm-fixtures/commit/78559af178f9bbd55e577b95dcc5170c3f508bce))
+
+### BREAKING CHANGES
+
+- **all:** use new fakerjs package, some random functions was removed
+- **datasource:** ormconfig file should not work anymore, use dataSource file instead.
+
 # [2.0.0](https://github.com/RobinCK/typeorm-fixtures/compare/1.11.1...2.0.0) (2022-06-17)
 
 ### Bug Fixes
@@ -7,7 +32,7 @@
 
 ### BREAKING CHANGES
 
-- Incompatible with typeorm 0.2.0, this version uses the new datasource class of
+- Imcompatible with typeorm 0.2.0, this version uses the new datasource class of
   typeorm 0.3.0.
 
 ## [1.11.1](https://github.com/RobinCK/typeorm-fixtures/compare/1.11.0...1.11.1) (2022-03-29)
