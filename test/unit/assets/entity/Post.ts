@@ -1,19 +1,30 @@
-import {User} from './User';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
+import { User } from './User';
+
+@Entity()
 export class Post {
-    title!: string;
-    description!: string;
-    user!: Promise<User>;
+    @PrimaryColumn('int')
+    public id!: number;
 
-    setTitle(value: string) {
+    @Column()
+    public title!: string;
+
+    @Column()
+    public description!: string;
+
+    @Column('int')
+    public user!: Promise<User>;
+
+    public setTitle(value: string): void {
         this.title = value;
     }
 
-    setDescription(value: string) {
+    public setDescription(value: string): void {
         this.description = value;
     }
 
-    setUser(value: Promise<User>) {
+    public setUser(value: Promise<User>): void {
         this.user = value;
     }
 }

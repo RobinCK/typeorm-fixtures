@@ -29,9 +29,9 @@ export class Builder {
         return entity;
     }
 
-    private async buildEntity(fixture: IFixture, data: any): Promise<IEntity> {
+    private buildEntity(fixture: IFixture, data: any): IEntity {
         const repository = this.dataSource.getRepository(fixture.entity);
-        const entity: IEntity = repository.create() as IEntity;
+        const entity: IEntity = repository.create(data) as IEntity;
 
         // exclude prefixes to ignore __call methods
         return plainToClassFromExist(entity, data, {

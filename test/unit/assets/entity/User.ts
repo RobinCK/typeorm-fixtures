@@ -1,18 +1,31 @@
-export class User {
-    firstName!: string;
-    lastName!: string;
-    email!: string;
-    password!: string;
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-    setEmail(value: string) {
+@Entity()
+export class User {
+    @PrimaryColumn('int')
+    public id!: number;
+
+    @Column()
+    public firstName!: string;
+
+    @Column()
+    public lastName!: string;
+
+    @Column()
+    public email!: string;
+
+    @Column()
+    public password!: string;
+
+    public setEmail(value: string): void {
         this.email = value;
     }
 
-    setFirstName(value: string) {
+    public setFirstName(value: string): void {
         this.firstName = value;
     }
 
-    async setPassword(value: string) {
+    public async setPassword(value: string): Promise<void> {
         this.password = (await value) + 'md5';
     }
 }
