@@ -1,3 +1,9 @@
+## [3.0.1](https://github.com/RobinCK/typeorm-fixtures/compare/3.0.0...3.0.1) (2022-08-18)
+
+### Bug Fixes
+
+- amend deprecated faker method ([f0f41c4](https://github.com/RobinCK/typeorm-fixtures/commit/f0f41c4892cf4d01cadf6a6d3d613161c5ee7b12))
+
 # [3.0.0](https://github.com/RobinCK/typeorm-fixtures/compare/2.0.0...3.0.0) (2022-07-02)
 
 ### Bug Fixes
