@@ -75,7 +75,7 @@
     "yaml-lint": "^1.2.4"
   },
   "dependencies": {
-    "@faker-js/faker": "^7.0.0",
+    "@faker-js/faker": ">=7.4.0",
     "chai": "^4.2.0",
     "chalk": "^4.0.0",
     "class-transformer": "^0.5.0",
