@@ -15,7 +15,7 @@ export class FakerParser implements IParser {
         if (fixture?.locale) {
             faker.locale = fixture.locale;
         }
-        const result = faker.fake(value);
+        const result = faker.helpers.fake(value);
 
         if ((+result).toString() === result) {
             return +result;
