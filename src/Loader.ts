@@ -30,7 +30,12 @@ export class Loader {
 
             files = [fixturesPath];
         } else {
-            files = glob.sync(path.resolve(path.join(fixturesPath, `*.{${extensions}}`)));
+            files = glob.sync(
+                path
+                    .resolve(path.join(fixturesPath, `*.{${extensions}}`))
+                    .split(path.sep)
+                    .join('/'),
+            );
         }
 
         for (const file of files) {
