@@ -5,16 +5,16 @@ name: Build CI
 
 on:
   push:
-    branches: [master]
+    branches: [ master ]
   pull_request:
-    branches: [master, develop]
+    branches: [ master, develop ]
 
 jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
-        node-version: [14, 16]
+        os: [ ubuntu-latest, windows-latest ]
+        node-version: [ 14, 16 ]
 
     runs-on: ${{ matrix.os }}
 
