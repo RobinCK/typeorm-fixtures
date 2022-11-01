@@ -5,27 +5,29 @@ name: Build CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master, develop ]
+    branches: [master, develop]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        node-version: [ 14, 16 ]
+        os: [ubuntu-latest, windows-latest]
+        node-version: [14, 16]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: yarn install
-    - run: yarn lint
-    - run: sudo chmod -R 777 ./dist
-    - run: yarn build
-    - run: yarn test
-      env:
-        CI: true
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn install
+      - run: yarn lint
+      - run: sudo chmod -R 777 ./dist
+        if: contains(matrix.os, 'windows') == false
+      - run: yarn build
+      - run: yarn test
+        env:
+          CI: true
