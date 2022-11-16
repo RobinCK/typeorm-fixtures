@@ -1,3 +1,9 @@
+## [3.0.2](https://github.com/RobinCK/typeorm-fixtures/compare/3.0.1...3.0.2) (2022-11-16)
+
+### Bug Fixes
+
+- glob path separator must use '/' on Windows ([#203](https://github.com/RobinCK/typeorm-fixtures/issues/203)) ([c68a692](https://github.com/RobinCK/typeorm-fixtures/commit/c68a6927826a5172e167035c3ecaa4555fe28913))
+
 ## [3.0.1](https://github.com/RobinCK/typeorm-fixtures/compare/3.0.0...3.0.1) (2022-08-18)
 
 ### Bug Fixes
