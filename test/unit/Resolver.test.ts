@@ -30,6 +30,17 @@ describe('Resolver', () => {
             },
             {
                 parameters: {},
+                entity: 'User',
+                name: 'user2',
+                dependencies: [],
+                data: {
+                    firstName: '{{name.firstName}}',
+                    lastName: '{{name.lastName}}',
+                    email: '{{internet.email}}',
+                },
+            },
+            {
+                parameters: {},
                 entity: 'Post',
                 name: 'post1',
                 dependencies: ['user1'],
