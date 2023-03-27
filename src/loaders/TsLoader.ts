@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 import * as path from 'path';
 import { IFixturesConfig, ILoader } from '../interface';
 
@@ -9,6 +10,6 @@ export class TsLoader implements ILoader {
     }
 
     load(filePath: string): IFixturesConfig {
-        return JSON.parse(JSON.stringify(require(filePath).default as IFixturesConfig));
+        return cloneDeep(require(filePath).default) as IFixturesConfig;
     }
 }
