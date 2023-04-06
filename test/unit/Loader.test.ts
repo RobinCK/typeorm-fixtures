@@ -15,7 +15,7 @@ describe('Loader', () => {
             return fixtureConfig;
         });
 
-        expect(configs).to.length(2);
+        expect(configs).to.length(3);
         expect(configs).to.deep.equal([
             {
                 entity: 'Post',
@@ -35,6 +35,18 @@ describe('Loader', () => {
                 processor: '',
                 items: {
                     user1: {
+                        firstName: '{{name.firstName}}',
+                        lastName: '{{name.lastName}}',
+                        email: '{{internet.email}}',
+                    },
+                },
+            },
+            {
+                entity: 'User',
+                locale: 'pl',
+                processor: '',
+                items: {
+                    user2: {
                         firstName: '{{name.firstName}}',
                         lastName: '{{name.lastName}}',
                         email: '{{internet.email}}',
