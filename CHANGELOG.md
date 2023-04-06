@@ -1,4 +1,10 @@
-## [3.0.2](https://github.com/RobinCK/typeorm-fixtures/compare/3.0.1...3.0.2) (2022-11-16)
+# [3.1.0](https://github.com/RobinCK/typeorm-fixtures/compare/3.0.1...3.1.0) (2023-04-06)
+
+### Features
+
+- **all:** feat(loader): add a TsLoader
+
+# [3.0.2](https://github.com/RobinCK/typeorm-fixtures/compare/3.0.1...3.0.2) (2022-11-16)
 
 ### Bug Fixes
 
