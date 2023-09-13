@@ -20,13 +20,14 @@ Relying on [faker.js](https://github.com/faker-js/faker), typeorm-fixtures-cli a
   - [Fixture Ranges](#fixture-ranges)
   - [Fixture Reference](#fixture-reference)
   - [Fixture Lists](#fixture-lists)
-  - [Calling Methods](#calling-methods)
+  - [Calling Methods](#calling-sync-and-async-methods)
 - [Handling Relations](#handling-relations)
 - [Advanced Guide](#advanced-guide)
   - [Parameters](#parameters)
   - [Faker Data](#faker-data)
   - [EJS templating](#ejs-templating)
   - [Load Processor](#load-processor)
+  - [Entity Schemas](#entity-schemas)
 - [Samples](#samples)
 - [Usage](#usage)
 
@@ -399,6 +400,35 @@ items:
     lastName: '{{name.lastName}}'
     email: '{{internet.email}}'
 ```
+
+#### Alternative Javascript Syntax for CommonJS
+
+If you need to run the fixtures under CommonJS and are having problems using typescript with the load processors, this alternative example should work for you:
+
+`processor/UserProcessor.js`
+
+```javascript
+
+class UserProcessor {
+  preProcess(name, obj) {
+    return { ...obj, firstName: 'foo' };
+  }
+
+  postProcess(name, obj) {
+    obj.name = `${obj.firstName} ${obj.lastName}`;
+  }
+}
+
+module.exports = { default: UserProcessor }
+
+```
+
+
+### Entity Schemas
+
+If you are using Entity Schemas in typeorm, you are likely to encounter problems with the `__call` feature in typeorm-fixtures due to the way the entity object is constructed. 
+
+As a workaround, you should be able to duplicate the same method functionality in the [Load Processor](#load-processor) preProcess method (Note that the object passed in will be a plain object and not your entity object).
 
 ## Usage
 
