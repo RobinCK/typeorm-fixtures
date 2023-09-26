@@ -1,14 +1,9 @@
-# [3.1.0](https://github.com/RobinCK/typeorm-fixtures/compare/3.0.1...3.1.0) (2023-04-06)
-
-### Features
-
-- **all:** feat(loader): add a TsLoader
-
-# [3.0.2](https://github.com/RobinCK/typeorm-fixtures/compare/3.0.1...3.0.2) (2022-11-16)
+# [4.0.0](https://github.com/RobinCK/typeorm-fixtures/compare/3.0.1...4.0.0) (2023-09-26)
 
 ### Bug Fixes
 
 - glob path separator must use '/' on Windows ([#203](https://github.com/RobinCK/typeorm-fixtures/issues/203)) ([c68a692](https://github.com/RobinCK/typeorm-fixtures/commit/c68a6927826a5172e167035c3ecaa4555fe28913))
+- use graphs instead ([098f4e4](https://github.com/RobinCK/typeorm-fixtures/commit/098f4e4b08599e6ca7a75fa70b562ae07cefd8fe))
 
 ## [3.0.1](https://github.com/RobinCK/typeorm-fixtures/compare/3.0.0...3.0.1) (2022-08-18)
 
