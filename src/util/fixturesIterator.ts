@@ -1,30 +1,26 @@
 import { IFixture } from '../interface';
-import { PriorityQueue } from 'typescript-collections';
-export function* fixturesIterator(fixtures: IFixture[]) {
-    const processed = new Set<string>();
-    const queue = new PriorityQueue<IFixture>((a, b) => {
-        const aDependencies = a.dependencies.filter((dep) => !processed.has(dep)).length;
-        const bDependencies = b.dependencies.filter((dep) => !processed.has(dep)).length;
+import { DirectedGraph } from 'graphology';
+import { topologicalSort, willCreateCycle } from 'graphology-dag';
 
-        return bDependencies - aDependencies;
-    });
+export function* fixturesIterator(fixtures: IFixture[]) {
+    const graph = new DirectedGraph<IFixture>({ allowSelfLoops: false });
+    const fixturesByName = new Map<string, IFixture>();
 
     for (const fixture of fixtures) {
-        queue.add(fixture);
+        fixturesByName.set(fixture.name, fixture);
+        graph.addNode(fixture.name, fixture);
     }
 
-    while (!queue.isEmpty()) {
-        const fixture = queue.dequeue();
-        if (!fixture) {
-            // theoretically impossible, but keep the linter happy.
-            continue;
+    for (const fixture of fixtures) {
+        for (const dep of fixture.dependencies) {
+            if (willCreateCycle(graph, dep, fixture.name)) {
+                throw new Error(`There is a cycle between ${dep} and ${fixture.name}`);
+            }
+            graph.addDirectedEdge(dep, fixture.name);
         }
+    }
 
-        if (fixture.dependencies.every((dep) => processed.has(dep))) {
-            processed.add(fixture.name);
-            yield fixture;
-        } else {
-            queue.add(fixture);
-        }
+    for (const name of topologicalSort(graph)) {
+        yield fixturesByName.get(name)!;
     }
 }

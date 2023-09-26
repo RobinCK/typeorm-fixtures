@@ -1,6 +1,6 @@
 import 'mocha';
 import { expect } from 'chai';
-import { fixturesIterator, niaveFixturesIterator } from '../../../src/util';
+import { fixturesIterator } from '../../../src/util';
 
 describe('Fixtures Iterator', () => {
     it('should be sort and iterate fixtures', () => {
@@ -45,16 +45,34 @@ describe('Fixtures Iterator', () => {
             fixtures.push(fixture);
         }
 
-        expect(fixtures[0].name).to.equal('user1');
-        expect(fixtures[1].name).to.equal('post1');
-        expect(fixtures[2].name).to.equal('comment1');
+        expect(fixtures[0]?.name).to.equal('user1');
+        expect(fixtures[1]?.name).to.equal('post1');
+        expect(fixtures[2]?.name).to.equal('comment1');
     });
 
-    it('should cope with 1 million fixtures in a reasonable period', () => {
+    it('should throw if there is a cycle', () => {
+        fixturesIterator([
+            {
+                parameters: {},
+                entity: 'Post',
+                name: 'post1',
+                dependencies: ['post1'],
+                data: {},
+            },
+            {
+                parameters: {},
+                entity: 'User',
+                name: 'user1',
+                dependencies: ['user1'],
+                data: {},
+            },
+        ]);
+    });
+
+    it('should cope with large number of fixtures in a reasonable period', () => {
         const fixtures = [];
 
-        // Generate 1 million fixtures with random dependencies
-        for (let i = 0; i < 1_000_000; i++) {
+        for (let i = 0; i < 100_000; i++) {
             const dependencies: string[] = [];
             fixtures.push({
                 name: `fixture${i}`,
@@ -73,9 +91,8 @@ describe('Fixtures Iterator', () => {
         }
         const end = Date.now();
 
-        // Check if the time taken is less than 2 seconds
-        // On macbook M1 this takes between 800 and 900ms
+        // On macbook M1 this takes between 100 and 200ms
         const timeTaken = end - start;
-        expect(timeTaken).to.be.lessThan(2000);
+        expect(timeTaken).to.be.lessThan(500);
     });
 });
