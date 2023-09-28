@@ -7,6 +7,7 @@ import { plainToClassFromExist } from 'class-transformer';
 
 export class Builder {
     public entities: any = {};
+    private processorCache = new Map<string, IProcessor<any>>();
 
     constructor(
         private readonly dataSource: DataSource,
@@ -51,21 +52,7 @@ export class Builder {
         }
 
         if (fixture.processor) {
-            const processorPathWithoutExtension = path.join(
-                path.dirname(fixture.processor),
-                path.basename(fixture.processor, path.extname(fixture.processor)),
-            );
-
-            if (
-                !fs.existsSync(processorPathWithoutExtension) &&
-                !fs.existsSync(processorPathWithoutExtension + '.ts') &&
-                !fs.existsSync(processorPathWithoutExtension + '.js')
-            ) {
-                throw new Error(`Processor "${fixture.processor}" not found`);
-            }
-
-            const processor = require(processorPathWithoutExtension).default;
-            processorInstance = new processor();
+            processorInstance = this.getProcessorInstance(fixture.processor);
         }
 
         /* istanbul ignore else */
@@ -92,5 +79,33 @@ export class Builder {
         this.entities[fixture.name] = entity;
 
         return entity;
+    }
+
+    private getProcessorInstance(processor: string) {
+        const processorPathWithoutExtension = path.join(
+            path.dirname(processor),
+            path.basename(processor, path.extname(processor)),
+        );
+
+        if (!this.processorCache.has(processorPathWithoutExtension)) {
+            const processorInstance = this.createProcessorInstance(processorPathWithoutExtension);
+            this.processorCache.set(processorPathWithoutExtension, processorInstance as IProcessor<any>);
+        }
+
+        return this.processorCache.get(processorPathWithoutExtension);
+    }
+
+    private createProcessorInstance(processorPathWithoutExtension: string) {
+        if (
+            !fs.existsSync(processorPathWithoutExtension) &&
+            !fs.existsSync(processorPathWithoutExtension + '.ts') &&
+            !fs.existsSync(processorPathWithoutExtension + '.js')
+        ) {
+            throw new Error(`Processor "${processorPathWithoutExtension}" not found`);
+        }
+
+        const processor = require(processorPathWithoutExtension).default;
+
+        return new processor();
     }
 }
