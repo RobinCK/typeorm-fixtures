@@ -1,10 +1,10 @@
 version: 2
-orbs: 
+orbs:
   coveralls: coveralls/coveralls@1.0.6
 jobs:
   build:
     docker:
-      - image: circleci/node:14
+      - image: circleci/node:16
     working_directory: ~/repo
 
     steps:
