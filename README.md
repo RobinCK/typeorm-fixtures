@@ -340,6 +340,26 @@ items:
         - foo
 ```
 
+#### Disabling Faker
+
+If you need to use literal `{{...}}` in your fixtures (e.g., for Handlebars templates), you can disable Faker processing:
+
+**Per fixture:**
+```yaml
+entity: EmailTemplate
+disableFaker: true
+items:
+  welcome:
+    subject: 'Welcome {{firstName}}'
+    body: 'Hello {{firstName}} {{lastName}}, welcome to {{companyName}}'
+```
+
+**Globally:**
+```typescript
+const parser = new Parser({ disableFaker: true });
+const builder = new Builder(dataSource, parser, false);
+```
+
 ### EJS templating
 
 This library integrates with the [EJS](https://github.com/mde/ejs)

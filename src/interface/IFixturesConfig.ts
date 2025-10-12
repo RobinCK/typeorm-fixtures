@@ -4,5 +4,6 @@ export interface IFixturesConfig {
     parameters?: { [key: string]: any };
     processor?: string;
     resolvedFields?: string[];
+    disableFaker?: boolean;
     items: { [key: string]: any };
 }

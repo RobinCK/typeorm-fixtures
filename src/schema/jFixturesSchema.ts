@@ -51,5 +51,6 @@ export const jFixturesSchema = Joi.object().keys({
     parameters: Joi.object(),
     processor: Joi.string(),
     resolvedFields: Joi.array().items(Joi.string()),
+    disableFaker: Joi.boolean(),
     items: Joi.object().required(),
 });
