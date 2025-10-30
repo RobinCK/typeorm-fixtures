@@ -36,7 +36,7 @@ export class Builder {
 
         // exclude prefixes to ignore __call methods
         return plainToClassFromExist(entity, data, {
-            excludePrefixes: ['__'],
+            excludePrefixes: ['__call'],
             ignoreDecorators: this.ignoreDecorators,
         });
     }
